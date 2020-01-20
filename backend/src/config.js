@@ -10,6 +10,6 @@ module.exports = {
     AWS_SECRET_ACCESS_KEY: process.env.AWS_SECRET_ACCESS_KEY || '',
     AWS_ACCESS_KEY_ID: process.env.AWS_ACCESS_KEY_ID || '',
     ADMIN_PASSWORD: process.env.ADMIN_PASSWORD || '',
-    USERS_TABLE: 'qr_creators'
+    USERS_TABLE:  process.env.USERS_TABLE || '',
   }
   
