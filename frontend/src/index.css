@@ -1,6 +1,9 @@
 * {
-  box-sizing: border-box;
-}
+    box-sizing: border-box;
+    font-family: Fixed, monospace;
+    padding: 0;
+    margin: 0;
+  }
 .show {
     display: initial;
 }

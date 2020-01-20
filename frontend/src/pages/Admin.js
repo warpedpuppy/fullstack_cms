@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Register from '../components/registerLogIn/Register';
 import Login from '../components/registerLogIn/Login';
 import SiteContext from '../SiteContext';
-
+import './Admin.css';
 export default class Admin extends Component {
     render() {
 

@@ -8,6 +8,7 @@ import Admin from './pages/Admin';
 import { Switch, Route } from 'react-router-dom';
 import SiteContext from './SiteContext';
 import TokenService from './services/token-service';
+import Footer from './components/Footer';
 
 class App extends React.Component {
   state = {
@@ -33,7 +34,7 @@ class App extends React.Component {
             <Route path="/admin" component={ Admin } />
             <Route component={ NotFound } />
           </Switch>
-        <footer>this is the footer</footer>
+        <Footer />
       </SiteContext.Provider>
     );
   }
