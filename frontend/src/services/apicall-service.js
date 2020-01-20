@@ -1,4 +1,4 @@
-import TokenService from '../services/token-services';
+import TokenService from '../services/token-service';
 export default {
     async TestAPICall(str) {
         let res = await fetch(str);

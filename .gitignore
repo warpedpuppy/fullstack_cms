@@ -1,4 +1,5 @@
 backend/node_modules
+backend/migrations
 frontend/node_modules
 backend/.env
 frontend/src/config.js

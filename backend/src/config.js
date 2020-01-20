@@ -9,6 +9,7 @@ module.exports = {
     S3_BUCKET: process.env.S3_BUCKET || '',
     AWS_SECRET_ACCESS_KEY: process.env.AWS_SECRET_ACCESS_KEY || '',
     AWS_ACCESS_KEY_ID: process.env.AWS_ACCESS_KEY_ID || '',
-    ADMIN_PASSWORD: process.env.ADMIN_PASSWORD || ''
+    ADMIN_PASSWORD: process.env.ADMIN_PASSWORD || '',
+    USERS_TABLE: 'qr_creators'
   }
   

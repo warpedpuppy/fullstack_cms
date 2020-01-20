@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Config from '../config';
 import ApiCalls from '../services/apicall-service';
-import TokenService from '../services/token-services';
+import TokenService from '../services/token-service';
 
 export default class BackendCall extends Component {
 
