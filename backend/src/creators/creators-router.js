@@ -6,10 +6,11 @@ creatorsRouter
 .get("/", (req, res) => {
     CreatorsService.getAllCreators(req.app.get('db'))
     .then(results => {
-        let creators = results.map(result => CreatorsService.serializeUser(result))
+
+        let creators_obj = CreatorsService.makeObj(results)
         res
         .status(200)
-        .json({creators})
+        .json({creators: creators_obj})
     })
 })
 
