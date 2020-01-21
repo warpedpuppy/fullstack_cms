@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import CreatorService from '../services/creators-service';
+import ArticleColumn from '../components/articles/ArticleColumn';
+import ArticleModule from '../components/articles/ArticleModule';
 import { withRouter } from 'react-router-dom';
 import SiteContext from '../SiteContext';
 import './Home.css';
@@ -13,27 +15,47 @@ class Home extends Component {
         this.props.history.push(`/article/${creator}/${index}`)
     }
 
+
+
     render() {
         let creators = Object.keys(this.context.creators).map( (creator, index) => {
-           return (
-           <li key={index}>
-               <img onClick={() => this.goToArticle(creator, 0)} src="/bmps/IMG_7548.jpeg" alt="title" />
-               <div>
-                <h4 onClick={() => this.goToArticle(creator, 0)}>{ this.context.creators[creator].articles[0].title }</h4>
-                <span>by&nbsp;
-                    <span 
-                        onClick={() => this.goToCreator(creator)}
-                        className="author-link">
-                        { creator }
-                    </span>
-                </span>
-               </div>
-            </li>)
+            return <ArticleModule 
+            goToArticle={this.goToArticle}
+            goToCreator={this.goToCreator}
+            title={this.context.creators[creator].articles[0].title}
+            creator={creator}
+            index={0}
+           /> ;
         })
         return (
-            <div>
-                <ul className="article-list">{creators}</ul>
+            <>
+            <div className="article-list">
+                <ArticleColumn 
+                    goToArticle={this.goToArticle}
+                    goToCreator={this.goToCreator}
+                    index={0}
+                    startIndex={0}
+                    endIndex={2}
+                />
+                  <ArticleColumn 
+                    goToArticle={this.goToArticle}
+                    goToCreator={this.goToCreator}
+                    index={0}
+                    startIndex={2}
+                    endIndex={5}
+                />
+                   <ArticleColumn 
+                    goToArticle={this.goToArticle}
+                    goToCreator={this.goToCreator}
+                    index={0}
+                    startIndex={5}
+                />
             </div>
+            {/* <hr /><hr /><hr /><hr /><hr /><hr /><hr /><hr />
+            <div className="article-list">
+               {creators}
+            </div> */}
+            </>
         )
     }
 }
