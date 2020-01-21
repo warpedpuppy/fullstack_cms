@@ -11,5 +11,6 @@ module.exports = {
     AWS_ACCESS_KEY_ID: process.env.AWS_ACCESS_KEY_ID || '',
     ADMIN_PASSWORD: process.env.ADMIN_PASSWORD || '',
     USERS_TABLE:  process.env.USERS_TABLE || '',
+    ARTICLES_TABLE:  process.env.ARTICLES_TABLE || '',
   }
   
