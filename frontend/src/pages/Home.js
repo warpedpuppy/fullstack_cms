@@ -2,22 +2,37 @@ import React, { Component } from 'react';
 import CreatorService from '../services/creators-service';
 import { withRouter } from 'react-router-dom';
 import SiteContext from '../SiteContext';
+import './Home.css';
+
 class Home extends Component {
 
-   
-   
-    logArticles = (creator) => {
+    goToCreator = (creator) => {
         this.props.history.push(`/creator/${creator}`)
-        console.log(this.context.creators[creator])
     }
+    goToArticle = (creator, index) => {
+        this.props.history.push(`/article/${creator}/${index}`)
+    }
+
     render() {
         let creators = Object.keys(this.context.creators).map( (creator, index) => {
-           return <li key={index} onClick={() => this.logArticles(creator)}>{ creator }</li>
+           return (
+           <li key={index}>
+               <img onClick={() => this.goToArticle(creator, 0)} src="/bmps/IMG_7548.jpeg" alt="title" />
+               <div>
+                <h4 onClick={() => this.goToArticle(creator, 0)}>{ this.context.creators[creator].articles[0].title }</h4>
+                <span>by&nbsp;
+                    <span 
+                        onClick={() => this.goToCreator(creator)}
+                        className="author-link">
+                        { creator }
+                    </span>
+                </span>
+               </div>
+            </li>)
         })
         return (
             <div>
-                <h1>home</h1>
-                <ul>{creators}</ul>
+                <ul className="article-list">{creators}</ul>
             </div>
         )
     }

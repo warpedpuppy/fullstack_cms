@@ -11,6 +11,7 @@ import SiteContext from './SiteContext';
 import TokenService from './services/token-service';
 import Footer from './components/Footer';
 import CreatorService from './services/creators-service';
+import Article from './pages/Article';
 
 class App extends React.Component {
   state = {
@@ -51,6 +52,7 @@ class App extends React.Component {
             <Route path="/page2" component={ Page2 } />
             <Route path="/admin" component={ Admin } />
             <Route path="/creator/:name" component={ CreatorPage } />
+            <Route path="/article/:name/:index" component={ Article } />
             <Route component={ NotFound } />
           </Switch>
         <Footer />

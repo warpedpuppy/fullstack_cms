@@ -10,8 +10,7 @@ const DemoService = {
           .returning('*')
       },
     removeAllButAdmin(db) {
-        db(config.USERS_TABLE)
-        .whereNot({ username: 'admin' })
+        db(config.ARTICLES_TABLE)
         .del()
 
         return db(config.USERS_TABLE)
@@ -21,13 +20,14 @@ const DemoService = {
     insertFakeArticles(db, users) {
         let articles = [];
         var item = users[Math.floor(Math.random()*users.length)];
+        console.log(faker)
         for(let i = 0; i < users.length; i ++) {
             for (let j = 0; j < 5; j ++) {
                 articles.push({
                     title: faker.Lorem.sentence(),
                     content: faker.Lorem.paragraphs(),
                     author_id: users[i].id,
-                    img_url: faker.Image.abstractImage()
+                    img_url: faker.Image.animals()
                 })
             }
         }

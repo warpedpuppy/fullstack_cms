@@ -12,6 +12,7 @@ export default class CreatorPage extends Component {
         let arts = articles.map((a, index) => {
             return (
                 <div key={index}>
+                    <img src="/bmps/IMG_7548.jpeg" />
                     <h4>{a.title}</h4>
                     <date>{a.date_created}</date>
                     <pre>{a.content}</pre>
