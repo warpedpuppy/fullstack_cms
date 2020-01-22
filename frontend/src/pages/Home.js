@@ -51,12 +51,12 @@ class Home extends Component {
                     startIndex={5}
                     endIndex={8}
                 />
-                  <ArticleColumn 
+                  {/* <ArticleColumn 
                     goToArticle={this.goToArticle}
                     goToCreator={this.goToCreator}
                     index={0}
                     startIndex={8}
-                />
+                /> */}
             </div>
             {/* <hr /><hr /><hr /><hr /><hr /><hr /><hr /><hr />
             <div className="article-list">

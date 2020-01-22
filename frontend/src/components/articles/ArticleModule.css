@@ -30,6 +30,7 @@
     .article-list {
         display: flex;
         flex-wrap: wrap;
+        border: 1px solid blue;
     }
     .article-list .article-column:first-child {
         order: 1;
@@ -45,11 +46,26 @@
        height: 100%;
      }
     .article-list .article-column {
-        flex-grow: 1;
         width: 22.5%;
-        order: 0;
+        border: 1px solid black;
     }
-    .article-list .article-column:last-child {
+    .article-list .article-column .article-module {
+        flex: 1 0 auto;
+    }
+
+    .article-list .article-column:nth-child(2) .article-module:first-child {
+        flex-direction: column;
+    }
+
+    .article-list .article-column:nth-child(2) .article-module:first-child img {
+        width: 100%;
+    }
+
+    .article-list .article-column:nth-child(2) .article-module:first-child ~ .article-module img {
+        display: none;
+    }
+
+    .article-list .article-column:nth-child(3) {
         margin: 20px;
         border-top: 2px solid #CCC;
         display: flex;
@@ -58,14 +74,43 @@
         width: 100%;
         flex-wrap: wrap;
     }
-    .article-list .article-column:last-child .article-module{
+    .article-list .article-column:nth-child(3) .article-module {
         align-items: flex-start;
         width: 33.33%;
     }
 
+    .article-list .article-column:nth-child(3) .article-module img {
+        display: none;
+    }
+
 }
 
-@media (min-width: 900px) {
-
-    
+@media (min-width: 880px) {
+    .article-list {
+        max-width: 1080px;
+    }
+    .article-list .article-column:nth-child(1) {
+        order: 1;
+        width: 55%;
+    }
+    .article-list .article-column {
+        width: 22.5%;
+    }
+    .article-list .article-column:nth-child(3) {
+        width: 22.5%;
+        order: 3;
+        display: block;
+        margin: 0;
+        border-top: none;
+    }
+    .article-list .article-column:nth-child(3) .article-module {
+        width: 100%;
+    }
+    .article-list .article-column:nth-child(3) .article-module:first-child {
+        flex-direction: column;
+    }
+    .article-list .article-column:nth-child(3) .article-module:first-child img {
+        display: block;
+        width: 100%;
+    }
 }
