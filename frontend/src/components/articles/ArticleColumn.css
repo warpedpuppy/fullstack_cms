@@ -90,13 +90,6 @@
         margin: 0 auto;
         max-width: 1080px;
     }
-    /* .article-list .article-column {
-        width: 22.5%;
-    } */
-    /* .article-list .article-column:nth-child(1) {
-        order: 1;
-        width: 55%;
-    } */
     .article-list .article-column:nth-child(3) {
         width: 22.5%;
         order: 3;
