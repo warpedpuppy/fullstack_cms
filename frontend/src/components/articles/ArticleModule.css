@@ -30,11 +30,12 @@
     .article-list {
         display: flex;
         flex-wrap: wrap;
-        border: 1px solid blue;
+        /* border: 1px solid blue; */
     }
     .article-list .article-column:first-child {
         order: 1;
         width: 55%;
+        flex-grow: 1;
     }
     .article-list .article-column:first-child .article-module:first-child {
        display: flex;
@@ -47,10 +48,13 @@
      }
     .article-list .article-column {
         width: 22.5%;
-        border: 1px solid black;
+        flex-grow: 1;
+        /* border: 1px solid black; */
+        display: flex;
+        flex-direction: column;
     }
     .article-list .article-column .article-module {
-        flex: 1 0 auto;
+        flex: 1 1 auto;
     }
 
     .article-list .article-column:nth-child(2) .article-module:first-child {
@@ -65,21 +69,21 @@
         display: none;
     }
 
-    .article-list .article-column:nth-child(3) {
-        margin: 20px;
-        border-top: 2px solid #CCC;
+    .article-list .article-column:nth-child(3),
+    .article-list .article-column:last-child {
         display: flex;
         flex-direction: row;
         order: 3;
         width: 100%;
         flex-wrap: wrap;
     }
-    .article-list .article-column:nth-child(3) .article-module {
-        align-items: flex-start;
+    .article-list .article-column:nth-child(3) .article-module,
+    .article-list .article-column:last-child .article-module {
         width: 33.33%;
     }
 
-    .article-list .article-column:nth-child(3) .article-module img {
+    .article-list .article-column:nth-child(3) .article-module img,
+    .article-list .article-column:last-child .article-module img {
         display: none;
     }
 
@@ -87,6 +91,7 @@
 
 @media (min-width: 880px) {
     .article-list {
+        margin: 0 auto;
         max-width: 1080px;
     }
     .article-list .article-column:nth-child(1) {
@@ -99,7 +104,7 @@
     .article-list .article-column:nth-child(3) {
         width: 22.5%;
         order: 3;
-        display: block;
+        display: flex;
         margin: 0;
         border-top: none;
     }
