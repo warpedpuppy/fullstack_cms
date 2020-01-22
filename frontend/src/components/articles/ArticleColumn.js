@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import ArticleModule from './ArticleModule';
 import SiteContext from '../../SiteContext';
+import './ArticleColumn.css';
+
 export default class ArticleColumn extends Component {
     render() {
         let {startIndex, endIndex} = this.props;
