@@ -1,4 +1,5 @@
-.article-list .article-module div h4 {
+.article-module .img-cont,
+.article-module div h4 {
     cursor: pointer;
  }
  .author-link {

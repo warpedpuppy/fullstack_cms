@@ -10,7 +10,7 @@ export default class ArticleModule extends Component {
                </div>
                <div>
                 <h4 onClick={() => this.props.goToArticle(this.props.creator, 0)}>{ this.props.title }</h4>
-                <h6 onClick={() => this.props.goToArticle(this.props.creator, 0)}>{ this.props.title }</h6>
+                <h6>{ this.props.title }</h6>
                 <span>by&nbsp;
                     <span 
                         onClick={() => this.props.goToCreator(this.props.creator)}

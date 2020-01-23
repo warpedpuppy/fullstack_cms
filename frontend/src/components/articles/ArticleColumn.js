@@ -6,6 +6,7 @@ import './ArticleColumn.css';
 export default class ArticleColumn extends Component {
     render() {
         let {startIndex, endIndex} = this.props;
+        
         let keys = Object.keys(this.context.creators);
         endIndex = (!endIndex)?keys.length:endIndex;
 
@@ -17,8 +18,8 @@ export default class ArticleColumn extends Component {
             modules.push( 
                 <ArticleModule 
                     key={i}
-                    goToArticle={this.props.goToArticle}
-                    goToCreator={this.props.goToCreator}
+                    goToArticle={this.context.goToArticle}
+                    goToCreator={this.context.goToCreator}
                     title={articles[this.props.index].title}
                     creator={keys[i]}
                     index={this.props.index}

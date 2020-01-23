@@ -8,15 +8,6 @@ import './Home.css';
 
 class Home extends Component {
 
-    goToCreator = (creator) => {
-        this.props.history.push(`/creator/${creator}`)
-    }
-    goToArticle = (creator, index) => {
-        this.props.history.push(`/article/${creator}/${index}`)
-    }
-
-
-
     render() {
         let creators = Object.keys(this.context.creators).map( (creator, index) => {
             return <ArticleModule 
@@ -31,29 +22,21 @@ class Home extends Component {
             <>
             <div className="article-list">
                 <ArticleColumn 
-                    goToArticle={this.goToArticle}
-                    goToCreator={this.goToCreator}
                     index={0}
                     startIndex={0}
                     endIndex={2}
                 />
                   <ArticleColumn 
-                    goToArticle={this.goToArticle}
-                    goToCreator={this.goToCreator}
                     index={0}
                     startIndex={2}
                     endIndex={5}
                 />
                    <ArticleColumn 
-                    goToArticle={this.goToArticle}
-                    goToCreator={this.goToCreator}
                     index={0}
                     startIndex={5}
                     endIndex={8}
                 />
                   <ArticleColumn 
-                    goToArticle={this.goToArticle}
-                    goToCreator={this.goToCreator}
                     index={0}
                     startIndex={8}
                 />

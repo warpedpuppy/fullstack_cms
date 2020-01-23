@@ -22,13 +22,14 @@ export default class Article extends Component {
                         <h1>{title}</h1>
                         <div className="article-summary">{title}{title}{title}{title}</div>
                         <div className="article-author">by <span onClick={() => this.goToCreator(name)}>{name}</span> | {Utils.formatDate(date_created)} </div>
-                        <div className="img-cont">
-                            <img onClick={() => this.props.goToArticle(this.props.creator, 0)} src="/bmps/IMG_7548.jpeg" alt="title" />
-                        </div>
                     </div>
 
                     <div className="article-body">
                         <div className="article-main">
+                            <div className="img-cont">
+                                <img onClick={() => this.props.goToArticle(this.props.creator, 0)} src="/bmps/IMG_7548.jpeg" alt="title" />
+                            </div>
+                        
                             <div>
                                 <p>{content}</p>
                                 <p>{content}</p>

@@ -12,7 +12,7 @@ import TokenService from './services/token-service';
 import Footer from './components/Footer';
 import CreatorService from './services/creators-service';
 import Article from './pages/Article';
-
+import { withRouter } from 'react-router-dom';
 class App extends React.Component {
   state = {
     loggedIn: false,
@@ -30,19 +30,26 @@ class App extends React.Component {
         this.setCreators(result.creators)
     })
   }
+  goToCreator = (creator) => {
+    this.props.history.push(`/creator/${creator}`)
+}
+  goToArticle = (creator, index) => {
+      this.props.history.push(`/article/${creator}/${index}`)
+  }
   componentDidMount () {
     this.setState({loggedIn: TokenService.hasAuthToken()})
     this.getCreatorData();
-   
-
   }
+
   render() {
     const contextValue = {
       loggedIn: this.state.loggedIn,
       setLoggedIn: this.setLoggedIn,
       creators: this.state.creators,
       setCreators: this.setCreators,
-      getCreatorData: this.getCreatorData
+      getCreatorData: this.getCreatorData,
+      goToArticle: this.goToArticle,
+      goToCreator: this.goToCreator
     };
      return (
       <SiteContext.Provider value={ contextValue }>
@@ -61,4 +68,4 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default withRouter(App);
