@@ -1,0 +1,16 @@
+.creator-page {
+    width: 400px;
+    margin: 30px auto 50px;
+    position: relative;
+}
+.creator-page img[alt=avatar] {
+   border-radius: 50%;
+   border: 5px solid green;
+   padding: 5px;
+   position: absolute;
+   top: -20px;
+   left: -165px;
+}
+.creator-page li {
+    cursor: pointer;
+}

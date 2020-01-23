@@ -1,5 +1,6 @@
-import React, { Component } from 'react'
-import SiteContext from '../SiteContext'
+import React, { Component } from 'react';
+import SiteContext from '../SiteContext';
+import './CreatorPage.css';
 
 export default class CreatorPage extends Component {
    
@@ -8,21 +9,15 @@ export default class CreatorPage extends Component {
             this.props.history.push('/')
             return (<></>)
         } else {
-        let { img_url, articles } = this.context.creators[this.props.match.params.name];
-        let arts = articles.map((a, index) => {
-            return (
-                <div key={index}>
-                    <img src="/bmps/IMG_7548.jpeg" />
-                    <h4>{a.title}</h4>
-                    <date>{a.date_created}</date>
-                    <pre>{a.content}</pre>
-                </div>)
-        })
+        let { name } = this.props.match.params
+        let { img_url, articles } = this.context.creators[name];
+        let arts = articles.map((a, index) => <li onClick={() => this.context.goToArticle(name, index)}key={index}><h4>{a.title}</h4></li>)
         return (
-            <div>
+            <div className="creator-page">
                 <img src={img_url} alt="avatar" />
-                Hello {this.props.match.params.name}!
-                {arts}
+                <h2>{name}</h2>
+                <h4>articles: </h4>
+                <ul>{arts}</ul>
             </div>
         )
     }
