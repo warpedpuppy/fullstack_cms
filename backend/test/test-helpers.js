@@ -6,7 +6,7 @@ function cleanTables(db) {
       trx.raw(
         `TRUNCATE
           ${process.env.USERS_TABLE},
-          ${process.env.ARTICLES_TABLE}
+          ${process.env.ARTICLES_TABLE} CASCADE
         `
       )
       .then(
@@ -22,32 +22,46 @@ function cleanTables(db) {
   }
   function makeUsersArray() {
     let users = [];
-    for (let i = 0; i < 20; i ++) {
-        users.push({username: faker.name.firstName(), password: bcrypt.hashSync('password', 1), img_url: faker.image.avatar()})
+    for (let i = 0; i < 5; i ++) {
+      let index = i + 1;
+      users.push({id: index, username: faker.name.firstName(), password: bcrypt.hashSync('password', 1), img_url: faker.image.avatar()})
+     
     }
     return users;
   }
   function makeArticlesArray(users) {
     let articles = [];
     for(let i = 0; i < users.length; i ++) {
-      for (let j = 0; j < 5; j ++) {
-          let userIndex = 2;
+      for (let j = 0; j < 1; j ++) {
+          let index = i + 1;
           articles.push({
               title: faker.lorem.sentence(),
               content: faker.lorem.paragraphs(),
-              author_id: users[userIndex].id,
+              author_id: index,
               img_url: faker.image.animals()
           })
       }
     }
-      return articles;
+    return articles;
   }
+
+  function makeCreatorObject (users, articles) {
+   
+      let obj = {};
+      for (i = 0; i < users.length; i++) {
+        if(!obj[users[i].username]) obj[users[i].username] = {};
+
+        obj[users[i].username] = Object.assign({}, users[i]);
+        obj[users[i].username].articles = articles.filter(article => article.author_id === users[i].id);
+        delete obj[users[i].username].password;
+      }
+      return obj;
+    }
 
   function seedUsers(db, users) {
 
     return db.into(process.env.USERS_TABLE).insert(users)
-      .then(() =>{
-          // update the auto sequence to stay in sync
+      .then((res) =>{
         db.raw(
           `SELECT setval('${process.env.USERS_TABLE}_id_seq', ?)`,
           [users[users.length - 1].id],
@@ -56,6 +70,7 @@ function cleanTables(db) {
       })
       
   }
+  
 
   function seedArticlesTables(db, users, articles) {
  
@@ -73,6 +88,7 @@ function cleanTables(db) {
     cleanTables,
     makeArticlesArray,
     makeUsersArray,
-    seedArticlesTables
+    seedArticlesTables,
+    makeCreatorObject
   }
   

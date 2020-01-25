@@ -53,10 +53,10 @@ authRouter
 
   // TODO: check username doesn't start with spaces
 
-  const passwordError = UsersService.AuthService(password)
+  // const passwordError = UsersService.AuthService(password)
 
-  if (passwordError)
-    return res.status(400).json({ error: passwordError })
+  // if (passwordError)
+  //   return res.status(400).json({ error: passwordError })
 
   AuthService.hasUserWithUserName(
     req.app.get('db'),
@@ -72,6 +72,7 @@ authRouter
             username,
             password: hashedPassword,
             date_created: 'now()',
+            img_url: ''
           }
 
           return AuthService.insertUser(

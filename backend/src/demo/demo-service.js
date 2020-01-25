@@ -5,6 +5,7 @@ const faker = require('faker');
 const AuthService = require('../auth/auth-service');
 const DemoService = {
     deleteUsersCreateUsersCreateArticles(db){
+        console.log('2')
         DemoService.removeAllButAdmin(db)
         .then(result => {
             
