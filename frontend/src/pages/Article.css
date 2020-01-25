@@ -57,10 +57,13 @@ article .article-body .article-main {
     article .article-body .article-sidebar {
         flex: 1 1 40%;
     }
-    article .article-body .article-main .img-cont,
+    article .article-body .article-main .img-cont {
+        width: 100%;
+        margin: 0;
+        display: block;
+    }
     article .article-body .article-main .img-cont img {
         margin: 0;
-        width: auto;
-        display: block;
+        width: 100%;
     }
 }

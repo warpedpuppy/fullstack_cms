@@ -9,15 +9,6 @@ import './Home.css';
 class Home extends Component {
 
     render() {
-        let creators = Object.keys(this.context.creators).map( (creator, index) => {
-            return <ArticleModule 
-            goToArticle={this.goToArticle}
-            goToCreator={this.goToCreator}
-            title={this.context.creators[creator].articles[0].title}
-            creator={creator}
-            index={0}
-           /> ;
-        })
         return (
             <>
             <div className="article-list">
@@ -41,10 +32,6 @@ class Home extends Component {
                     startIndex={8}
                 />
             </div>
-            {/* <hr /><hr /><hr /><hr /><hr /><hr /><hr /><hr />
-            <div className="article-list">
-               {creators}
-            </div> */}
             </>
         )
     }

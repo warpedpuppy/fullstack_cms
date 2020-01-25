@@ -13,11 +13,14 @@ import Footer from './components/Footer';
 import CreatorService from './services/creators-service';
 import Article from './pages/Article';
 import { withRouter } from 'react-router-dom';
+
 class App extends React.Component {
   state = {
     loggedIn: false,
     creators: {}
   }
+ 
+
   setLoggedIn = (loggedIn) => {
     this.setState({loggedIn})
   }
@@ -34,7 +37,7 @@ class App extends React.Component {
     this.props.history.push(`/creator/${creator}`)
 }
   goToArticle = (creator, index) => {
-      this.props.history.push(`/article/${creator}/${index}`)
+     this.props.history.push(`/article/${creator}/${index}`)
   }
   componentDidMount () {
     this.setState({loggedIn: TokenService.hasAuthToken()})
@@ -55,7 +58,7 @@ class App extends React.Component {
       <SiteContext.Provider value={ contextValue }>
         <header><Menu /></header>
           <Switch>
-            <Route exact path="/" component={ Home } />
+            <Route exact path="/" render={(history) => <Home history={history} />} />
             <Route path="/page2" component={ Page2 } />
             <Route path="/admin" component={ Admin } />
             <Route path="/creator/:name" component={ CreatorPage } />

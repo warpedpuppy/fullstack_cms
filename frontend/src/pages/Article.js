@@ -27,7 +27,7 @@ export default class Article extends Component {
                     <div className="article-body">
                         <div className="article-main">
                             <div className="img-cont">
-                                <img onClick={() => this.props.goToArticle(this.props.creator, 0)} src="/bmps/IMG_7548.jpeg" alt="title" />
+                                <img src="/bmps/IMG_7548.jpeg" alt="title" />
                             </div>
                         
                             <div>
