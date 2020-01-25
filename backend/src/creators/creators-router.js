@@ -7,7 +7,6 @@ creatorsRouter
     CreatorsService.getAllCreators(req.app.get('db'))
     .then(results => {
         let creators_obj = CreatorsService.makeObj(results)
-        //console.log(creators_obj)
         res
         .status(200)
         .json({creators: creators_obj})

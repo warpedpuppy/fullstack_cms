@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import Register from '../components/registerLogIn/Register';
 import Login from '../components/registerLogIn/Login';
 import SiteContext from '../SiteContext';
+import TokenService from '../services/token-service';
 import './Admin.css';
 export default class Admin extends Component {
     render() {
-
+        let user = TokenService.parseJwt(TokenService.getAuthToken()).sub;
         if (!this.context.loggedIn) {
             return (
                 <div>
@@ -15,7 +16,7 @@ export default class Admin extends Component {
             )
         } else {
             return (
-                <h1>logged in</h1>
+                <h1>logged in {user}  </h1>
             )
         }
        

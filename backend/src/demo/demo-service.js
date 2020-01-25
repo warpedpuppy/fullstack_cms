@@ -5,27 +5,20 @@ const faker = require('faker');
 const AuthService = require('../auth/auth-service');
 const DemoService = {
     deleteUsersCreateUsersCreateArticles(db){
-        console.log('2')
+
         DemoService.removeAllButAdmin(db)
         .then(result => {
-            
             let users = [];
             for (let i = 0; i < 20; i ++) {
                 users.push({username: faker.name.firstName(), password: bcrypt.hashSync("test", 1), img_url: faker.image.avatar()})
             }
-
             DemoService.insertDemoUsers(db, users)
             .then(result => {
-                console.log("3", result)
-                
                 DemoService.insertFakeArticles(db, result)
                 .then(articles => {
-                    console.log("4", articles)
-                    // res
-                    // .status(201)
-                    // .json({users, articles})
-                    // console.log({users, articles})
-                    // return {users, articles};
+                    res
+                    .status(201)
+                    .json({users, articles})
                 })
             })
         })
@@ -45,17 +38,13 @@ const DemoService = {
     },
     insertFakeArticles(db, users) {
         let articles = [];
-        //var item = users[ Math.floor( Math.random() * users.length ) ];
-       // console.log(users)
-
         for(let i = 0; i < users.length; i ++) {
             for (let j = 0; j < 5; j ++) {
-                let userIndex = 2;
-                console.log("id = ", userIndex);
+                let userIndex = i + 1;
                 articles.push({
                     title: faker.lorem.sentence(),
                     content: faker.lorem.paragraphs(),
-                    author_id: users[userIndex].id,
+                    author_id: users[i].id,
                     img_url: faker.image.animals()
                 })
             }
