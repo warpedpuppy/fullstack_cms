@@ -18,13 +18,13 @@ describe('Creators Endpoints', function() {
     })
 
   describe(`GET /api/creators`, () => {
-    // context(`Given no creators`, () => {
-    //   it(`responds with 200 and an empty object`, () => {
-    //     return supertest(app)
-    //       .get('/api/creators')
-    //       .expect(200, {"creators": {}})
-    //   })
-    // })
+    context(`Given no creators`, () => {
+      it(`responds with 200 and an empty object`, () => {
+        return supertest(app)
+          .get('/api/creators')
+          .expect(200, {"creators": {}})
+      })
+    })
 
     context('Given there are articles in the database',  () => {
         beforeEach('insert articles',  () => {
