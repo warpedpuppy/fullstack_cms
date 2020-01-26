@@ -80,9 +80,17 @@ authRouter
             newUser
           )
             .then(user => {
+
+              const sub = user.username
+              const payload = { user_id: user.id }
+
               res
                 .status(201)
-                .json(AuthService.serializeUser(user))
+                .json({
+                  success: true, 
+                  user: AuthService.serializeUser(user),  
+                  authToken: AuthService.createJwt(sub, payload)
+                })
             })
         })
     })

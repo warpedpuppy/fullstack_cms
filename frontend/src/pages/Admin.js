@@ -7,7 +7,7 @@ import './Admin.css';
 import ArticleCreate from '../components/admin/ArticleCreate';
 export default class Admin extends Component {
     render() {
-        let user = TokenService.parseJwt(TokenService.getAuthToken()).sub;
+        
         if (!this.context.loggedIn) {
             return (
                 <div>
@@ -16,6 +16,7 @@ export default class Admin extends Component {
                 </div>
             )
         } else {
+            let user = TokenService.parseJwt(TokenService.getAuthToken()).sub;
             return (
                 <>
                 <h1>logged in {user}  </h1>
