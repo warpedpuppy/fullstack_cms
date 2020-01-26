@@ -4,6 +4,7 @@ import Login from '../components/registerLogIn/Login';
 import SiteContext from '../SiteContext';
 import TokenService from '../services/token-service';
 import './Admin.css';
+import ArticleCreate from '../components/admin/ArticleCreate';
 export default class Admin extends Component {
     render() {
         let user = TokenService.parseJwt(TokenService.getAuthToken()).sub;
@@ -16,7 +17,10 @@ export default class Admin extends Component {
             )
         } else {
             return (
+                <>
                 <h1>logged in {user}  </h1>
+                <ArticleCreate />
+                </>
             )
         }
        
