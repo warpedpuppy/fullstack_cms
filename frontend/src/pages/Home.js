@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import CreatorService from '../services/creators-service';
 import ArticleColumn from '../components/articles/ArticleColumn';
-import ArticleModule from '../components/articles/ArticleModule';
 import { withRouter } from 'react-router-dom';
 import SiteContext from '../SiteContext';
 import './Home.css';
