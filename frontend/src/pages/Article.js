@@ -14,7 +14,7 @@ export default class Article extends Component {
             return (<></>)
         } else {
             let { index, name } = this.props.match.params;
-            let { title, content, date_created } = this.context.creators[name].articles[index];
+            let { title, content, date_created, img_url } = this.context.creators[name].articles[index];
             return (
                 <article>
 
@@ -27,7 +27,7 @@ export default class Article extends Component {
                     <div className="article-body">
                         <div className="article-main">
                             <div className="img-cont">
-                                <img src="/bmps/IMG_7548.jpeg" alt="title" />
+                                <img src={ img_url } alt="title" />
                             </div>
                         
                             <div>

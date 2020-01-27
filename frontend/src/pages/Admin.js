@@ -12,7 +12,13 @@ export default class Admin extends Component {
     createFakeData = async (e) => {
         e.preventDefault();
         this.setState({enableButton: true})
-        let res = await fetch(`${Config.API_ENDPOINT}/demo/make-demo-creators`, {method: "POST"})
+        let res = await fetch(`${Config.API_ENDPOINT}/demo/make-demo-creators`, {
+            method: "POST",
+            headers: {
+                'Authorization': `bearer ${TokenService.getAuthToken()}`
+            }
+        
+        })
         if (res.ok) {
             this.setState({enableButton: false})
         }

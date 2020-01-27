@@ -3,19 +3,20 @@ import './ArticleModule.css';
 
 export default class ArticleModule extends Component {
     render() {
+        let { creator, title, img_url } = this.props;
         return (
             <div className="article-module">
                 <div className="img-cont">
-                    <img onClick={() => this.props.goToArticle(this.props.creator, 0)} src="/bmps/IMG_7548.jpeg" alt="title" />
+                    <img onClick={() => this.props.goToArticle(creator, 0)} src={ img_url } alt="title" />
                </div>
                <div className="module-content">
-                    <h4 onClick={() => this.props.goToArticle(this.props.creator, 0)}>{ this.props.title }</h4>
-                    <h6>{ this.props.title }</h6>
+                    <h4 onClick={() => this.props.goToArticle(creator, 0)}>{ title }</h4>
+                    <h6>{ title }</h6>
                     <span>by&nbsp;
                         <span 
-                            onClick={() => this.props.goToCreator(this.props.creator)}
+                            onClick={() => this.props.goToCreator(creator)}
                             className="author-link">
-                            { this.props.creator }
+                            { creator }
                         </span>
                     </span>
                </div>

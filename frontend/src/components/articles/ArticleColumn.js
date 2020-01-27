@@ -21,6 +21,7 @@ export default class ArticleColumn extends Component {
                         goToArticle={this.context.goToArticle}
                         goToCreator={this.context.goToCreator}
                         title={articles[this.props.index].title}
+                        img_url={articles[this.props.index].img_url}
                         creator={keys[i]}
                         index={this.props.index}
                     /> 

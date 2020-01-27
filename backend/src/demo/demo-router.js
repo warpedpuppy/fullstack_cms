@@ -3,11 +3,12 @@ const demoRouter = express.Router()
 const { requireAuth } = require('../middleware/auth-middleware')
 var faker = require('faker');
 const DemoService = require('./demo-service');
-const AuthService = require('../auth/auth-service')
 const bcrypt = require('bcryptjs')
 
 demoRouter
-.post('/make-demo-creators', (req, res) => {
+.post('/make-demo-creators', requireAuth, (req, res) => {
+    if (req.tokenData.sub !== 'admin') return;
+
     DemoService.removeAllButAdmin(req.app.get('db'))
     .then(result => {
         let users = [];      
@@ -28,7 +29,7 @@ demoRouter
 .post('/create-fake-articles', (req, res) => {
 
 })
-.delete('/remove-all-but-admin', (req, res) => {
+.delete('/remove-all-but-admin', requireAuth, (req, res) => {
     DemoService.removeAllButAdmin(req.app.get('db'))
     .then(result => {
         res
