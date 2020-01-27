@@ -28,13 +28,20 @@ const DemoService = {
           .insert(users)
           .returning('*')
       },
-    removeAllButAdmin(db) {
-        db(config.ARTICLES_TABLE)
-        .del()
+    async removeAllButAdmin(db) {
 
-        return db(config.USERS_TABLE)
-        .whereNot({ username: 'admin' })
-        .del()
+        // db.raw(`TRUNCATE ${config.USERS_TABLE} CASCADE`);
+        // db.raw(`ALTER SEQUENCE ${config.USERS_TABLE}_id_seq RESTART`);
+
+        let res = await db.raw(`TRUNCATE ${config.ARTICLES_TABLE} CASCADE`)
+        if (res) {
+            let res2 = await db.raw(`ALTER SEQUENCE ${config.ARTICLES_TABLE}_id_seq RESTART`)
+            if (res2) {
+                 return db(config.USERS_TABLE)
+                    .whereNot({ username: 'admin' })
+                    .del()
+            }
+        }
     },
     insertFakeArticles(db, users) {
         let articles = [];
@@ -43,9 +50,10 @@ const DemoService = {
                 let userIndex = i + 1;
                 articles.push({
                     title: faker.lorem.sentence(),
+                    description: faker.lorem.paragraphs(),
                     content: faker.lorem.paragraphs(),
                     author_id: users[i].id,
-                    img_url: faker.image.animals()
+                    img_url: '/bmps/IMG_7548.jpeg'
                 })
             }
         }
