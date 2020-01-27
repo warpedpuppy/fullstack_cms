@@ -4,12 +4,14 @@ const config = require('../config')
 const faker = require('faker');
 const AuthService = require('../auth/auth-service');
 const DemoService = {
+    articleQ: 1,
+    userQ: 5,
     deleteUsersCreateUsersCreateArticles(db){
 
         DemoService.removeAllButAdmin(db)
         .then(result => {
             let users = [];
-            for (let i = 0; i < 20; i ++) {
+            for (let i = 0; i < this.userQ; i ++) {
                 users.push({username: faker.name.firstName(), password: bcrypt.hashSync("test", 1), img_url: faker.image.avatar()})
             }
             DemoService.insertDemoUsers(db, users)
@@ -46,7 +48,7 @@ const DemoService = {
     insertFakeArticles(db, users) {
         let articles = [];
         for(let i = 0; i < users.length; i ++) {
-            for (let j = 0; j < 5; j ++) {
+            for (let j = 0; j < this.articleQ; j ++) {
                 let userIndex = i + 1;
                 articles.push({
                     title: faker.lorem.sentence(),

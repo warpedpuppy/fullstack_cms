@@ -7,8 +7,8 @@ const ArticleService = require('./articles-service');
 
 articlesRouter
 .post('/', requireAuth, jsonBodyParser, async (req, res) => {
-    let { title, description, content } = req.body;
-    let obj = { title, description, content }
+    let { title, description, content, img_url } = req.body;
+    let obj = { title, description, content, img_url }
     obj.author_id = req.tokenData.user_id;
 
     let result = await ArticleService.insertArticle(req.app.get('db'), obj)

@@ -39,6 +39,12 @@ class App extends React.Component {
   goToArticle = (creator, index) => {
      this.props.history.push(`/article/${creator}/${index}`)
   }
+  addArticle = (obj) => {
+    let tokenData = TokenService.parseJwt(TokenService.getAuthToken());
+    let temp_obj = Object.assign({}, this.state.creators)
+    temp_obj[tokenData.sub].articles.push(obj)
+    this.setCreators(temp_obj);
+  }
   componentDidMount () {
     this.setState({loggedIn: TokenService.hasAuthToken()})
     this.getCreatorData();
@@ -52,7 +58,8 @@ class App extends React.Component {
       setCreators: this.setCreators,
       getCreatorData: this.getCreatorData,
       goToArticle: this.goToArticle,
-      goToCreator: this.goToCreator
+      goToCreator: this.goToCreator,
+      addArticle: this.addArticle
     };
      return (
       <SiteContext.Provider value={ contextValue }>
