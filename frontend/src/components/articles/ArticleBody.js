@@ -22,7 +22,6 @@ export default class ArticleBody extends React.Component {
     render () {
         return (
             <>
-            <h1>{this.props.index}</h1>
             <div className="article-header">
                 <h1>{this.props.title}</h1>
                 <div className="article-summary">

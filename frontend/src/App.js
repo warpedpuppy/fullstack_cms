@@ -11,13 +11,15 @@ import Footer from './components/Footer';
 import ArticleService from './services/article-service';
 import Article from './pages/Article';
 import { withRouter } from 'react-router-dom';
+import Utils from './services/utils';
 
 class App extends React.Component {
   state = {
     articles: [],
   }
   setArticles = (articles) => {
-    this.setState({articles})
+    let shuffled = Utils.shuffled(articles)
+    this.setState({articles: shuffled})
   }
   goToCreator = (author_id) => {
     this.props.history.push(`/creator/${author_id}`)
