@@ -3,31 +3,36 @@ import SiteContext from '../SiteContext';
 import './CreatorPage.css';
 import Config from '../config';
 export default class CreatorPage extends Component {
-   
+    state = {pageData: []}
     componentDidMount () {
-        console.log(this.props.match.params.author_id)
         let { author_id } = this.props.match.params;
-
+        this.getCreatorData(author_id);
     }
     getCreatorData = async (author_id) => {
-        let res = fetch(`${Config.API_ENDPOINT}/get-creator-data?id=${author_id}`)
-
-        console.log(res)
+        let res = await fetch(`${Config.API_ENDPOINT}/creators/get-creator-data?id=${author_id}`)
+        let resJson = await res.json();
+        this.setState({pageData: resJson.creators});
     }
     render () {
-        // if (!this.context.creators[this.props.match.params.name]) {
-        //     this.props.history.push('/')
-        //     return (<></>)
-        // } else {
-        // let { name } = this.props.match.params
-        // let { img_url, articles } = this.context.creators[name];
-        // let arts = articles.map((a, index) => <li onClick={() => this.context.goToArticle(name, index)}key={index}><h4>{a.title}</h4></li>)
+        if (!this.state.pageData.length) {
+            return <></>;
+        }
+        let name = this.state.pageData[0].username;
+        let avatar = this.state.pageData[0].avatar;
+        
+        let arts = this.state.pageData.map((a, index) => {
+            return (<li 
+                onClick={() => this.context.goToArticle(name, index)}
+                key={index}>
+                <h4>{a.title}</h4>
+                </li>)
+        })
         return (
             <div className="creator-page">
-                {/* <img src={img_url} alt="avatar" />
+                <img src={avatar} alt="avatar" />
                 <h2>{name}</h2>
                 <h4>articles: </h4>
-                <ul>{arts}</ul> */}
+                <ul>{arts}</ul>
             </div>
         )
     }

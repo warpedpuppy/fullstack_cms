@@ -39,9 +39,12 @@ const DemoService = {
         if (res) {
             let res2 = await db.raw(`ALTER SEQUENCE ${config.ARTICLES_TABLE}_id_seq RESTART`)
             if (res2) {
-                 return db(config.USERS_TABLE)
-                    .whereNot({ username: 'admin' })
-                    .del()
+
+                let res3 = await db.raw(`TRUNCATE ${config.USERS_TABLE} CASCADE`)
+                if(res3) {
+                    let res4 = await db.raw(`ALTER SEQUENCE ${config.USERS_TABLE}_id_seq RESTART`);
+                    return res4
+                }
             }
         }
     },

@@ -10,6 +10,7 @@ export default class ArticleColumn extends Component {
         endIndex = (!endIndex)?this.context.articles.length:endIndex;
 
         let modules = [];
+
         for (let i = startIndex; i < endIndex; i ++) {
             if(!this.context.articles.length)break;
             let articles  = this.context.articles;
@@ -19,11 +20,11 @@ export default class ArticleColumn extends Component {
                         key={i}
                         goToArticle={this.context.goToArticle}
                         goToCreator={this.context.goToCreator}
-                        title={articles[this.props.index].title}
-                        img_url={articles[this.props.index].img_url}
-                        creator={articles[this.props.index].username}
-                        author_id={articles[this.props.index].author_id}
-                        index={articles[this.props.index].id}
+                        title={articles[i].title}
+                        img_url={articles[i].img_url}
+                        creator={articles[i].username}
+                        author_id={articles[i].author_id}
+                        index={articles[i].id}
                     /> 
                   )
                 }

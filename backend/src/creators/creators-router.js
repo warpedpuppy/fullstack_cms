@@ -17,9 +17,10 @@ creatorsRouter
 })
 .get('/get-creator-data', async (req, res) => {
  
-    let limit = req.query.limit ? req.query.limit : 5,
+    let limit = req.query.limit ? req.query.limit : 10,
         id = req.query.id,
         creators = await CreatorsService.getCreatorAndArticleTitles(req.app.get('db'), id, limit)
+
     if (creators) {
         res
         .status(200)
