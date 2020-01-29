@@ -6,6 +6,11 @@ const ArticlesService = {
             .insert(obj)
             .returning("*")
             .then(([article]) => article)
+    },
+    getHomePageArticles: function (db) {
+        return db
+        .raw(`SELECT a.id, a.title, a.description, a.img_url, a.date_created, b.username, b.id as author_id FROM ${Config.ARTICLES_TABLE} a JOIN ${Config.USERS_TABLE} b ON a.author_id = b.id ORDER BY a.date_created DESC LIMIT 30`)
+        .then(articles => articles.rows)
     }
 }
 module.exports = ArticlesService;

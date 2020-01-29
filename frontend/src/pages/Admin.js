@@ -10,7 +10,7 @@ import CreateDemoUsers from '../components/admin/CreateDemoUsers';
 export default class Admin extends Component {
     
     render() {
-        if (!this.context.loggedIn) {
+        if (!TokenService.hasAuthToken()) {
             return (
                 <div>
                     <Register />

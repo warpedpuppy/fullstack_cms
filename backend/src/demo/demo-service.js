@@ -4,7 +4,7 @@ const config = require('../config')
 const faker = require('faker');
 const AuthService = require('../auth/auth-service');
 const DemoService = {
-    articleQ: 1,
+    articleQ: 10,
     userQ: 5,
     deleteUsersCreateUsersCreateArticles(db){
 

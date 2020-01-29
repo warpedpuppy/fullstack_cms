@@ -1,9 +1,10 @@
 import React from 'react';
 
 const SiteContext = React.createContext({
-  loggedIn: false,
-  creators: {},
-  setCreators: function(){}
+  articles: [],
+  createContextArticles: () =>{},
+  goToArticle: () => {},
+  gotToCreator: () => {}
 });
 
 export default SiteContext;

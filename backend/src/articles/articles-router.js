@@ -24,5 +24,20 @@ articlesRouter
     }
 
 })
+.get('/', async (req, res) => {
+
+    let result = await ArticleService.getHomePageArticles(req.app.get('db'))
+    
+    if (result) {
+        res
+        .status(200)
+        .json({success: true, result})
+    } else {
+        res
+        .status(500)
+        .json({success: false})
+    }
+
+})
 
 module.exports = articlesRouter;

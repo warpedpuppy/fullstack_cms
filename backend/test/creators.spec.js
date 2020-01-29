@@ -3,7 +3,7 @@ const app = require('../src/app')
 const helpers = require('./test-helpers')
 const DemoService = require('../src/demo/demo-service');
 
-describe('Creators Endpoints', function() {
+describe.skip('Creators Endpoints', function() {
    let db
     const users = helpers.makeUsersArray();
     const articles = helpers.makeArticlesArray(users);

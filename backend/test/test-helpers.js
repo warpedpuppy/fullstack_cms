@@ -12,8 +12,8 @@ function cleanTables(db) {
       .then(
          () =>
         Promise.all(
-        [trx.raw(`ALTER SEQUENCE ${process.env.ARTICLES_TABLE}_id_seq minvalue 0 START WITH 1`),
-          trx.raw(`ALTER SEQUENCE ${process.env.USERS_TABLE}_id_seq minvalue 0 START WITH 1`),
+        [trx.raw(`ALTER SEQUENCE ${process.env.ARTICLES_TABLE}_id_seq RESTART`),
+          trx.raw(`ALTER SEQUENCE ${process.env.USERS_TABLE}_id_seq RESTART`),
           trx.raw(`SELECT setval('${process.env.ARTICLES_TABLE}_id_seq', 0)`),
           trx.raw(`SELECT setval('${process.env.USERS_TABLE}_id_seq', 0)`),
         ])
@@ -70,7 +70,13 @@ function cleanTables(db) {
       })
       
   }
-  
+  function makeAuthHeader(user, secret = process.env.JWT_SECRET) {
+    const token = jwt.sign({ user_id: user.id }, secret, {
+      subject: user.user_name,
+      algorithm: 'HS256',
+    })
+    return `Bearer ${token}`
+  }
 
   function seedArticlesTables(db, users, articles) {
  
@@ -89,6 +95,7 @@ function cleanTables(db) {
     makeArticlesArray,
     makeUsersArray,
     seedArticlesTables,
-    makeCreatorObject
+    makeCreatorObject,
+    makeAuthHeader
   }
   
