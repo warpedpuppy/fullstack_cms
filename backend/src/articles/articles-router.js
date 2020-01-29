@@ -29,11 +29,17 @@ articlesRouter
     let result = await ArticleService.getArticle(req.app.get('db'), obj)
     if (result) {
         console.log(result)
-        res
-        .status(200)
-        .json({success: true, result})
+        if(result[0].username === obj.author) {
+            res
+            .status(200)
+            .json({success: true, result})
+        } else {
+            res
+            .status(200)
+            .json({success: false, result: []})
+        }
+       
     } else {
-        console.log("here")
         res
         .status(500)
         .json({success: false})

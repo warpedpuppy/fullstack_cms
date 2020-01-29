@@ -13,8 +13,7 @@ const ArticlesService = {
         .then(articles => articles.rows)
     },
     getArticle: function(db, obj) {
-        let str = `SELECT a.content, a.title, a.description, a.date_created, a.img_url, b.username, b.id as author_id FROM ${Config.ARTICLES_TABLE} a JOIN ${Config.USERS_TABLE} b ON b.id = a.author_id WHERE a.id=${obj.id} AND b.username=${obj.author}`;
-        console.log(str)
+        let str = `SELECT a.content, a.title, a.description, a.date_created, a.img_url, b.username, b.id as author_id FROM ${Config.ARTICLES_TABLE} a JOIN ${Config.USERS_TABLE} b ON b.id = a.author_id WHERE a.id=${obj.id} `;
         return db
         .raw(str)
         .then(article => article.rows)

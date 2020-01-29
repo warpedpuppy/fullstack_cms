@@ -24,6 +24,10 @@ export default class Article extends Component {
         console.log(index, name)
         let res = await fetch(`${Config.API_ENDPOINT}/articles/article?id=${index}&author=${name}`)
         let resJson = await res.json();
+        console.log(resJson.result)
+        if(!resJson.success){
+            this.props.history.push('/')
+        }
         let obj = Object.assign({}, resJson.result[0])
         this.setState({article: obj})
     }
