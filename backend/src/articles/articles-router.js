@@ -24,6 +24,21 @@ articlesRouter
     }
 
 })
+.get('/article', async (req, res) => {
+    let obj = {id: req.query.id, author: req.query.author};
+    let result = await ArticleService.getArticle(req.app.get('db'), obj)
+    if (result) {
+        console.log(result)
+        res
+        .status(200)
+        .json({success: true, result})
+    } else {
+        console.log("here")
+        res
+        .status(500)
+        .json({success: false})
+    }
+})
 .get('/', async (req, res) => {
 
     let result = await ArticleService.getHomePageArticles(req.app.get('db'))

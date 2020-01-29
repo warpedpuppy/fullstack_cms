@@ -3,25 +3,49 @@ import SiteContext from '../SiteContext';
 import './Article.css';
 import Utils from '../services/utils';
 import Sidebar from '../components/articles/Sidebar';
-
+import Config from '../config';
 export default class Article extends Component {
-    goToCreator = (creator) => {
-        this.props.history.push(`/creator/${creator}`)
+    state = {
+        article: {
+            title: '',
+            content: '',
+            description: '',
+            date_created: '',
+            img_url: '',
+            username: '',
+            author_id: ''
+        }}
+
+    componentDidMount () {
+        let { index, name } = this.props.match.params;
+        this.getArticleData(index, name);
+    }
+    getArticleData = async (index, name) => {
+        console.log(index, name)
+        let res = await fetch(`${Config.API_ENDPOINT}/articles/article?id=${index}&author=${name}`)
+        let resJson = await res.json();
+        let obj = Object.assign({}, resJson.result[0])
+        this.setState({article: obj})
     }
     render() {
-        if (!this.context.creators[this.props.match.params.name]) {
-            this.props.history.push('/')
-            return (<></>)
-        } else {
-            let { index, name } = this.props.match.params;
-            let { title, content, date_created, img_url } = this.context.creators[name].articles[index];
+
+        let { 
+            title, 
+            description, 
+            date_created, 
+            img_url, 
+            username, 
+            author_id,
+            content
+        } = this.state.article;
             return (
                 <article>
 
                     <div className="article-header">
                         <h1>{title}</h1>
-                        <div className="article-summary">{title}{title}{title}{title}</div>
-                        <div className="article-author">by <span onClick={() => this.goToCreator(name)}>{name}</span> | {Utils.formatDate(date_created)} </div>
+                        <div className="article-summary">{description}</div>
+                        <div className="article-author">by&nbsp; 
+                        <span onClick={() => this.goToCreator(author_id)}>{username}</span> | {Utils.formatDate(date_created)} </div>
                     </div>
 
                     <div className="article-body">
@@ -31,11 +55,7 @@ export default class Article extends Component {
                             </div>
                         
                             <div>
-                                <p>{content}</p>
-                                <p>{content}</p>
-                                <p>{content}</p>
-                                <p>{content}</p>
-                                <p>{content}</p>
+                                <p>{ content }</p>
                             </div>
                         </div>
                         <Sidebar />
@@ -44,7 +64,7 @@ export default class Article extends Component {
 
                 </article>
             )
-        }
+       
     }
 }
 Article.contextType = SiteContext;
