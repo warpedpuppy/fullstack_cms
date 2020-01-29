@@ -9,9 +9,7 @@ import ArticleBody from '../components/articles/ArticleBody';
 export default class Article extends Component {
     constructor (props) {
         super(props);
-        
         let { index, name } = this.props.match.params;
-        console.log("boom", index, name);
         this.setState({name})
     }
     state = {
@@ -42,25 +40,23 @@ export default class Article extends Component {
         if (!resJson.success) {
             this.props.history.push('/')
         }
-         let obj = Object.assign({}, resJson.result, {id: index})
-         this.setState({article: obj})
+        let obj = Object.assign({}, resJson.result)
+        this.setState({article: obj})
         this.setState({id: index})
+    }
+    doIt () {
+        this.setState({id: index}, function(){ this. getArticleData(index, name)})
     }
     render() {
         let { index, name } = this.props.match.params;
-        console.log(index, this.state.id)
         if (index !== this.state.id) {
-            this.setState({id: index}, function(){ this. getArticleData(index, name)})
+            this.doIt();
         }
-
-            return (
-                <article>
-
-                    <ArticleBody id={this.state.id} {...this.state.article} />
-                    
-
-                </article>
-            )
+        return (
+            <article>
+                <ArticleBody {...this.state.article} />
+            </article>
+        )
        
     }
 }
