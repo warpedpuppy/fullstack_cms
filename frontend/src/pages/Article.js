@@ -4,6 +4,7 @@ import './Article.css';
 import Utils from '../services/utils';
 import Sidebar from '../components/articles/Sidebar';
 import Config from '../config';
+import ArticleBody from '../components/articles/ArticleBody';
 
 export default class Article extends Component {
     constructor (props) {
@@ -15,6 +16,7 @@ export default class Article extends Component {
     }
     state = {
         name: '',
+        id:'',
         article: {
             id: '',
             title: '',
@@ -31,56 +33,30 @@ export default class Article extends Component {
         this.getArticleData(index, name);
     }
     getArticleData = async (index, name) => {
-        
+        if (index !== this.state.article.id) {
+            this.forceUpdate()
+        }
         this.setState({name})
         let res = await fetch(`${Config.API_ENDPOINT}/articles/article?id=${index}&author=${name}`)
         let resJson = await res.json();
         if (!resJson.success) {
             this.props.history.push('/')
         }
-        console.log(resJson.result[0]);
-        let obj = Object.assign({}, resJson.result, {id: index})
-        console.log(obj)
-        this.setState({article: obj})
+         let obj = Object.assign({}, resJson.result, {id: index})
+         this.setState({article: obj})
+        this.setState({id: index})
     }
     render() {
         let { index, name } = this.props.match.params;
-        console.log(index, this.state.article.id)
-        if (index !== this.state.article.id) {
-            // let { index, name } = this.props.match.params;
-            // this.getArticleData(index, name);
-            //this.props.history.push(`/article/${name}/${index}`)
+        console.log(index, this.state.id)
+        if (index !== this.state.id) {
+            this.setState({id: index}, function(){ this. getArticleData(index, name)})
         }
-        let { 
-            title, 
-            description, 
-            date_created, 
-            img_url, 
-            username, 
-            author_id,
-            content
-        } = this.state.article;
+
             return (
                 <article>
 
-                    <div className="article-header">
-                        <h1>{title}</h1>
-                        <div className="article-summary">{description}</div>
-                        <div className="article-author">by&nbsp; 
-                        <span onClick={() => this.context.goToCreator(author_id)}>{username}</span> | {Utils.formatDate(date_created)} </div>
-                    </div>
-
-                    <div className="article-body">
-                        <div className="article-main">
-                            <div className="img-cont">
-                                <img src={ img_url } alt="title" />
-                            </div>
-                            <div>
-                                <p>{ content }</p>
-                            </div>
-                        </div>
-                        <Sidebar />
-                    </div>
+                    <ArticleBody id={this.state.id} {...this.state.article} />
                     
 
                 </article>
