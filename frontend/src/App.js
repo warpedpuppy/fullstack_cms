@@ -1,7 +1,6 @@
 import React from 'react';
 import './App.css';
 import Home from './pages/Home';
-import Page2 from './pages/Page2';
 import NotFound from './pages/NotFound';
 import Menu from './components/Menu';
 import Admin from './pages/Admin';

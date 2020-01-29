@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
 import SiteContext from '../SiteContext';
 import './Article.css';
-import Utils from '../services/utils';
-import Sidebar from '../components/articles/Sidebar';
 import Config from '../config';
 import ArticleBody from '../components/articles/ArticleBody';
 
 export default class Article extends Component {
     constructor (props) {
         super(props);
-        let { index, name } = this.props.match.params;
-        this.setState({name})
+        console.log('article constructor')
+       // let { index, name } = this.props.match.params;
+       // this.setState({name, id: index})
     }
     state = {
+        mounted: false,
         name: '',
         id:'',
         article: {
@@ -29,11 +29,17 @@ export default class Article extends Component {
     componentDidMount () {
         let { index, name } = this.props.match.params;
         this.getArticleData(index, name);
+        this.setState({mounted:true, id: index})
     }
+    componentDidUpdate () {
+        let { index, name } = this.props.match.params;
+        if (index !== this.state.id) {
+            this.getArticleData(index, name)
+            this.setState({id: index})
+        } 
+    }
+
     getArticleData = async (index, name) => {
-        if (index !== this.state.article.id) {
-            this.forceUpdate()
-        }
         this.setState({name})
         let res = await fetch(`${Config.API_ENDPOINT}/articles/article?id=${index}&author=${name}`)
         let resJson = await res.json();
@@ -44,17 +50,12 @@ export default class Article extends Component {
         this.setState({article: obj})
         this.setState({id: index})
     }
-    doIt () {
-        this.setState({id: index}, function(){ this. getArticleData(index, name)})
-    }
+
     render() {
-        let { index, name } = this.props.match.params;
-        if (index !== this.state.id) {
-            this.doIt();
-        }
+        let { index } = this.props.match.params;
         return (
             <article>
-                <ArticleBody {...this.state.article} />
+                <ArticleBody index={index} {...this.state.article} />
             </article>
         )
        
