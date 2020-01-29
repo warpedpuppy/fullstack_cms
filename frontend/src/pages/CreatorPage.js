@@ -22,7 +22,7 @@ export default class CreatorPage extends Component {
         
         let arts = this.state.pageData.map((a, index) => {
             return (<li 
-                onClick={() => this.context.goToArticle(name, index)}
+                onClick={() => this.context.goToArticle(name, a.id)}
                 key={index}>
                 <h4>{a.title}</h4>
                 </li>)

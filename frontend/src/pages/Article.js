@@ -21,11 +21,9 @@ export default class Article extends Component {
         this.getArticleData(index, name);
     }
     getArticleData = async (index, name) => {
-        console.log(index, name)
         let res = await fetch(`${Config.API_ENDPOINT}/articles/article?id=${index}&author=${name}`)
         let resJson = await res.json();
-        console.log(resJson.result)
-        if(!resJson.success){
+        if (!resJson.success) {
             this.props.history.push('/')
         }
         let obj = Object.assign({}, resJson.result[0])
@@ -49,7 +47,7 @@ export default class Article extends Component {
                         <h1>{title}</h1>
                         <div className="article-summary">{description}</div>
                         <div className="article-author">by&nbsp; 
-                        <span onClick={() => this.goToCreator(author_id)}>{username}</span> | {Utils.formatDate(date_created)} </div>
+                        <span onClick={() => this.context.goToCreator(author_id)}>{username}</span> | {Utils.formatDate(date_created)} </div>
                     </div>
 
                     <div className="article-body">
@@ -57,7 +55,6 @@ export default class Article extends Component {
                             <div className="img-cont">
                                 <img src={ img_url } alt="title" />
                             </div>
-                        
                             <div>
                                 <p>{ content }</p>
                             </div>

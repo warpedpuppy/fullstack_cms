@@ -16,13 +16,8 @@ import { withRouter } from 'react-router-dom';
 class App extends React.Component {
   state = {
     articles: [],
-    // loggedIn: false,
-    // creators: {}
   }
   articles = [];
-  // setLoggedIn = (loggedIn) => {
-  //   this.setState({loggedIn})
-  // }
   setArticles = (articles) => {
     this.setState({articles})
   }
@@ -35,14 +30,8 @@ class App extends React.Component {
   goToArticle = (creator, index) => {
      this.props.history.push(`/article/${creator}/${index}`)
   }
-  // addArticle = (obj) => {
-  //   let tokenData = TokenService.parseJwt(TokenService.getAuthToken());
-  //   let temp_obj = Object.assign({}, this.state.creators)
-  //   temp_obj[tokenData.sub].articles.push(obj)
-  //   this.setCreators(temp_obj);
-  // }
+
   componentDidMount () {
-   // this.setState({loggedIn: TokenService.hasAuthToken()})
    ArticleService.getHomePageArticles()
     .then(res => {
         this.articles = [...res.result]
@@ -52,22 +41,15 @@ class App extends React.Component {
 
   render() {
     const contextValue = {
-      // loggedIn: this.state.loggedIn,
-      // setLoggedIn: this.setLoggedIn,
       articles: this.state.articles,
-      // creators: this.state.creators,
-      // setCreators: this.setCreators,
-      // getCreatorData: this.getCreatorData,
       goToArticle: this.goToArticle,
       goToCreator: this.goToCreator,
-      // addArticle: this.addArticle
     };
      return (
       <SiteContext.Provider value={ contextValue }>
         <header><Menu /></header>
           <Switch>
             <Route exact path="/" render={(history) => <Home articles={this.articles} history={history} />} />
-            <Route path="/page2" component={ Page2 } />
             <Route path="/admin" component={ Admin } />
             <Route path="/creator/:author_id" component={ CreatorPage } />
             <Route path="/article/:name/:index" component={ Article } />
