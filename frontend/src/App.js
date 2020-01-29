@@ -17,12 +17,8 @@ class App extends React.Component {
   state = {
     articles: [],
   }
-  articles = [];
   setArticles = (articles) => {
     this.setState({articles})
-  }
-  getCreatorData = () => {
-    
   }
   goToCreator = (author_id) => {
     this.props.history.push(`/creator/${author_id}`)
@@ -30,7 +26,6 @@ class App extends React.Component {
   goToArticle = (creator, index) => {
      this.props.history.push(`/article/${creator}/${index}`)
   }
-
   componentDidMount () {
    ArticleService.getHomePageArticles()
     .then(res => {
@@ -38,7 +33,6 @@ class App extends React.Component {
         this.setArticles(res.result)
     })
   }
-
   render() {
     const contextValue = {
       articles: this.state.articles,

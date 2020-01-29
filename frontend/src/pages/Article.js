@@ -4,9 +4,19 @@ import './Article.css';
 import Utils from '../services/utils';
 import Sidebar from '../components/articles/Sidebar';
 import Config from '../config';
+
 export default class Article extends Component {
+    constructor (props) {
+        super(props);
+        
+        let { index, name } = this.props.match.params;
+        console.log("boom", index, name);
+        this.setState({name})
+    }
     state = {
+        name: '',
         article: {
+            id: '',
             title: '',
             content: '',
             description: '',
@@ -21,16 +31,26 @@ export default class Article extends Component {
         this.getArticleData(index, name);
     }
     getArticleData = async (index, name) => {
+        
+        this.setState({name})
         let res = await fetch(`${Config.API_ENDPOINT}/articles/article?id=${index}&author=${name}`)
         let resJson = await res.json();
         if (!resJson.success) {
             this.props.history.push('/')
         }
-        let obj = Object.assign({}, resJson.result[0])
+        console.log(resJson.result[0]);
+        let obj = Object.assign({}, resJson.result, {id: index})
+        console.log(obj)
         this.setState({article: obj})
     }
     render() {
-
+        let { index, name } = this.props.match.params;
+        console.log(index, this.state.article.id)
+        if (index !== this.state.article.id) {
+            // let { index, name } = this.props.match.params;
+            // this.getArticleData(index, name);
+            //this.props.history.push(`/article/${name}/${index}`)
+        }
         let { 
             title, 
             description, 
