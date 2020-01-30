@@ -25,9 +25,9 @@ articlesRouter
 
 })
 .get('/article', async (req, res) => {
-    console.log('hit')
+
     let obj = {id: req.query.id, author: req.query.author};
-    console.log(obj)
+
     let result = await ArticleService.getArticle(req.app.get('db'), obj)
     if (result) {
         if(result[0].username === obj.author) {

@@ -3,7 +3,8 @@ const Config = require('../config');
 const EventsServices = {
     getEvents: function(db, obj) {
         return db(Config.EVENTS_TABLE)
-        .then(events => events.rows)
+        .orderBy('date_of_event')
+        .then(events => events )
     }
 }
 module.exports = EventsServices;

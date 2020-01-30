@@ -19,5 +19,5 @@ app.use('/api/creators', creatorsRouter);
 app.use('/api/demo', demoRouter);
 app.use('/api/articles', articlesRouter);
 app.use('/api/photo-uploader', photoUploaderRouter);
-app.use('/api/events-router', eventsRouter);
+app.use('/api/events', eventsRouter);
 module.exports = app;
