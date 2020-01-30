@@ -13,5 +13,6 @@ module.exports = {
     ADMIN_PASSWORD: process.env.ADMIN_PASSWORD || '',
     USERS_TABLE:  process.env.USERS_TABLE || '',
     ARTICLES_TABLE:  process.env.ARTICLES_TABLE || '',
+    EVENTS_TABLE:  process.env.EVENTS_TABLE || '',
   }
   
