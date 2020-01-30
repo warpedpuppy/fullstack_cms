@@ -14,6 +14,7 @@ export default class Menu extends Component {
         return (
             <nav>
                 <Link to="/">home</Link>
+                <Link to="/events">events</Link>
                 <Link to="/admin">admin</Link>
                 <button 
                 onClick={this.logout}

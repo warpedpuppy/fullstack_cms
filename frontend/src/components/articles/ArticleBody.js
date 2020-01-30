@@ -2,6 +2,7 @@ import React from 'react'
 import Sidebar from './Sidebar';
 import Utils from '../../services/utils';
 import Config from '../../config';
+import SiteContext from '../../SiteContext';
 export default class ArticleBody extends React.Component {
 
     getArticleData = async (index, name) => {
@@ -53,3 +54,4 @@ export default class ArticleBody extends React.Component {
     }
    
 }
+ArticleBody.contextType = SiteContext;

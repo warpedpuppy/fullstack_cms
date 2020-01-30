@@ -1,0 +1,4 @@
+.event-band {
+    display: flex;
+    overflow-x: auto;
+}

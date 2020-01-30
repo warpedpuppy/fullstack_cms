@@ -3,12 +3,14 @@ import ArticleColumn from '../components/articles/ArticleColumn';
 import { withRouter } from 'react-router-dom';
 import SiteContext from '../SiteContext';
 import './Home.css';
+import EventBand from '../components/events/EventBand';
 
 class Home extends Component {
 
     render() {
         return (
             <>
+            <EventBand />
             <div className="article-list">
                 <ArticleColumn 
                     index={0}
