@@ -19,6 +19,19 @@ eventsRouter
         .json({success: false})
     }
 })
-
+.post('/new-event', jsonBodyParser, requireAuth, (req, res) => {
+    let obj = req.body;
+    EventsServices.insertPhotoAndEvent(req.app.get('db'), obj)
+    .then( event => {
+          res
+          .status(200)
+          .json({success: true, event})
+    })
+    .catch( error => {
+      res
+      .status(500)
+      .json({success: false})
+    })
+  })
 
 module.exports = eventsRouter;

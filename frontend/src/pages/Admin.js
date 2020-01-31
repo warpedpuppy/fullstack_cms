@@ -28,6 +28,7 @@ export default class Admin extends Component {
                 <>
                 <h1>logged in {user}  </h1>
                 { buttons }
+                <hr /> <hr /> <hr /> <hr /> <hr /> <hr /> <hr /> <hr />
                 <EventCreate />
                 <hr /> <hr /> <hr /> <hr /> <hr /> <hr /> <hr /> <hr />
                 <ArticleCreate />
