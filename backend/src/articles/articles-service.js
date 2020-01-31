@@ -2,6 +2,7 @@ const Config = require('../config');
 
 const ArticlesService = {
     insertArticle: function (db, obj) {
+        console.log(obj)
         return db(Config.ARTICLES_TABLE)
             .insert(obj)
             .returning("*")

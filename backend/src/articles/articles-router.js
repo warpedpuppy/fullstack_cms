@@ -12,7 +12,7 @@ articlesRouter
     obj.author_id = req.tokenData.user_id;
 
     let result = await ArticleService.insertArticle(req.app.get('db'), obj)
-
+    console.log(result)
     if (result) {
         res
         .status(200)
