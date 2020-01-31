@@ -21,7 +21,7 @@ eventsRouter
 })
 .post('/new-event', jsonBodyParser, requireAuth, (req, res) => {
     let obj = req.body;
-    EventsServices.insertPhotoAndEvent(req.app.get('db'), obj)
+    EventsService.insertEvent(req.app.get('db'), obj)
     .then( event => {
           res
           .status(200)

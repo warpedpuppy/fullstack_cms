@@ -7,11 +7,10 @@ const EventsServices = {
         .then(events => events )
     },
     insertEvent (db, eventObj) {
-        return EventsServices.insertEvent(db, eventObj.img_url)
-                .then(id => {
-                  eventObj.img_url = id;
-                  return EventsServices.insertEvent(db, eventObj)
-                })
-      },
+        return db(Config.EVENTS_TABLE)
+        .insert(eventObj)
+        .returning("*")
+        .then(event => event)
+    },
 }
 module.exports = EventsServices;

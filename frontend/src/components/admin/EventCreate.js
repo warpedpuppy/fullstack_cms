@@ -54,9 +54,9 @@ export default class EventCreate extends React.Component {
         e.target.event_date.value = '';
         this.setState({counter: 0})
         const obj = {
-            title: this.state.title,
-            event_date: this.state.date,
-            event_description: this.state.description
+            eventname: this.state.title,
+            date_of_event: this.state.date,
+            description: this.state.description
         };
 
         const fileNames = EventServices.createFileNames(obj, 'event_image');
