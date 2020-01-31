@@ -5,7 +5,7 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction'; // needed for dayClick
 import { withRouter } from "react-router-dom";
 import './Calendar.scss';
-import SiteContext from '../SiteContext';
+import SiteContext from '../../SiteContext';
 
 class Calendar extends React.Component {
   calendarComponentRef = React.createRef()
@@ -52,5 +52,5 @@ class Calendar extends React.Component {
   }
 
 }
-DemoApp.contextType = SiteContext;
-export default withRouter(DemoApp)
+Calendar.contextType = SiteContext;
+export default withRouter(Calendar)
