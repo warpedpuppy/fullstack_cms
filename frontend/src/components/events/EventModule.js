@@ -1,9 +1,12 @@
 import React from 'react';
 import './EventModule.css';
+import Utils from '../../services/utils';
 export default function EventModule(props) {
     return (
         <div className="event-module">
-            {props.date_of_event}
+            { Utils.formatDate(props.date_of_event) }
+          
+            <h4>{ props.eventname.split(' ')[0] }</h4>
         </div>
     )
 }
