@@ -1,0 +1,50 @@
+#event-create {
+    display: block;
+    width: 800px;
+    margin: 20px auto;
+}
+#event-create input,
+#event-create textarea {
+    display:block;
+    width: 100%;
+    margin: 20px auto;
+    padding: 10px;
+    border-radius: 3px;
+    border: 1px solid #CCC;
+}
+
+
+
+.enter-event {
+    display:block;
+    margin: 10px auto;
+    width: 500px;
+    position: relative;
+}
+.module-body {
+    padding: 10px;
+}
+.spinner-parent {
+    position: absolute;
+    top:0;
+    left: 0;
+    background-color: rgba(255, 255, 255, 0.75);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+}
+.spinner-parent.hide {
+    display: none;
+}
+.custom-file {
+    opacity: 1;
+}
+.photo-message-error {
+    color:red;
+    font-style: italic;
+}
+.photo-message-success {
+    color:green;
+}

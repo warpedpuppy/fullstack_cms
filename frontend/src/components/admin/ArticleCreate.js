@@ -72,6 +72,7 @@ export default class ArticleCreate extends Component {
     render() {
         return (
             <form id="article-create" onSubmit={this.onSubmitHandler}>
+                <h4>create article</h4>
                 <div>
                     <input type="text" name="title" placeholder="title" />
                     <input type="text" name="description" placeholder="description" />
