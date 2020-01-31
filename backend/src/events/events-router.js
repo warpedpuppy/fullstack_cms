@@ -8,7 +8,6 @@ const EventsService = require('./events-services');
 eventsRouter
 .get('/', async (req, res) => {
     let result = await EventsService.getEvents(req.app.get('db'))
-    console.log(result)
     if (result) {
         res
         .status(200)

@@ -15,7 +15,6 @@ photoUploaderRouter.get('/sign-s3', requireAuth, (req, res) => {
       ContentType: fileType,
       ACL: 'public-read'
     };
-
     s3.getSignedUrl('putObject', s3Params, (err, data) => {
       if(err){
         return res.end();
@@ -25,7 +24,6 @@ photoUploaderRouter.get('/sign-s3', requireAuth, (req, res) => {
         signedRequest: data,
         url: `https://${S3_BUCKET}.s3.amazonaws.com/${S3_BUCKET_DIRECTORY}/${fileName}`
       };
-
       res.write(JSON.stringify(returnData));
       res.end();
     });

@@ -43,7 +43,7 @@ export default class EventCreate extends React.Component {
     }
 
 
-    onSubmitHandler = (e) => {
+    onSubmitHandler = async (e) => {
 
         e.preventDefault();
 
@@ -62,50 +62,29 @@ export default class EventCreate extends React.Component {
         const fileNames = EventServices.createFileNames(obj, 'event_image');
         obj.img_url = fileNames.img_url;
 
-        EventServices.postNewEvent(obj)
-        .then((result) => {
+       let res =  await EventServices.postNewEvent(obj)
+       
+       if (res) {
             this.setState({
                 counter: this.state.counter + 1
             })
             //get the id from the backend
-            obj.id = result.event;
-            UploadService.initUpload('event_image', fileNames.imageName, this.addNewEventToContext.bind(this, obj))
+            console.log(res)
+            obj.id = res.event;
+            let res2 = await UploadService.initUpload('event_image', fileNames.imageName)
+            console.log(res2)
+            if(res2) {
+                this.setState({
+                    photoMessage: "images must be 640x480",
+                    photoSizeCheck: false,
+                    counter: 2
+                })
+            }
+        }
 
-        }).catch((error) => {
-            this.setState({
-                counter: this.state.counter + 1
-            })
-            console.error(error)
-        });
 
         
     }
-
-
-    addNewEventToContext = (obj) => {
-        this.setState({
-            counter: this.state.counter + 1
-        })
-        let events = Object.assign({}, this.context.events)
-        events[obj.id] = obj;
-        this.context.setEvents(events);
-
-        const photos = [
-            ...this.context.photos, {
-                img_url: obj.img_url
-            }
-        ];
-        this.context.setPhotos(photos);
-
-        document.getElementById('event_image').value = null;
-        document.getElementById('loader-label').innerHTML = "upload a new image";
-
-        this.setState({
-            photoMessage: "images must be 640x480",
-            photoSizeCheck: false
-        })
-    }
-    
 
     onChangeHandler = (e) => {
         const {name} = e.currentTarget;

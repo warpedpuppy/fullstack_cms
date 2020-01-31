@@ -9,7 +9,7 @@ const UploaderService = {
         return res;
     },
     async getSignedRequest(file, img_name) {
-        const result = await fetch(`${Config.API_ENDPOINT}/photo-uploader/sign-s3?file-name=${img_name}&file-type=${file.type}`, {
+        const result = await fetch(`${Config.API_ENDPOINT}/photo-uploader/sign-s3?file-name=${Config.IMAGE_DIR}/${img_name}&file-type=${file.type}`, {
             headers: {
                 'Authorization': `bearer ${TokenService.getAuthToken()}`
             }
