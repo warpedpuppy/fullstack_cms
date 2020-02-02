@@ -56,7 +56,7 @@ export default class ArticleCreate extends Component {
         document.getElementById(this.img_id).value = '';
 
         //add the article to the creators obj
-        this.context.addArticle(this.articleObject)
+        //this.context.addArticle(this.articleObject)
     }
     onChangeHandler = (e) => {
             const { files } = document.getElementById(this.img_id);
