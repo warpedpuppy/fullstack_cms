@@ -46,6 +46,19 @@ articlesRouter
         .json({success: false})
     }
 })
+.get('/titles-for-edit', requireAuth, async (req, res) => {
+    let { user_id } = req.tokenData;
+    let result = await ArticleService.getTitlesForEdit(req.app.get('db'), user_id)
+    if (result) {
+        res
+        .status(200)
+        .json({success: true, result})
+    } else {
+        res
+        .status(500)
+        .json({success: false})
+    }
+})
 .get('/', async (req, res) => {
 
     let result = await ArticleService.getHomePageArticles(req.app.get('db'))

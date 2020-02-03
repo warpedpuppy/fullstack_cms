@@ -18,6 +18,13 @@ const ArticlesService = {
         return db
         .raw(str)
         .then(article => article.rows)
+    },
+    getTitlesForEdit: function(db, author_id) {
+        return db(Config.ARTICLES_TABLE)
+        .select(`id`, `title`)
+        .where({author_id})
+        .then(res => res)
+
     }
 }
 module.exports = ArticlesService;

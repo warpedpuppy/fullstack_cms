@@ -7,6 +7,7 @@ import './Admin.css';
 import ArticleCreate from '../components/admin/ArticleCreate';
 import EventCreate from '../components/admin/EventCreate';
 import CreateDemoUsers from '../components/admin/CreateDemoUsers';
+import ArticleEdit from '../components/admin/ArticleEdit';
 
 export default class Admin extends Component {
     
@@ -28,6 +29,8 @@ export default class Admin extends Component {
                 <>
                 <h1>logged in {user}  </h1>
                 { buttons }
+                <hr /> <hr /> <hr /> <hr /> <hr /> <hr /> <hr /> <hr />
+                <ArticleEdit />
                 <hr /> <hr /> <hr /> <hr /> <hr /> <hr /> <hr /> <hr />
                 <EventCreate />
                 <hr /> <hr /> <hr /> <hr /> <hr /> <hr /> <hr /> <hr />
