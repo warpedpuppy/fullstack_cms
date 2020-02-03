@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
 import './ArticleEdit.css';
 import ArticleService from '../../../services/article-service';
+import UploadService from '../../../services/uploader-service';
 import ArticleEditForm from './ArticleEditForm';
+
 export default class ArticleEdit extends Component {
-    state = {titles: [], editArticle: {}}
+    state = {titles: [], editArticle: {}, storeImgUrl: null}
 
     componentDidMount(){
         this.getArticleTitles();
@@ -16,20 +18,35 @@ export default class ArticleEdit extends Component {
     }
     getArticle = async (id) => {
         let res = await ArticleService.getArticleForEdit(id) 
-        this.setState({editArticle: res.result})
+        this.setState({editArticle: res.result, storeImgUrl: res.result.img_url})
     }
     onChangeHandler = (e) => {
         let newObj = {};
         newObj[e.target.name] = e.target.value;
         let editArticle = Object.assign({}, this.state.editArticle, newObj)
-        this.setState({editArticle})
+        if (e.target.name === 'img_url') {
+            this.setState({editArticle})
+        } else {
+            this.setState({editArticle})
+        }
+        
     }
     onSubmitHandler = async (e) => {
         e.preventDefault();
-        let res = await ArticleService.submitEditedArticle(this.state.editArticle);
-        if (res.success) {
-            this.setState({editArticle: {}})
+
+        if (this.state.storeImgUrl === this.state.editArticle.img_url) {
+            let res = await ArticleService.submitEditedArticle(this.state.editArticle);
+            if (res.success) {
+                this.setState({editArticle: {}, storeImgUrl: null})
+            }
+        } else {
+            //upload new image
+
+
+            //then 
         }
+
+       
     }
     render() {
         let titles = this.state.titles.map( (title, i) => {
@@ -56,9 +73,9 @@ export default class ArticleEdit extends Component {
                         <textarea onChange={this.onChangeHandler} name="content" value={content} />
                     </div>
                     <div>
-                        <img alt={title} src={img_url} />
+                        <img alt={title} src={this.state.storeImgUrl} />
                         <label htmlFor="edit-article-image">change image?</label>
-                        <input type="file" id="edit-article-image" />
+                        <input  onChange={this.onChangeHandler} name="img_url" type="file" id="edit-article-image" />
                     </div>
                     <div>
                         <input type="submit" />
