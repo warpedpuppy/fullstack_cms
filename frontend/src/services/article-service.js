@@ -18,6 +18,12 @@ const ArticleService = {
             console.log(resJson);
             return resJson;
         }
+    },
+    async getArticleForEdit(index) {
+        
+        let res = await fetch(`${Config.API_ENDPOINT}/articles/article-for-edit?id=${index}`)
+        let resJson = await res.json();
+        return resJson;
     }
 }
 export default ArticleService;

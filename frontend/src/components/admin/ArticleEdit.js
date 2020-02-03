@@ -14,10 +14,14 @@ export default class ArticleEdit extends Component {
             this.setState({titles: res.result})
         }
     }
-
+    getArticle = async (id) => {
+        console.log(ArticleService)
+        let res = await ArticleService.getArticleForEdit(id) 
+        console.log(res)
+    }
     render() {
         let titles = this.state.titles.map( (title, i) => {
-            return <li key={i}>{title.id}, {title.title}</li>
+            return <li key={i} onClick={() => this.getArticle(title.id)}>{title.id}, {title.title}</li>
         })
         return (
             <ul>
