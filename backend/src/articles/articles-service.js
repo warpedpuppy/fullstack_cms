@@ -25,6 +25,11 @@ const ArticlesService = {
         .where({author_id})
         .then(res => res)
 
+    },
+    getArticleForEdit: function(db, id) {
+        return db(Config.ARTICLES_TABLE)
+        .where({id})
+        .then(res => res)
     }
 }
 module.exports = ArticlesService;

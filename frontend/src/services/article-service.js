@@ -20,8 +20,11 @@ const ArticleService = {
         }
     },
     async getArticleForEdit(index) {
-        
-        let res = await fetch(`${Config.API_ENDPOINT}/articles/article-for-edit?id=${index}`)
+        let res = await fetch(`${Config.API_ENDPOINT}/articles/article-for-edit/${index}`, {
+            headers: {
+                authorization: `Bearer ${TokenService.getAuthToken()}`
+            }
+        })
         let resJson = await res.json();
         return resJson;
     }

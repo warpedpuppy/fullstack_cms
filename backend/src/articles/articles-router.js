@@ -46,11 +46,10 @@ articlesRouter
         .json({success: false})
     }
 })
-.get('/article-for-edit', requireAuth, async (req, res) => {
-    let obj = {id: req.query.id};
-    let result = await ArticleService.getArticleForEdit(req.app.get('db'), obj)
+.get('/article-for-edit/:id', requireAuth, async (req, res) => {
+    let { id } = req.params;
+    let result = await ArticleService.getArticleForEdit(req.app.get('db'), id)
     if (result) {
-        console.log(result)
         res
         .status(200)
         .json({success: true, result})
