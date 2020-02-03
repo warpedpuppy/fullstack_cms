@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import './ArticleEdit.css';
 import ArticleService from '../../../services/article-service';
-
+import ArticleEditForm from './ArticleEditForm';
 export default class ArticleEdit extends Component {
     state = {titles: [], editArticle: {}}
 
@@ -33,10 +33,10 @@ export default class ArticleEdit extends Component {
     }
     render() {
         let titles = this.state.titles.map( (title, i) => {
-            return <li key={i} onClick={() => this.getArticle(title.id)}>{title.id}, {title.title}</li>
+            return <li key={i} onClick={() => this.getArticle(title.id)}>{title.title}</li>
         })
         if (!Object.keys(this.state.editArticle).length) {
-            return ( <ul>{titles}</ul> )
+            return ( <><h2>choose articles to edit: </h2><ul>{titles}</ul></> )
         } else {
             let {title, description, content, img_url} = this.state.editArticle;
             return (
@@ -56,7 +56,9 @@ export default class ArticleEdit extends Component {
                         <textarea onChange={this.onChangeHandler} name="content" value={content} />
                     </div>
                     <div>
-                        <img src={img_url} />
+                        <img alt={title} src={img_url} />
+                        <label htmlFor="edit-article-image">change image?</label>
+                        <input type="file" id="edit-article-image" />
                     </div>
                     <div>
                         <input type="submit" />
