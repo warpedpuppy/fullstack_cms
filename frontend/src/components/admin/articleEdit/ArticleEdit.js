@@ -40,6 +40,7 @@ export default class ArticleEdit extends Component {
             console.log("here", res)
             if (res.success) {
                 this.setState({editArticle: {}, storeImgUrl: null})
+                this.getArticleTitles();
             }
         } else {
             //upload new image
