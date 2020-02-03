@@ -29,15 +29,16 @@ const ArticleService = {
         return resJson;
     },
     async submitEditedArticle(obj) {
-        // let res = await fetch(`${Config.API_ENDPOINT}/articles/article-for-edit/${index}`, {
-        //     method: "POST",
-        //     headers: {
-        //         authorization: `Bearer ${TokenService.getAuthToken()}`
-        //     },
-        //     body: JSON.stringify(obj)
-        // })
-        // let resJson = await res.json();
-        // return resJson;
+        let res = await fetch(`${Config.API_ENDPOINT}/articles/article-for-edit`, {
+            method: "POST",
+            headers: {
+                authorization: `Bearer ${TokenService.getAuthToken()}`,
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(obj)
+        })
+        let resJson = await res.json();
+        return resJson;
 
     }
 }

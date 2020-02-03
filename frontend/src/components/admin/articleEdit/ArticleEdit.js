@@ -35,15 +35,24 @@ export default class ArticleEdit extends Component {
         e.preventDefault();
 
         if (this.state.storeImgUrl === this.state.editArticle.img_url) {
+            console.log('here')
             let res = await ArticleService.submitEditedArticle(this.state.editArticle);
+            console.log("here", res)
             if (res.success) {
                 this.setState({editArticle: {}, storeImgUrl: null})
             }
         } else {
             //upload new image
-
+            let res = await UploadService.initUpload('edit-article-image');
+            console.log('photo uploader = ', res);
 
             //then 
+            if (res) {
+                let res2 = await ArticleService.submitEditedArticle(this.state.editArticle);
+                if (res2.success) {
+                    this.setState({editArticle: {}, storeImgUrl: null})
+                }
+            }
         }
 
        

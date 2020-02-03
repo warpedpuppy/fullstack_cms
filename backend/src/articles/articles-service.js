@@ -47,6 +47,18 @@ const ArticlesService = {
                 img_url: xss(obj.img_url)
             }
         })
+    },
+    postArticleForEdit: function(db, obj){
+        let date = new Date();
+        return db(Config.ARTICLES_TABLE)
+        .where({id: obj.id})
+        .update({
+            title: obj.title,
+            description: obj.description,
+            content: obj.content,
+            img_url: obj.img_url,
+            date_modified: date
+        })
     }
 }
 module.exports = ArticlesService;
