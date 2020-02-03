@@ -33,23 +33,22 @@ export default class ArticleEdit extends Component {
     }
     onSubmitHandler = async (e) => {
         e.preventDefault();
-
         if (this.state.storeImgUrl === this.state.editArticle.img_url) {
-            console.log('here')
             let res = await ArticleService.submitEditedArticle(this.state.editArticle);
-            console.log("here", res)
             if (res.success) {
                 this.setState({editArticle: {}, storeImgUrl: null})
                 this.getArticleTitles();
             }
         } else {
-            //upload new image
-            let res = await UploadService.initUpload('edit-article-image');
-            console.log('photo uploader = ', res);
 
+            //upload new image
+            let photoName =  UploadService.createFileNames(this.state.editArticle, 'edit-article-image')
+            let res = await UploadService.initUpload('edit-article-image', photoName.imageName);
             //then 
             if (res) {
-                let res2 = await ArticleService.submitEditedArticle(this.state.editArticle);
+
+                let objForUpload = Object.assign({}, this.state.editArticle, {img_url: photoName.img_url})
+                let res2 = await ArticleService.submitEditedArticle(objForUpload);
                 if (res2.success) {
                     this.setState({editArticle: {}, storeImgUrl: null})
                 }
@@ -68,6 +67,7 @@ export default class ArticleEdit extends Component {
             let {title, description, content, img_url} = this.state.editArticle;
             return (
                 <div className='edit-article-form-cont'>
+                    <span className="close-button" onClick={() => this.setState({editArticle: {}})}>&times;</span>
                 <form id="article-edit" onSubmit={this.onSubmitHandler}>
                     <h4>edit article</h4>
                     <div>
