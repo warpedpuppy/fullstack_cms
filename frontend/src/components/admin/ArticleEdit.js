@@ -16,7 +16,7 @@ export default class ArticleEdit extends Component {
     }
     getArticle = async (id) => {
         let res = await ArticleService.getArticleForEdit(id) 
-        this.setState({editArticle: res.result[0]})
+        this.setState({editArticle: res.result})
     }
     onChangeHandler = (e) => {
         let newObj = {};
@@ -26,7 +26,7 @@ export default class ArticleEdit extends Component {
     }
     onSubmitHandler = async (e) => {
         e.preventDefault();
-        let res = await ArticleService.submitEditedArticle();
+        let res = await ArticleService.submitEditedArticle(this.state.editArticle);
         if (res.success) {
             this.setState({editArticle: {}})
         }

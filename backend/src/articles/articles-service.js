@@ -1,4 +1,5 @@
 const Config = require('../config');
+const xss = require('xss');
 
 const ArticlesService = {
     insertArticle: function (db, obj) {
@@ -23,13 +24,29 @@ const ArticlesService = {
         return db(Config.ARTICLES_TABLE)
         .select(`id`, `title`)
         .where({author_id})
-        .then(res => res)
+        .then(res => {
+            return res.map( item => {
+                return {
+                    id: xss(item.id),
+                    title: xss(item.title)
+                }
+            })
+        })
 
     },
     getArticleForEdit: function(db, id) {
         return db(Config.ARTICLES_TABLE)
         .where({id})
-        .then(res => res)
+        .then(res => {
+            let obj = res[0];
+            return {
+                id: xss(obj.id),
+                title: xss(obj.title),
+                description: xss(obj.description),
+                content: xss(obj.content),
+                img_url: xss(obj.img_url)
+            }
+        })
     }
 }
 module.exports = ArticlesService;

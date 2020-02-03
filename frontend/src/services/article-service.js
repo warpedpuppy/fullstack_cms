@@ -27,6 +27,18 @@ const ArticleService = {
         })
         let resJson = await res.json();
         return resJson;
+    },
+    async submitEditedArticle(obj) {
+        // let res = await fetch(`${Config.API_ENDPOINT}/articles/article-for-edit/${index}`, {
+        //     method: "POST",
+        //     headers: {
+        //         authorization: `Bearer ${TokenService.getAuthToken()}`
+        //     },
+        //     body: JSON.stringify(obj)
+        // })
+        // let resJson = await res.json();
+        // return resJson;
+
     }
 }
 export default ArticleService;
