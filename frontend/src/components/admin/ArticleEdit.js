@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-
+import './ArticleEdit.css';
 import ArticleService from '../../services/article-service';
+
 export default class ArticleEdit extends Component {
     state = {titles: [], editArticle: {}}
 
@@ -18,11 +19,17 @@ export default class ArticleEdit extends Component {
         this.setState({editArticle: res.result[0]})
     }
     onChangeHandler = (e) => {
-        console.log(e.target.name, e.target.value)
         let newObj = {};
         newObj[e.target.name] = e.target.value;
         let editArticle = Object.assign({}, this.state.editArticle, newObj)
         this.setState({editArticle})
+    }
+    onSubmitHandler = async (e) => {
+        e.preventDefault();
+        let res = await ArticleService.submitEditedArticle();
+        if (res.success) {
+            this.setState({editArticle: {}})
+        }
     }
     render() {
         let titles = this.state.titles.map( (title, i) => {
@@ -34,7 +41,7 @@ export default class ArticleEdit extends Component {
             let {title, description,  content} = this.state.editArticle;
             return (
                 <div className='edit-article-form-cont'>
-                <form>
+                <form id="article-edit" onSubmit={this.onSubmitHandler}>
                     <h4>edit article</h4>
                     <div>
                         <label htmlFor="title">title: </label>
@@ -47,6 +54,9 @@ export default class ArticleEdit extends Component {
                     <div>
                         <label htmlFor="content">content: </label>
                         <textarea onChange={this.onChangeHandler} name="content" value={content} />
+                    </div>
+                    <div>
+                        <input type="submit" />
                     </div>
                 </form>
                 </div>
