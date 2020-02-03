@@ -7,7 +7,7 @@ import './Admin.css';
 import ArticleCreate from '../components/admin/ArticleCreate';
 import EventCreate from '../components/admin/EventCreate';
 import CreateDemoUsers from '../components/admin/CreateDemoUsers';
-import ArticleEdit from '../components/admin/ArticleEdit';
+import ArticleEdit from '../components/admin/articleEdit/ArticleEdit';
 
 export default class Admin extends Component {
     

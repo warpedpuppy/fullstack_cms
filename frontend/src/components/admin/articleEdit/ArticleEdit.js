@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import './ArticleEdit.css';
-import ArticleService from '../../services/article-service';
+import ArticleService from '../../../services/article-service';
 
 export default class ArticleEdit extends Component {
     state = {titles: [], editArticle: {}}
@@ -38,7 +38,7 @@ export default class ArticleEdit extends Component {
         if (!Object.keys(this.state.editArticle).length) {
             return ( <ul>{titles}</ul> )
         } else {
-            let {title, description,  content} = this.state.editArticle;
+            let {title, description, content, img_url} = this.state.editArticle;
             return (
                 <div className='edit-article-form-cont'>
                 <form id="article-edit" onSubmit={this.onSubmitHandler}>
@@ -54,6 +54,9 @@ export default class ArticleEdit extends Component {
                     <div>
                         <label htmlFor="content">content: </label>
                         <textarea onChange={this.onChangeHandler} name="content" value={content} />
+                    </div>
+                    <div>
+                        <img src={img_url} />
                     </div>
                     <div>
                         <input type="submit" />
