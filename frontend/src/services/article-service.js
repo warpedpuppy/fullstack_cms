@@ -43,7 +43,7 @@ const ArticleService = {
     },
     async deleteArticle (id) {
        
-        let res = await fetch(`${Config.API_ENDPOINT}/articles/article-for-edit`, {
+        let res = await fetch(`${Config.API_ENDPOINT}/articles/delete-article`, {
             method: "DELETE",
             headers: {
                 authorization: `Bearer ${TokenService.getAuthToken()}`,

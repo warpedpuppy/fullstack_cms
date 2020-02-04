@@ -59,6 +59,11 @@ const ArticlesService = {
             img_url: obj.img_url,
             date_modified: date
         })
+    },
+    deleteArticle: function(db, id) {
+        return db(Config.ARTICLES_TABLE)
+        .where({id})
+        .del()
     }
 }
 module.exports = ArticlesService;

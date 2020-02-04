@@ -95,5 +95,19 @@ articlesRouter
     }
 
 })
+.delete('/delete-article', requireAuth, jsonBodyParser, async (req, res) => {
+    let { id } = req.body;
+    let result = await ArticleService.deleteArticle(req.app.get('db'), id)
+    console.log(result)
+    if (result) {
+        res
+        .status(200)
+        .json({success: true, result})
+    } else {
+        res
+        .status(500)
+        .json({success: false})
+    }
+})
 
 module.exports = articlesRouter;
