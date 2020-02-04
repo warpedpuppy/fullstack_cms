@@ -18,7 +18,7 @@ export default class Menu extends Component {
                 <Link to="/admin">admin</Link>
                 <button 
                 onClick={this.logout}
-                className={ this.context.loggedIn ? 'show' : 'hide'}>log out</button>
+                className={ TokenService.hasAuthToken() ? 'show' : 'hide'}>log out</button>
             </nav>
         )
     }
