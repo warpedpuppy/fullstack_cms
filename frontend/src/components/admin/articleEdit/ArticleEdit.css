@@ -17,11 +17,42 @@
     margin:0 auto;
     width: 30%;
 }
+.edit-article-shell {
+    text-align: center;
+}
+.edit-article-form-cont {
+    border: 1px solid black;
+    background-color: lightgray;
+    display: inline-block;
+    margin: 10px auto;
+    padding: 20px;
+    position: relative;
+}
 .edit-article-form-cont .close-button {
     font-size: 50px;
     display: inline-block;
     padding: 10px;
     cursor: pointer;
     background-color: red;
-    float:right;
+
+}
+
+.edit-article-form-cont .cover {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 0, 0, 0.75);
+    z-index: 2;
+    position: absolute;
+    left: 0;
+    top: 0;
+
+}
+.edit-titles li {
+    display: block;
+    width: 300px;
+    border: 1px solid black;
+    border-radius: 10px;
+    cursor: pointer;
+    text-align: center;
+    margin: 10px auto;
 }

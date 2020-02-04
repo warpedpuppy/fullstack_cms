@@ -5,7 +5,7 @@ import UploadService from '../../../services/uploader-service';
 import ArticleEditForm from './ArticleEditForm';
 
 export default class ArticleEdit extends Component {
-    state = {titles: [], editArticle: {}, storeImgUrl: null}
+    state = {titles: [], editArticle: {}, storeImgUrl: null, deleteModal: false}
 
     componentDidMount(){
         this.getArticleTitles();
@@ -62,13 +62,17 @@ export default class ArticleEdit extends Component {
             return <li key={i} onClick={() => this.getArticle(title.id)}>{title.title}</li>
         })
         if (!Object.keys(this.state.editArticle).length) {
-            return ( <><h2>choose articles to edit: </h2><ul>{titles}</ul></> )
+            return ( <><h2>choose articles to edit: </h2><ul className="edit-titles">{titles}</ul></> )
         } else {
             let {title, description, content, img_url} = this.state.editArticle;
             return (
+                <div className="edit-article-shell">
                 <div className='edit-article-form-cont'>
-                    <span className="close-button" onClick={() => this.setState({editArticle: {}})}>&times;</span>
+                
+                    
                 <form id="article-edit" onSubmit={this.onSubmitHandler}>
+                <span className="close-button" onClick={() => this.setState({editArticle: {}})}>&times;</span>
+                <button onClick={(e) => {e.preventDefault(); this.setState({deleteModal: true})}}>delete article</button>
                     <h4>edit article</h4>
                     <div>
                         <label htmlFor="title">title: </label>
@@ -91,8 +95,11 @@ export default class ArticleEdit extends Component {
                         <input type="submit" />
                     </div>
                 </form>
+                <div className={`cover ${this.state.deleteModal? 'show' : 'hide'}`}>
+                    <button onClick={(e) => {e.preventDefault(); this.setState({deleteModal: false})}}>cancel delete</button>
                 </div>
-             
+                </div>
+                </div>
             )
         }
         
