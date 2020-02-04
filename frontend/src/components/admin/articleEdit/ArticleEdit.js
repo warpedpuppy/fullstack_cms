@@ -31,12 +31,11 @@ export default class ArticleEdit extends Component {
         }
         
     }
-    deleteArticle = (e) => {
+    deleteArticle = async (e) => {
         e.preventDefault(); 
-        let res = ArticleService.deleteArticle(this.state.editArticle.id);
+        let res = await ArticleService.deleteArticle(this.state.editArticle.id);
 
-        console.log(res)
-        if(res) {
+        if (res.success) {
             this.setState({editArticle: {}, deleteModal: false})
             this.getArticleTitles();
         }

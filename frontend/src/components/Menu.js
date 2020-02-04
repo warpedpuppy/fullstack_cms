@@ -8,7 +8,6 @@ export default class Menu extends Component {
     logout = (e) => {
         e.preventDefault();
         TokenService.clearAuthToken();
-        this.context.setLoggedIn(false)
     }
     render() {
         return (
