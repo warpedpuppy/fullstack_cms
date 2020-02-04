@@ -31,6 +31,16 @@ export default class ArticleEdit extends Component {
         }
         
     }
+    deleteArticle = (e) => {
+        e.preventDefault(); 
+        let res = ArticleService.deleteArticle(this.state.editArticle.id);
+
+        console.log(res)
+        if(res) {
+            this.setState({editArticle: {}, deleteModal: false})
+            this.getArticleTitles();
+        }
+    }
     onSubmitHandler = async (e) => {
         e.preventDefault();
         if (this.state.storeImgUrl === this.state.editArticle.img_url) {
@@ -97,7 +107,7 @@ export default class ArticleEdit extends Component {
                 </form>
                 <div className={`cover ${this.state.deleteModal? 'show' : 'hide'}`}>
                     <button onClick={(e) => {e.preventDefault(); this.setState({deleteModal: false})}}>cancel delete</button>
-                    <button onClick={ (e) => {e.preventDefault(); ArticleService.deleteArticle(this.state.editArticle.id)}}>confirm delete</button>
+                    <button onClick={ this.deleteArticle }>confirm delete</button>
                 </div>
                 </div>
                 </div>
