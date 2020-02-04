@@ -97,6 +97,7 @@ export default class ArticleEdit extends Component {
                 </form>
                 <div className={`cover ${this.state.deleteModal? 'show' : 'hide'}`}>
                     <button onClick={(e) => {e.preventDefault(); this.setState({deleteModal: false})}}>cancel delete</button>
+                    <button onClick={ (e) => {e.preventDefault(); ArticleService.deleteArticle(this.state.editArticle.id)}}>confirm delete</button>
                 </div>
                 </div>
                 </div>

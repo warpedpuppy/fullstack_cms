@@ -40,6 +40,19 @@ const ArticleService = {
         let resJson = await res.json();
         return resJson;
 
+    },
+    async deleteArticle (id) {
+       
+        let res = await fetch(`${Config.API_ENDPOINT}/articles/article-for-edit`, {
+            method: "DELETE",
+            headers: {
+                authorization: `Bearer ${TokenService.getAuthToken()}`,
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify({id})
+        })
+        let resJson = await res.json();
+        return resJson;
     }
 }
 export default ArticleService;
