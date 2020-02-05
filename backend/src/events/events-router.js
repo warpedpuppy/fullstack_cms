@@ -34,10 +34,9 @@ eventsRouter
   }
 
 })
-.get('get-event-details/:id', requireAuth, async (res, req) => {
+.get('/get-event-details/:id', requireAuth, async (req, res) => {
   let { id } = req.params;
-  console.log(id)
-  let result = await EventsService.getEventDetails(id);
+  let result = await EventsService.getEventDetails(req.app.get('db'),id);
   if (result) {
     res
     .status(200)

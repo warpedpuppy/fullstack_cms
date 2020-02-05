@@ -8,3 +8,24 @@
     width: 800px;
 
 }
+
+
+#event-edit-form {
+    display: block;
+    width: 800px;
+    margin: 20px auto;
+}
+#event-edit-form input,
+#event-edit-form textarea {
+    display:block;
+    width: 100%;
+    margin: 20px auto;
+    padding: 10px;
+    border-radius: 3px;
+    border: 1px solid #CCC;
+}
+#event-edit-form img {
+    display:block;
+    margin:0 auto;
+    width: 30%;
+}

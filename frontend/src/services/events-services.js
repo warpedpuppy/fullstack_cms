@@ -81,13 +81,11 @@ const EventsServices = {
         authorization: `Bearer ${TokenService.getAuthToken()}`,
       },
     });
-    const resultJson = await result.json();
-    return resultJson;
+    return await result.json();
   },
   async getEventDetails(id) {
     let result = await fetch(`${config.API_ENDPOINT}/events/get-event-details/${id}`, {
       headers: {
-        'content-type': 'application/json',
         authorization: `Bearer ${TokenService.getAuthToken()}`,
       }
     });
