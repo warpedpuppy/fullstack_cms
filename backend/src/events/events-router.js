@@ -18,6 +18,22 @@ eventsRouter
         .json({success: false})
     }
 })
+.get('/titles-for-edit', requireAuth, async (req, res) => {
+
+  if (req.tokenData.sub === 'admin') {
+    let result = await EventsService.getTitlesForEdit(req.app.get('db'));
+    if (result) {
+        res
+        .status(200)
+        .json({success: true, result})
+    } else {
+        res
+        .status(500)
+        .json({success: false})
+    }
+  }
+
+})
 .post('/new-event', jsonBodyParser, requireAuth, (req, res) => {
     let obj = req.body;
     EventsService.insertEvent(req.app.get('db'), obj)

@@ -12,5 +12,12 @@ const EventsServices = {
         .returning("*")
         .then(event => event)
     },
+    getTitlesForEdit: function(db) {
+
+        return db(Config.EVENTS_TABLE)
+        .select('id', 'eventname', 'date_of_event')
+        .returning("*")
+        .then(events => events)
+    }
 }
 module.exports = EventsServices;

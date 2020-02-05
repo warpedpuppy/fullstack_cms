@@ -8,10 +8,13 @@ import ArticleCreate from '../components/admin/ArticleCreate';
 import EventCreate from '../components/admin/EventCreate';
 import CreateDemoUsers from '../components/admin/CreateDemoUsers';
 import ArticleEdit from '../components/admin/articleEdit/ArticleEdit';
-
+import EventEdit from '../components/admin/eventEdit/EventEdit';
 export default class Admin extends Component {
     
+
     render() {
+        let eventEdit = TokenService.parseJwt(TokenService.getAuthToken()).sub === 'admin' ? <EventEdit /> : null ;
+
         if (!TokenService.hasAuthToken()) {
             return (
                 <div>
@@ -30,11 +33,14 @@ export default class Admin extends Component {
                 <h1>logged in {user}  </h1>
                 { buttons }
                 <hr /> <hr /> <hr /> <hr /> <hr /> <hr /> <hr /> <hr />
+                {eventEdit}
+                <hr /> <hr /> <hr /> <hr /> <hr /> <hr /> <hr /> <hr />
                 <ArticleEdit />
                 <hr /> <hr /> <hr /> <hr /> <hr /> <hr /> <hr /> <hr />
                 <EventCreate />
                 <hr /> <hr /> <hr /> <hr /> <hr /> <hr /> <hr /> <hr />
                 <ArticleCreate />
+                
                 </>
             )
         }

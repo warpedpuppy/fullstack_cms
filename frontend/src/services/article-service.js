@@ -15,7 +15,6 @@ const ArticleService = {
         let resJson = await res.json();
 
         if (resJson) {
-            console.log(resJson);
             return resJson;
         }
     },

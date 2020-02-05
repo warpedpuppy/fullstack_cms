@@ -13,6 +13,14 @@ const EventsServices = {
     });
     return await response.json();
   },
+  async getEventTitles() {
+    const response = await fetch(`${config.API_ENDPOINT}/events/titles-for-edit`, {
+      headers: {
+        authorization: `Bearer ${TokenService.getAuthToken()}`,
+      },
+    });
+    return await response.json();
+  },
   deletePhoto(id, url) {
     const obj = {
       id, url,
