@@ -25,11 +25,15 @@ export default class EventEdit extends Component {
         console.log(e.target.name, e.target.value)
         let obj = Object.assign({})
     }
+    onEditFormSubmitHandler = (e) => {
+        e.preventDefault();
+    }
     render() {
         let titles = this.state.eventTitles.map((title, i) => {
             return <li onClick={() => this.getEventDetails(title.id) } key={i}>{title.id} {title.eventname} {title.date_of_event}</li>
         })
         if (Object.keys(this.state.eventToEdit).length) {
+            let date = new Date(this.state.eventToEdit.date_of_event).toISOString().substr(0,10);
             return (
                 <form id="event-edit-form" onSubmit={this.onEditFormSubmitHandler}>
                     <div>
@@ -47,6 +51,14 @@ export default class EventEdit extends Component {
                         name="description" 
                         type="text" 
                         value={this.state.eventToEdit.description} />
+                    </div>
+                    <div>
+                        <label htmlFor="description">event date</label>
+                        <input 
+                        onChange={ this.onChangeEventHandler} 
+                        name="description" 
+                        type="date" 
+                        value={date} />
                     </div>
 
 
