@@ -36,6 +36,11 @@ export default class EventEdit extends Component {
             let date = new Date(this.state.eventToEdit.date_of_event).toISOString().substr(0,10);
             return (
                 <form id="event-edit-form" onSubmit={this.onEditFormSubmitHandler}>
+                    <button onClick={ 
+                        (e) => 
+                        {e.preventDefault(); 
+                    this.setState({eventToEdit:{}})}
+                } >&times;</button>
                     <div>
                         <label htmlFor="eventname">event name</label>
                         <input 
@@ -56,12 +61,36 @@ export default class EventEdit extends Component {
                         <label htmlFor="description">event date</label>
                         <input 
                         onChange={ this.onChangeEventHandler} 
-                        name="description" 
+                        name="date_of_event" 
                         type="date" 
                         value={date} />
                     </div>
-
-
+                    <div>
+                        <label htmlFor="description">start hour</label>
+                        <input 
+                        onChange={ this.onChangeEventHandler} 
+                        name="hour_start" 
+                        type="text" 
+                        value={this.state.eventToEdit.hour_start} />
+                    </div>
+                    <div>
+                        <label htmlFor="description">end hour</label>
+                        <input 
+                        onChange={ this.onChangeEventHandler} 
+                        name="hour_end" 
+                        type="text" 
+                        value={this.state.eventToEdit.hour_end} />
+                    </div>
+                    <div>
+                        <img src={this.state.eventToEdit.img_url} alt={this.state.eventToEdit.eventname} />
+                        <input 
+                        onChange={ this.onChangeEventHandler} 
+                        name="img_url" 
+                        type="file" />
+                    </div>
+                    <div>
+                        <input type="submit" />
+                    </div>
                 </form>
             )
         } else {
