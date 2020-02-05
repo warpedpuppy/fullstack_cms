@@ -33,14 +33,13 @@ export default class Admin extends Component {
                 <h1>logged in {user}  </h1>
                 { buttons }
                 <hr /> <hr /> <hr /> <hr /> <hr /> <hr /> <hr /> <hr />
-                {eventEdit}
-                <hr /> <hr /> <hr /> <hr /> <hr /> <hr /> <hr /> <hr />
                 <ArticleEdit />
                 <hr /> <hr /> <hr /> <hr /> <hr /> <hr /> <hr /> <hr />
                 <EventCreate />
                 <hr /> <hr /> <hr /> <hr /> <hr /> <hr /> <hr /> <hr />
                 <ArticleCreate />
-                
+                <hr /> <hr /> <hr /> <hr /> <hr /> <hr /> <hr /> <hr />
+                {eventEdit}
                 </>
             )
         }

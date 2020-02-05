@@ -1,0 +1,10 @@
+#edit-events li {
+    display: block;
+    margin: 10px auto;
+    border: 1px solid black;
+    cursor: pointer;
+    text-align: center;
+    padding: 5px;
+    width: 800px;
+
+}

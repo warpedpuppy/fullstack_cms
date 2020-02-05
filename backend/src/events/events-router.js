@@ -34,6 +34,21 @@ eventsRouter
   }
 
 })
+.get('get-event-details/:id', requireAuth, async (res, req) => {
+  let { id } = req.params;
+  console.log(id)
+  let result = await EventsService.getEventDetails(id);
+  if (result) {
+    res
+    .status(200)
+    .json({success: true, result})
+} else {
+    res
+    .status(500)
+    .json({success: false})
+}
+
+})
 .post('/new-event', jsonBodyParser, requireAuth, (req, res) => {
     let obj = req.body;
     EventsService.insertEvent(req.app.get('db'), obj)

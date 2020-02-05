@@ -18,6 +18,12 @@ const EventsServices = {
         .select('id', 'eventname', 'date_of_event')
         .returning("*")
         .then(events => events)
+    },
+    getEventDetails: function(db, id) {
+        return db(Config.EVENTS_TABLE)
+        .where({id})
+        .returning("*")
+        .then(event => event)
     }
 }
 module.exports = EventsServices;
