@@ -42,5 +42,10 @@ const EventsServices = {
         })
         .then(result => result)
     },
+    deleteEvent: function(db, id) {
+        return db(Config.EVENTS_TABLE)
+        .where({id})
+        .del()
+    }
 }
 module.exports = EventsServices;

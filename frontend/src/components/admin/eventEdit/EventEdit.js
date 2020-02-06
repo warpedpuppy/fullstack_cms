@@ -3,7 +3,7 @@ import './EventEdit.css';
 import EventService from '../../../services/events-services';
 import UploadService from '../../../services/uploader-service';
 export default class EventEdit extends Component {
-    state = {eventTitles: [], eventToEdit: {}, storeImgUrl: null}
+    state = {eventTitles: [], eventToEdit: {}, storeImgUrl: null, formDisabled: false}
     componentDidMount () {
        this.getEventTitles()
     }
@@ -29,29 +29,41 @@ export default class EventEdit extends Component {
         let eventToEdit = Object.assign({}, this.state.eventToEdit, temp);
         this.setState({eventToEdit})
     }
+    deleteEventHandler = async (e) => {
+        e.preventDefault();
+        let res = await EventService.deleteEvent(this.state.eventToEdit.id);
+        console.log(res)
+        if(res.success) {
+            this.setState({eventToEdit: {}, storeImgUrl: null, formDisabled: false})
+            this.getEventTitles()
+        }
+    }
     onEditFormSubmitHandler = async (e) => {
         e.preventDefault();
+        this.setState({formDisabled: true})
         if (this.state.storeImgUrl === this.state.eventToEdit.img_url) {
 
             let res = await EventService.submitEditedEvent(this.state.eventToEdit);
 
             if (res.success) {
-                this.setState({eventToEdit: {}, storeImgUrl: null})
+                this.setState({eventToEdit: {}, storeImgUrl: null, formDisabled: false})
                 this.getEventTitles();
             }
         } else {
 
 
             //upload new image
-            let photoName =  UploadService.createFileNames(this.state.eventToEdit, 'edit-article-image')
-            let res = await UploadService.initUpload('edit-article-image', photoName.imageName);
+            let photoName =  UploadService.createFileNames(this.state.eventToEdit, 'edit-event-image')
+            let res = await UploadService.initUpload('edit-event-image', photoName.imageName);
+
             //then 
             if (res) {
 
                 let objForUpload = Object.assign({}, this.state.eventToEdit, {img_url: photoName.img_url})
                 let res2 = await EventService.submitEditedEvent(objForUpload);
+
                 if (res2.success) {
-                    this.setState({eventToEdit: {}, storeImgUrl: null})
+                    this.setState({eventToEdit: {}, storeImgUrl: null, formDisabled: false})
                     this.getEventTitles();
                 }
             }
@@ -71,6 +83,7 @@ export default class EventEdit extends Component {
                         {e.preventDefault(); 
                     this.setState({eventToEdit:{}})}
                 } >&times;</button>
+                <button onClick={ this.deleteEventHandler }>delete event</button>
                     <div>
                         <label htmlFor="eventname">event name</label>
                         <input 
@@ -116,10 +129,11 @@ export default class EventEdit extends Component {
                         <input 
                         onChange={ this.onChangeEventHandler} 
                         name="img_url" 
+                        id="edit-event-image"
                         type="file" />
                     </div>
                     <div>
-                        <input type="submit" />
+                        <input type="submit" disabled={this.state.formDisabled} />
                     </div>
                 </form>
             )

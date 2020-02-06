@@ -104,7 +104,18 @@ const EventsServices = {
       return await res.json();
 
   },
-
+  async deleteEvent (id) {
+       
+      let res = await fetch(`${config.API_ENDPOINT}/events/delete-event`, {
+          method: "DELETE",
+          headers: {
+              authorization: `Bearer ${TokenService.getAuthToken()}`,
+              'content-type': 'application/json'
+          },
+          body: JSON.stringify({id})
+      })
+      return await res.json();
+  }
 
 };
 export default EventsServices;

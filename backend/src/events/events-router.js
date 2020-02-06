@@ -35,10 +35,8 @@ eventsRouter
 
 })
 .post('/event-for-edit', requireAuth, jsonBodyParser, async (req, res) => {
-
   let { id, eventname, description, date_of_event, hour_start, hour_end, img_url } = req.body;
   let obj = { id, eventname, description, date_of_event, hour_start, hour_end, img_url }; 
-
   let result = await EventsService.postEventForEdit(req.app.get('db'), obj);
   if (result) {
       res
@@ -74,5 +72,18 @@ eventsRouter
       .json({success: false})
     })
   })
+  .delete('/delete-event', requireAuth, jsonBodyParser, async (req, res) => {
+    let { id } = req.body;
+    let result = await EventsService.deleteEvent(req.app.get('db'), id)
+    if (result) {
+        res
+        .status(200)
+        .json({success: true, result})
+    } else {
+        res
+        .status(500)
+        .json({success: false})
+    }
+})
 
 module.exports = eventsRouter;

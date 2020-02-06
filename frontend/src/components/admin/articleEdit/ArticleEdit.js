@@ -5,7 +5,7 @@ import UploadService from '../../../services/uploader-service';
 import ArticleEditForm from './ArticleEditForm';
 
 export default class ArticleEdit extends Component {
-    state = {titles: [], editArticle: {}, storeImgUrl: null, deleteModal: false}
+    state = {titles: [], editArticle: {}, storeImgUrl: null, deleteModal: false, formDisable: false}
 
     componentDidMount(){
         this.getArticleTitles();
@@ -42,10 +42,11 @@ export default class ArticleEdit extends Component {
     }
     onSubmitHandler = async (e) => {
         e.preventDefault();
+        this.setState({formDisable: true})
         if (this.state.storeImgUrl === this.state.editArticle.img_url) {
             let res = await ArticleService.submitEditedArticle(this.state.editArticle);
             if (res.success) {
-                this.setState({editArticle: {}, storeImgUrl: null})
+                this.setState({editArticle: {}, storeImgUrl: null, formDisable: false})
                 this.getArticleTitles();
             }
         } else {
@@ -59,7 +60,8 @@ export default class ArticleEdit extends Component {
                 let objForUpload = Object.assign({}, this.state.editArticle, {img_url: photoName.img_url})
                 let res2 = await ArticleService.submitEditedArticle(objForUpload);
                 if (res2.success) {
-                    this.setState({editArticle: {}, storeImgUrl: null})
+                    this.setState({editArticle: {}, storeImgUrl: null, formDisable: false})
+                    this.getArticleTitles();
                 }
             }
         }
@@ -101,7 +103,7 @@ export default class ArticleEdit extends Component {
                         <input  onChange={this.onChangeHandler} name="img_url" type="file" id="edit-article-image" />
                     </div>
                     <div>
-                        <input type="submit" />
+                        <input type="submit" disabled={this.state.formDisable} />
                     </div>
                 </form>
                 <div className={`cover ${this.state.deleteModal? 'show' : 'hide'}`}>
