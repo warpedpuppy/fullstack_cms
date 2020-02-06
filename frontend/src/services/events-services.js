@@ -90,7 +90,20 @@ const EventsServices = {
       }
     });
     return await result.json();
-  }
+  },
+  async submitEditedEvent(obj) {
+    console.log(obj)
+      let res = await fetch(`${config.API_ENDPOINT}/events/event-for-edit`, {
+          method: "POST",
+          headers: {
+              authorization: `Bearer ${TokenService.getAuthToken()}`,
+              'content-type': 'application/json'
+          },
+          body: JSON.stringify(obj)
+      })
+      return await res.json();
+
+  },
 
 
 };

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import './EventEdit.css';
 import EventService from '../../../services/events-services';
+import UploadService from '../../../services/uploader-service';
 export default class EventEdit extends Component {
-    state = {eventTitles: [], eventToEdit: {}}
+    state = {eventTitles: [], eventToEdit: {}, storeImgUrl: null}
     componentDidMount () {
        this.getEventTitles()
     }
@@ -18,15 +19,44 @@ export default class EventEdit extends Component {
         let res = await EventService.getEventDetails(id);
         console.log(res)
         if (res.success) {
-            this.setState({eventToEdit: res.result[0]})
+            this.setState({eventToEdit: res.result[0], storeImgUrl: res.result[0].img_url})
         }
     }
     onChangeEventHandler = (e) => {
         console.log(e.target.name, e.target.value)
-        let obj = Object.assign({})
+        let temp = {};
+        temp[e.target.name] = e.target.value;
+        let eventToEdit = Object.assign({}, this.state.eventToEdit, temp);
+        this.setState({eventToEdit})
     }
-    onEditFormSubmitHandler = (e) => {
+    onEditFormSubmitHandler = async (e) => {
         e.preventDefault();
+        if (this.state.storeImgUrl === this.state.eventToEdit.img_url) {
+
+            let res = await EventService.submitEditedEvent(this.state.eventToEdit);
+
+            if (res.success) {
+                this.setState({eventToEdit: {}, storeImgUrl: null})
+                this.getEventTitles();
+            }
+        } else {
+
+
+            //upload new image
+            let photoName =  UploadService.createFileNames(this.state.eventToEdit, 'edit-article-image')
+            let res = await UploadService.initUpload('edit-article-image', photoName.imageName);
+            //then 
+            if (res) {
+
+                let objForUpload = Object.assign({}, this.state.eventToEdit, {img_url: photoName.img_url})
+                let res2 = await EventService.submitEditedEvent(objForUpload);
+                if (res2.success) {
+                    this.setState({eventToEdit: {}, storeImgUrl: null})
+                    this.getEventTitles();
+                }
+            }
+
+        }
     }
     render() {
         let titles = this.state.eventTitles.map((title, i) => {
@@ -82,7 +112,7 @@ export default class EventEdit extends Component {
                         value={this.state.eventToEdit.hour_end} />
                     </div>
                     <div>
-                        <img src={this.state.eventToEdit.img_url} alt={this.state.eventToEdit.eventname} />
+                        <img src={this.state.storeImgUrl} alt={this.state.eventToEdit.eventname} />
                         <input 
                         onChange={ this.onChangeEventHandler} 
                         name="img_url" 

@@ -1,7 +1,7 @@
 const Config = require('../config');
 
 const EventsServices = {
-    getEvents: function(db, obj) {
+    getEvents: function(db) {
         return db(Config.EVENTS_TABLE)
         .orderBy('date_of_event')
         .then(events => events )
@@ -16,6 +16,7 @@ const EventsServices = {
 
         return db(Config.EVENTS_TABLE)
         .select('id', 'eventname', 'date_of_event')
+        .orderBy('id')
         .returning("*")
         .then(events => events)
     },
@@ -24,6 +25,22 @@ const EventsServices = {
         .where({id})
         .returning("*")
         .then(event => event)
-    }
+    },
+    postEventForEdit: function(db, obj) {
+        let date = new Date();
+        let { id, eventname, description, date_of_event, hour_start, hour_end, img_url } = obj;
+        return db(Config.EVENTS_TABLE)
+        .where({id})
+        .update({
+            eventname,
+            description,
+            date_of_event,
+            hour_start,
+            hour_end,
+            img_url,
+            date_modified: date
+        })
+        .then(result => result)
+    },
 }
 module.exports = EventsServices;

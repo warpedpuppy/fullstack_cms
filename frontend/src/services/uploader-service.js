@@ -28,7 +28,7 @@ const UploaderService = {
         return result.ok;
     },
     createFileNames(obj, string) {
-        const titleWithoutSpaces = obj.title.replace(/ /g, '');
+        const titleWithoutSpaces = obj.title ? obj.title.replace(/ /g, '') : obj.eventname.replace(/ /g, '');
         const { files } = document.getElementById(string);
         const imageName = `${titleWithoutSpaces}${files[0].name}`;
 
