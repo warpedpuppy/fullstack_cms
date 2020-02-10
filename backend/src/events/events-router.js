@@ -59,7 +59,6 @@ eventsRouter
 
 })
 .post('/new-event', jsonBodyParser, requireAuth, async (req, res) => {
-    console.log('hit', req.body)
     let obj = req.body;
     let result = await EventsService.insertEvent(req.app.get('db'), obj)
     

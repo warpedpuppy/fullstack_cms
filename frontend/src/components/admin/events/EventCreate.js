@@ -1,9 +1,9 @@
 import React from 'react';
 import './EventCreate.css';
-import EventServices from '../../services/events-services';
-import UploadService from '../../services/uploader-service';
-import SiteContext from '../../SiteContext';
-import Spinners from '../../components/Spinners';
+import EventServices from '../../../services/events-services';
+import UploadService from '../../../services/uploader-service';
+import SiteContext from '../../../SiteContext';
+import Spinners from '../../Spinners';
 export default class EventCreate extends React.Component {
 
     constructor(props){
@@ -15,7 +15,7 @@ export default class EventCreate extends React.Component {
         this.state = {
             eventObj: {},
             image: '',
-            counter: 2,
+            loading: false,
             photoSizeCheck: false,
             photoMessage: "images must be 640x480"
         }
@@ -57,7 +57,7 @@ export default class EventCreate extends React.Component {
         if (!this.state.photoSizeCheck) return;
 
 
-        this.setState({counter: 0})
+        this.setState({loading: true})
         const obj = {
             eventname: form.eventname.value,
             date_of_event: form.event_date.value,
@@ -74,17 +74,13 @@ export default class EventCreate extends React.Component {
        let res =  await EventServices.postNewEvent(obj)
        
        if (res) {
-            this.setState({
-                counter: this.state.counter + 1
-            })
-            //get the id from the backend
             obj.id = res.event;
             let res2 = await UploadService.initUpload('event_image', fileNames.imageName)
             if(res2) {
                 this.setState({
                     photoMessage: "images must be 640x480",
                     photoSizeCheck: false,
-                    counter: 2
+                    loading: false
                 })
                 form.reset();
             }
@@ -120,10 +116,8 @@ export default class EventCreate extends React.Component {
     }
 
     render() {
-        let spinnerClass = (this.state.counter === 2) ? 'hide' : 'show';
+        let spinnerClass = (this.state.loading) ? 'hide' : 'show';
         let photoMessageClass = (this.state.photoSizeCheck)? 'photo-message-success' : 'photo-message-error';
-        
-        //let minutes = this.minutes.map
         return (
             <div>
 
