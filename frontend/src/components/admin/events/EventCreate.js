@@ -51,11 +51,8 @@ export default class EventCreate extends React.Component {
     onSubmitHandler = async (e) => {
 
         e.preventDefault();
-
         let form = e.target;
-
         if (!this.state.photoSizeCheck) return;
-
 
         this.setState({loading: true})
         const obj = {
@@ -70,7 +67,6 @@ export default class EventCreate extends React.Component {
         obj.time_start = `${form.hour_start.value}:${form.minutes_start.value} ${form.am_pm_start.value}`
         obj.time_end = `${form.hour_end.value}:${form.minutes_end.value} ${form.am_pm_end.value}`
        
-
        let res =  await EventServices.postNewEvent(obj)
        
        if (res) {
@@ -85,9 +81,6 @@ export default class EventCreate extends React.Component {
                 form.reset();
             }
         }
-
-
-        
     }
 
     onChangeHandler = (e) => {
