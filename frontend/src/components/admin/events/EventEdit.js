@@ -5,7 +5,14 @@ import UploadService from '../../../services/uploader-service';
 export default class EventEdit extends Component {
     state = {eventTitles: [], eventToEdit: {}, storeImgUrl: null, formDisabled: false}
     componentDidMount () {
-       this.getEventTitles()
+       this.getEventTitles();
+       this.hours = Array.from(Array(12).keys()).map( (hour, i) => {
+            let h = hour + 1;
+            return <option value={h} key={i}>{h}</option>
+        })
+        this.minutes = ["00", "15", "30", "45"].map( (minute, i) => {
+            return <option value={minute} key={minute}>{minute}</option>
+        })
     }
 
     getEventTitles = async () => {
@@ -114,7 +121,7 @@ export default class EventEdit extends Component {
                         onChange={ this.onChangeEventHandler} 
                         name="hour_start" 
                         type="text" 
-                        value={this.state.eventToEdit.hour_start} />
+                        value={this.state.eventToEdit.time_start} />
                     </div>
                     <div>
                         <label htmlFor="description">end hour</label>
@@ -122,7 +129,27 @@ export default class EventEdit extends Component {
                         onChange={ this.onChangeEventHandler} 
                         name="hour_end" 
                         type="text" 
-                        value={this.state.eventToEdit.hour_end} />
+                        value={this.state.eventToEdit.time_end} />
+                    </div>
+                    <div>
+                        <label>time start: </label>
+                        <select name="hour_start" onChange={this.onChangeHandler}>{this.hours}</select> : 
+                        <select name="minutes_start" onChange={this.onChangeHandler}>{this.minutes}</select> 
+                        <select name="am_pm_start" onChange={this.onChangeHandler} defaultValue="pm">
+                            <option value="am">am</option>
+                            <option value="pm">pm</option>
+                        </select>
+
+                    </div>
+                    <div>
+                        <label>time end: </label>
+                        <select name="hour_end" onChange={this.onChangeHandler}>{this.hours}</select> : 
+                        <select name="minutes_end" onChange={this.onChangeHandler}>{this.minutes}</select> 
+                        <select name="am_pm_end" onChange={this.onChangeHandler} defaultValue="pm">
+                            <option value="am">am</option>
+                            <option value="pm">pm</option>
+                        </select>
+
                     </div>
                     <div>
                         <img src={this.state.storeImgUrl} alt={this.state.eventToEdit.eventname} />

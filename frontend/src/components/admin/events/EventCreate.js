@@ -91,28 +91,11 @@ export default class EventCreate extends React.Component {
     }
 
     onChangeHandler = (e) => {
-        const {name} = e.currentTarget;
-        let obj = {};
-        if (name === 'title') {
-            obj = { title: e.currentTarget.value };
-        } else if (name === 'event_date') {
-            obj = { date: e.currentTarget.value };
-        } else if (name === 'event_description') {
-            obj = {  description: e.currentTarget.value };
-        } else if (name === 'event_image') {
-
-            const { files } = document.getElementById('event_image');
-            this.file = files[0];
-            var url = URL.createObjectURL(this.file);
-            this.img.src = url;
-            this.imgValue = e.currentTarget.value;
-            
-            obj = { image: e.currentTarget.value };
-        } else {
-            obj[name] = e.targetValue;
-        }
-        let newObj = Object.assign({}, this.state.eventObj, obj)
-        this.setState({eventObj: newObj});
+        const { files } = document.getElementById('event_image');
+        this.file = files[0];
+        var url = URL.createObjectURL(this.file);
+        this.img.src = url;
+        this.imgValue = e.currentTarget.value;
     }
 
     render() {
@@ -132,19 +115,19 @@ export default class EventCreate extends React.Component {
                             <div>
                                 <label>event title:
                                 </label>
-                                <input placeholder="test title" type="text" name="eventname" onChange={ this.onChangeHandler }/>
+                                <input placeholder="test title" type="text" name="eventname" />
                             </div>
 
                             <div>
                                 <label>date:
                                 </label>
-                                <input type="date" defaultValue={ this.state.date } name="event_date" onChange={ this.onChangeHandler }/>
+                                <input type="date" defaultValue={ this.state.date } name="event_date" />
                             </div>
                             <div>
                                     <label>time start: </label>
-                                    <select name="hour_start" onChange={this.onChangeHandler}>{this.hours}</select> : 
-                                    <select name="minutes_start" onChange={this.onChangeHandler}>{this.minutes}</select> 
-                                    <select name="am_pm_start" onChange={this.onChangeHandler} defaultValue="pm">
+                                    <select name="hour_start" >{this.hours}</select> : 
+                                    <select name="minutes_start" >{this.minutes}</select> 
+                                    <select name="am_pm_start" defaultValue="pm">
                                         <option value="am">am</option>
                                         <option value="pm">pm</option>
                                     </select>
@@ -152,9 +135,9 @@ export default class EventCreate extends React.Component {
                             </div>
                             <div>
                                     <label>time end: </label>
-                                    <select name="hour_end" onChange={this.onChangeHandler}>{this.hours}</select> : 
-                                    <select name="minutes_end" onChange={this.onChangeHandler}>{this.minutes}</select> 
-                                    <select name="am_pm_end" onChange={this.onChangeHandler} defaultValue="pm">
+                                    <select name="hour_end" >{this.hours}</select> : 
+                                    <select name="minutes_end" >{this.minutes}</select> 
+                                    <select name="am_pm_end" defaultValue="pm">
                                         <option value="am">am</option>
                                         <option value="pm">pm</option>
                                     </select>
@@ -163,16 +146,11 @@ export default class EventCreate extends React.Component {
                             <div>
                                 <label>event description:
                                 </label>
-                                <textarea placeholder="test desc" as="textarea" name="event_description" rows="3"
-                                    onChange={
-                                        this.onChangeHandler
-                                    }/>
+                                <textarea placeholder="test desc" as="textarea" name="event_description" rows="3" />
                             </div>
                             <div className="custom-file">
                                 <input type="file" className="custom-file-input" name="event_image" id="event_image"
-                                    onChange={
-                                        this.onChangeHandler
-                                    }
+                                    onChange={ this.onChangeHandler }
                                     accept=".jpg, .png, .gif, .jpeg"/>
                                 <label className="custom-file-label" id="loader-label" htmlFor="event_image">upload a new image 640x480
                                 </label>
