@@ -34,9 +34,9 @@ eventsRouter
   }
 
 })
-.post('/event-for-edit', requireAuth, jsonBodyParser, async (req, res) => {
-  let { id, eventname, description, date_of_event, hour_start, hour_end, img_url } = req.body;
-  let obj = { id, eventname, description, date_of_event, hour_start, hour_end, img_url }; 
+.put('/event-for-edit', requireAuth, jsonBodyParser, async (req, res) => {
+  let { id, eventname, description, date_of_event, time_start, time_end, img_url } = req.body;
+  let obj = { id, eventname, description, date_of_event, time_start, time_end, img_url }; 
   let result = await EventsService.postEventForEdit(req.app.get('db'), obj);
   if (result) {
       res

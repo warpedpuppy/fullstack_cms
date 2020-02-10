@@ -29,15 +29,15 @@ const EventsServices = {
     },
     postEventForEdit: function(db, obj) {
         let date = new Date();
-        let { id, eventname, description, date_of_event, hour_start, hour_end, img_url } = obj;
+        let { id, eventname, description, date_of_event, time_start, time_end, img_url } = obj;
         return db(Config.EVENTS_TABLE)
         .where({id})
         .update({
             eventname,
             description,
             date_of_event,
-            hour_start,
-            hour_end,
+            time_start,
+            time_end,
             img_url,
             date_modified: date
         })

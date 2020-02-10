@@ -34,30 +34,6 @@ const EventsServices = {
       body: JSON.stringify(obj),
     });
   },
-  // async deleteEvent(id) {
-  //   const response = await fetch(`${config.API_ENDPOINT}/events/delete-event`, {
-  //     method: 'DELETE',
-  //     headers: {
-  //       'content-type': 'application/json',
-  //       authorization: `Bearer ${TokenService.getAuthToken()}`,
-  //     },
-  //     body: JSON.stringify({ id }),
-  //   });
-  //   return await response.json();
-  // },
-  updateEvent(id, obj) {
-    const body = {
-      id, obj, 
-    };
-    return fetch(`${config.API_ENDPOINT}/events/edit-event`, {
-      method: 'PATCH',
-      headers: {
-        'content-type': 'application/json',
-        authorization: `Bearer ${TokenService.getAuthToken()}`,
-      },
-      body: JSON.stringify(body),
-    });
-  },
   createFileNames(eventname, string) {
     const titleWithoutSpaces = eventname.replace(/ /g, '');
     const { files } = document.getElementById(string);
@@ -92,9 +68,8 @@ const EventsServices = {
     return await result.json();
   },
   async submitEditedEvent(obj) {
-    console.log(obj)
       let res = await fetch(`${config.API_ENDPOINT}/events/event-for-edit`, {
-          method: "POST",
+          method: "PUT",
           headers: {
               authorization: `Bearer ${TokenService.getAuthToken()}`,
               'content-type': 'application/json'

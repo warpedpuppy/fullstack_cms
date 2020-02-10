@@ -30,16 +30,18 @@ export default class EventEdit extends Component {
         }
     }
     onChangeEventHandler = (e) => {
-        console.log(e.target.name, e.target.value)
         let temp = {};
         temp[e.target.name] = e.target.value;
-        let eventToEdit = Object.assign({}, this.state.eventToEdit, temp);
+        let form = document.getElementById("event-edit-form")
+        let time_start = `${form.hour_start.value}:${form.minutes_start.value} ${form.am_pm_start.value}`
+        let time_end = `${form.hour_end.value}:${form.minutes_end.value} ${form.am_pm_end.value}`
+        let eventToEdit = Object.assign({}, this.state.eventToEdit, temp, {time_start, time_end});
+        console.log(eventToEdit)
         this.setState({eventToEdit})
     }
     deleteEventHandler = async (e) => {
         e.preventDefault();
         let res = await EventService.deleteEvent(this.state.eventToEdit.id);
-        console.log(res)
         if(res.success) {
             this.setState({eventToEdit: {}, storeImgUrl: null, formDisabled: false})
             this.getEventTitles()
@@ -48,8 +50,8 @@ export default class EventEdit extends Component {
     onEditFormSubmitHandler = async (e) => {
         e.preventDefault();
         this.setState({formDisabled: true})
-        if (this.state.storeImgUrl === this.state.eventToEdit.img_url) {
 
+        if (this.state.storeImgUrl === this.state.eventToEdit.img_url) {
             let res = await EventService.submitEditedEvent(this.state.eventToEdit);
 
             if (res.success) {
@@ -119,17 +121,17 @@ export default class EventEdit extends Component {
                         <label>time start: </label>
                         <select 
                         name="hour_start" 
-                        onChange={this.onChangeHandler}
+                        onChange={this.onChangeEventHandler}
                         defaultValue={this.state.eventToEdit.time_start.split(":")[0]}
                         >{this.hours}</select> : 
                         <select 
                         name="minutes_start" 
-                        onChange={this.onChangeHandler}
+                        onChange={this.onChangeEventHandler}
                         defaultValue={this.state.eventToEdit.time_start.split(":")[1].split(" ")[0]}
                         >{this.minutes}</select> 
                         <select 
                         name="am_pm_start" 
-                        onChange={this.onChangeHandler} 
+                        onChange={this.onChangeEventHandler} 
                         defaultValue={this.state.eventToEdit.time_start.split(":")[1].split(" ")[1]}
                         
                         >
@@ -142,17 +144,17 @@ export default class EventEdit extends Component {
                         <label>time end: </label>
                         <select 
                         name="hour_end" 
-                        onChange={this.onChangeHandler}
+                        onChange={this.onChangeEventHandler}
                         defaultValue={this.state.eventToEdit.time_end.split(":")[0]}
                         >{this.hours}</select> : 
                         <select 
                         name="minutes_end" 
-                        onChange={this.onChangeHandler}
+                        onChange={this.onChangeEventHandler}
                         defaultValue={this.state.eventToEdit.time_end.split(":")[1].split(" ")[0]}
                         >{this.minutes}</select> 
                         <select 
                         name="am_pm_end" 
-                        onChange={this.onChangeHandler} 
+                        onChange={this.onChangeEventHandler} 
                         defaultValue="pm"
                         defaultValue={this.state.eventToEdit.time_start.split(":")[1].split(" ")[1]}
                         >
