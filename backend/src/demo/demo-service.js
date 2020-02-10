@@ -90,8 +90,8 @@ const DemoService = {
                 eventname: faker.Lorem.sentence(),
                 description: faker.Lorem.paragraphs(),
                 date_of_event: faker.Date.future(2),
-                hour_start: "11:00AM",
-                hour_end: "1:00PM",
+                time_start: "11:00 am",
+                time_end: "1:00 pm",
                 img_url: '/bmps/IMG_7548.jpeg'
             })
             // events.push({

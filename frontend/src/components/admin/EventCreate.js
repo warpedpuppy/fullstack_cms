@@ -52,40 +52,43 @@ export default class EventCreate extends React.Component {
 
         e.preventDefault();
 
+        let form = e.target;
+
         if (!this.state.photoSizeCheck) return;
 
 
         this.setState({counter: 0})
         const obj = {
-            eventname: e.target.eventname.value,
-            date_of_event: e.target.event_date.value,
-            description: e.target.event_description.value
+            eventname: form.eventname.value,
+            date_of_event: form.event_date.value,
+            description: form.event_description.value
         };
 
-        const fileNames = EventServices.createFileNames(e.target.eventname.value, 'event_image');
+        const fileNames = EventServices.createFileNames(form.eventname.value, 'event_image');
         obj.img_url = fileNames.img_url;
 
-        obj.hour_start = `${e.target.hour_start.value}:${e.target.minutes_start.value} ${e.target.am_pm_start.value}`
-        obj.hour_end = `${e.target.hour_end.value}:${e.target.minutes_end.value} ${e.target.am_pm_end.value}`
-        e.target.reset();
-
-    //    let res =  await EventServices.postNewEvent(obj)
+        obj.time_start = `${form.hour_start.value}:${form.minutes_start.value} ${form.am_pm_start.value}`
+        obj.time_end = `${form.hour_end.value}:${form.minutes_end.value} ${form.am_pm_end.value}`
        
-    //    if (res) {
-    //         this.setState({
-    //             counter: this.state.counter + 1
-    //         })
-    //         //get the id from the backend
-    //         obj.id = res.event;
-    //         let res2 = await UploadService.initUpload('event_image', fileNames.imageName)
-    //         if(res2) {
-    //             this.setState({
-    //                 photoMessage: "images must be 640x480",
-    //                 photoSizeCheck: false,
-    //                 counter: 2
-    //             })
-    //         }
-    //     }
+
+       let res =  await EventServices.postNewEvent(obj)
+       
+       if (res) {
+            this.setState({
+                counter: this.state.counter + 1
+            })
+            //get the id from the backend
+            obj.id = res.event;
+            let res2 = await UploadService.initUpload('event_image', fileNames.imageName)
+            if(res2) {
+                this.setState({
+                    photoMessage: "images must be 640x480",
+                    photoSizeCheck: false,
+                    counter: 2
+                })
+                form.reset();
+            }
+        }
 
 
         

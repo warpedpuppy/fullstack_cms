@@ -58,19 +58,22 @@ eventsRouter
 }
 
 })
-.post('/new-event', jsonBodyParser, requireAuth, (req, res) => {
+.post('/new-event', jsonBodyParser, requireAuth, async (req, res) => {
+    console.log('hit', req.body)
     let obj = req.body;
-    EventsService.insertEvent(req.app.get('db'), obj)
-    .then( event => {
-          res
+    let result = await EventsService.insertEvent(req.app.get('db'), obj)
+    
+    if (result) {
+        res
           .status(200)
-          .json({success: true, event})
-    })
-    .catch( error => {
-      res
+          .json({success: true, event: result[0]})
+    } else {
+       res
       .status(500)
       .json({success: false})
-    })
+    }
+        
+  
   })
   .delete('/delete-event', requireAuth, jsonBodyParser, async (req, res) => {
     let { id } = req.body;

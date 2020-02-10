@@ -7,6 +7,7 @@ const EventsServices = {
         .then(events => events )
     },
     insertEvent (db, eventObj) {
+        console.log(eventObj)
         return db(Config.EVENTS_TABLE)
         .insert(eventObj)
         .returning("*")
