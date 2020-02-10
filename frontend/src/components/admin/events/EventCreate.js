@@ -116,18 +116,15 @@ export default class EventCreate extends React.Component {
     }
 
     render() {
-        let spinnerClass = (this.state.loading) ? 'hide' : 'show';
+        let spinnerClass = (this.state.loading) ? 'show' : 'hide';
         let photoMessageClass = (this.state.photoSizeCheck)? 'photo-message-success' : 'photo-message-error';
         return (
             <div>
 
                 <div className="enter-event" id="event-create">
-                    <h4>
-                        New Event</h4>
-                    <div className={
-                        `spinner-parent ${spinnerClass}`
-                    }>
-                        <Spinners/>
+                    <h4>New Event</h4>
+                    <div className={`spinner-parent ${spinnerClass}`}>
+                        <Spinners />
                     </div>
                     <div className="module-body">
                         <form onSubmit={this.onSubmitHandler}>

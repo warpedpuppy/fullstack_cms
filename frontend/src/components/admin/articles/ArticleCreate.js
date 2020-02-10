@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import './ArticleCreate.css';
-import Config from '../../config';
-import TokenService from '../../services/token-service';
-import UploadService from '../../services/uploader-service';
-import SiteContext from '../../SiteContext';
+import Config from '../../../config';
+import TokenService from '../../../services/token-service';
+import UploadService from '../../../services/uploader-service';
+import SiteContext from '../../../SiteContext';
 
 export default class ArticleCreate extends Component {
     constructor(props){

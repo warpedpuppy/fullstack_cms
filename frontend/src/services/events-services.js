@@ -34,17 +34,17 @@ const EventsServices = {
       body: JSON.stringify(obj),
     });
   },
-  async deleteEvent(id) {
-    const response = await fetch(`${config.API_ENDPOINT}/events/delete-event`, {
-      method: 'DELETE',
-      headers: {
-        'content-type': 'application/json',
-        authorization: `Bearer ${TokenService.getAuthToken()}`,
-      },
-      body: JSON.stringify({ id }),
-    });
-    return await response.json();
-  },
+  // async deleteEvent(id) {
+  //   const response = await fetch(`${config.API_ENDPOINT}/events/delete-event`, {
+  //     method: 'DELETE',
+  //     headers: {
+  //       'content-type': 'application/json',
+  //       authorization: `Bearer ${TokenService.getAuthToken()}`,
+  //     },
+  //     body: JSON.stringify({ id }),
+  //   });
+  //   return await response.json();
+  // },
   updateEvent(id, obj) {
     const body = {
       id, obj, 

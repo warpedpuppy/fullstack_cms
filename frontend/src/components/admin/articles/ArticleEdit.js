@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import './ArticleEdit.css';
 import ArticleService from '../../../services/article-service';
 import UploadService from '../../../services/uploader-service';
-import ArticleEditForm from './ArticleEditForm';
 
 export default class ArticleEdit extends Component {
     state = {titles: [], editArticle: {}, storeImgUrl: null, deleteModal: false, formDisable: false}
@@ -75,7 +74,7 @@ export default class ArticleEdit extends Component {
         if (!Object.keys(this.state.editArticle).length) {
             return ( <><h2>choose articles to edit: </h2><ul className="edit-titles">{titles}</ul></> )
         } else {
-            let {title, description, content, img_url} = this.state.editArticle;
+            let {title, description, content } = this.state.editArticle;
             return (
                 <div className="edit-article-shell">
                 <div className='edit-article-form-cont'>

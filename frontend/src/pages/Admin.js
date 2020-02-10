@@ -4,11 +4,11 @@ import Login from '../components/registerLogIn/Login';
 import SiteContext from '../SiteContext';
 import TokenService from '../services/token-service';
 import './Admin.css';
-import ArticleCreate from '../components/admin/ArticleCreate';
-import EventCreate from '../components/admin/EventCreate';
+import ArticleCreate from '../components/admin/articles/ArticleCreate';
+import EventCreate from '../components/admin/events/EventCreate';
 import CreateDemoUsers from '../components/admin/CreateDemoUsers';
-import ArticleEdit from '../components/admin/articleEdit/ArticleEdit';
-import EventEdit from '../components/admin/eventEdit/EventEdit';
+import ArticleEdit from '../components/admin/articles/ArticleEdit';
+import EventEdit from '../components/admin/events/EventEdit';
 export default class Admin extends Component {
     
 
