@@ -3,6 +3,7 @@ import config from '../config';
 
 const EventsServices = {
   async postNewEvent(obj) {
+    console.log(obj)
     const response = await fetch(`${config.API_ENDPOINT}/events/new-event`, {
       method: 'POST',
       headers: {

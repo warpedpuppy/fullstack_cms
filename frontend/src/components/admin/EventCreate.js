@@ -21,6 +21,13 @@ export default class EventCreate extends React.Component {
             photoSizeCheck: false,
             photoMessage: "images must be 640x480"
         }
+        this.hours = Array.from(Array(12).keys()).map( (hour, i) => {
+            let h = hour + 1;
+            return <option value={h} key={i}>{h}</option>
+        })
+        this.minutes = ["00", "15", "30", "45"].map( (minute, i) => {
+            return <option value={minute} key={minute}>{minute}</option>
+        })
     }
     
     imgLoadHandler = () => {
@@ -69,10 +76,8 @@ export default class EventCreate extends React.Component {
                 counter: this.state.counter + 1
             })
             //get the id from the backend
-            console.log(res)
             obj.id = res.event;
             let res2 = await UploadService.initUpload('event_image', fileNames.imageName)
-            console.log(res2)
             if(res2) {
                 this.setState({
                     photoMessage: "images must be 640x480",
@@ -90,20 +95,13 @@ export default class EventCreate extends React.Component {
         const {name} = e.currentTarget;
         let obj = {};
         if (name === 'title') {
-            obj = {
-                title: e.currentTarget.value
-            };
+            obj = { title: e.currentTarget.value };
         } else if (name === 'event_date') {
-            obj = {
-                date: e.currentTarget.value
-            };
+            obj = { date: e.currentTarget.value };
         } else if (name === 'event_description') {
-            obj = {
-                description: e.currentTarget.value
-            };
+            obj = {  description: e.currentTarget.value };
         } else if (name === 'event_image') {
 
-            //move test for size here
             const { files } = document.getElementById('event_image');
             this.file = files[0];
             var url = URL.createObjectURL(this.file);
@@ -113,8 +111,8 @@ export default class EventCreate extends React.Component {
             obj = {
                 image: e.currentTarget.value
             };
-            // let str = e.currentTarget.value;
-            // document.getElementById('loader-label').innerHTML = str.substring(str.lastIndexOf(`\\`) + 1);
+        } else {
+            obj[name] = e.targetValue;
         }
         this.setState(obj);
     }
@@ -122,6 +120,8 @@ export default class EventCreate extends React.Component {
     render() {
         let spinnerClass = (this.state.counter === 2) ? 'hide' : 'show';
         let photoMessageClass = (this.state.photoSizeCheck)? 'photo-message-success' : 'photo-message-error';
+        
+        //let minutes = this.minutes.map
         return (
             <div>
 
@@ -139,23 +139,23 @@ export default class EventCreate extends React.Component {
                             <div>
                                 <label>event title:
                                 </label>
-                                <input placeholder="test title" type="text" name="title"
-                                    onChange={
-                                        this.onChangeHandler
-                                    }/>
+                                <input placeholder="test title" type="text" name="title" onChange={ this.onChangeHandler }/>
                             </div>
 
                             <div>
                                 <label>date:
                                 </label>
-                                <input type="date"
-                                    defaultValue={
-                                        this.state.date
-                                    }
-                                    name="event_date"
-                                    onChange={
-                                        this.onChangeHandler
-                                    }/>
+                                <input type="date" defaultValue={ this.state.date } name="event_date" onChange={ this.onChangeHandler }/>
+                            </div>
+                            <div>
+                                    <label>time: </label>
+                                    <select name="hour" onChange={this.onChangeHandler}>{this.hours}</select> : 
+                                    <select name="minutes" onChange={this.onChangeHandler}>{this.minutes}</select> 
+                                    <select name="am_pm" onChange={this.onChangeHandler} defaultValue="pm">
+                                        <option value="am">am</option>
+                                        <option value="pm">pm</option>
+                                    </select>
+
                             </div>
                             <div>
                                 <label>event description:
