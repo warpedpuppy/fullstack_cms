@@ -13,9 +13,7 @@ export default class EventCreate extends React.Component {
         this.imgValue = '';
         this.file = null;
         this.state = {
-            title: '',
-            date: new Date(),
-            description: '',
+            eventObj: {},
             image: '',
             counter: 2,
             photoSizeCheck: false,
@@ -56,36 +54,38 @@ export default class EventCreate extends React.Component {
 
         if (!this.state.photoSizeCheck) return;
 
-        e.target.title.value = '';
-        e.target.event_description.value = '';
-        e.target.event_date.value = '';
+
         this.setState({counter: 0})
         const obj = {
-            eventname: this.state.title,
-            date_of_event: this.state.date,
-            description: this.state.description
+            eventname: e.target.eventname.value,
+            date_of_event: e.target.event_date.value,
+            description: e.target.event_description.value
         };
 
-        const fileNames = EventServices.createFileNames(obj, 'event_image');
+        const fileNames = EventServices.createFileNames(e.target.eventname.value, 'event_image');
         obj.img_url = fileNames.img_url;
 
-       let res =  await EventServices.postNewEvent(obj)
+        obj.hour_start = `${e.target.hour_start.value}:${e.target.minutes_start.value} ${e.target.am_pm_start.value}`
+        obj.hour_end = `${e.target.hour_end.value}:${e.target.minutes_end.value} ${e.target.am_pm_end.value}`
+        e.target.reset();
+
+    //    let res =  await EventServices.postNewEvent(obj)
        
-       if (res) {
-            this.setState({
-                counter: this.state.counter + 1
-            })
-            //get the id from the backend
-            obj.id = res.event;
-            let res2 = await UploadService.initUpload('event_image', fileNames.imageName)
-            if(res2) {
-                this.setState({
-                    photoMessage: "images must be 640x480",
-                    photoSizeCheck: false,
-                    counter: 2
-                })
-            }
-        }
+    //    if (res) {
+    //         this.setState({
+    //             counter: this.state.counter + 1
+    //         })
+    //         //get the id from the backend
+    //         obj.id = res.event;
+    //         let res2 = await UploadService.initUpload('event_image', fileNames.imageName)
+    //         if(res2) {
+    //             this.setState({
+    //                 photoMessage: "images must be 640x480",
+    //                 photoSizeCheck: false,
+    //                 counter: 2
+    //             })
+    //         }
+    //     }
 
 
         
@@ -108,13 +108,12 @@ export default class EventCreate extends React.Component {
             this.img.src = url;
             this.imgValue = e.currentTarget.value;
             
-            obj = {
-                image: e.currentTarget.value
-            };
+            obj = { image: e.currentTarget.value };
         } else {
             obj[name] = e.targetValue;
         }
-        this.setState(obj);
+        let newObj = Object.assign({}, this.state.eventObj, obj)
+        this.setState({eventObj: newObj});
     }
 
     render() {
@@ -139,7 +138,7 @@ export default class EventCreate extends React.Component {
                             <div>
                                 <label>event title:
                                 </label>
-                                <input placeholder="test title" type="text" name="title" onChange={ this.onChangeHandler }/>
+                                <input placeholder="test title" type="text" name="eventname" onChange={ this.onChangeHandler }/>
                             </div>
 
                             <div>
@@ -148,10 +147,20 @@ export default class EventCreate extends React.Component {
                                 <input type="date" defaultValue={ this.state.date } name="event_date" onChange={ this.onChangeHandler }/>
                             </div>
                             <div>
-                                    <label>time: </label>
-                                    <select name="hour" onChange={this.onChangeHandler}>{this.hours}</select> : 
-                                    <select name="minutes" onChange={this.onChangeHandler}>{this.minutes}</select> 
-                                    <select name="am_pm" onChange={this.onChangeHandler} defaultValue="pm">
+                                    <label>time start: </label>
+                                    <select name="hour_start" onChange={this.onChangeHandler}>{this.hours}</select> : 
+                                    <select name="minutes_start" onChange={this.onChangeHandler}>{this.minutes}</select> 
+                                    <select name="am_pm_start" onChange={this.onChangeHandler} defaultValue="pm">
+                                        <option value="am">am</option>
+                                        <option value="pm">pm</option>
+                                    </select>
+
+                            </div>
+                            <div>
+                                    <label>time end: </label>
+                                    <select name="hour_end" onChange={this.onChangeHandler}>{this.hours}</select> : 
+                                    <select name="minutes_end" onChange={this.onChangeHandler}>{this.minutes}</select> 
+                                    <select name="am_pm_end" onChange={this.onChangeHandler} defaultValue="pm">
                                         <option value="am">am</option>
                                         <option value="pm">pm</option>
                                     </select>

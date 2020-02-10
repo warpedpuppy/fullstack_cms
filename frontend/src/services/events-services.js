@@ -4,15 +4,15 @@ import config from '../config';
 const EventsServices = {
   async postNewEvent(obj) {
     console.log(obj)
-    const response = await fetch(`${config.API_ENDPOINT}/events/new-event`, {
-      method: 'POST',
-      headers: {
-        'content-type': 'application/json',
-        authorization: `Bearer ${TokenService.getAuthToken()}`,
-      },
-      body: JSON.stringify(obj),
-    });
-    return await response.json();
+    // const response = await fetch(`${config.API_ENDPOINT}/events/new-event`, {
+    //   method: 'POST',
+    //   headers: {
+    //     'content-type': 'application/json',
+    //     authorization: `Bearer ${TokenService.getAuthToken()}`,
+    //   },
+    //   body: JSON.stringify(obj),
+    // });
+    // return await response.json();
   },
   async getEventTitles() {
     const response = await fetch(`${config.API_ENDPOINT}/events/titles-for-edit`, {
@@ -59,8 +59,8 @@ const EventsServices = {
       body: JSON.stringify(body),
     });
   },
-  createFileNames(obj, string) {
-    const titleWithoutSpaces = obj.eventname.replace(/ /g, '');
+  createFileNames(eventname, string) {
+    const titleWithoutSpaces = eventname.replace(/ /g, '');
     const { files } = document.getElementById(string);
     const imageName = `${titleWithoutSpaces}${files[0].name}`;
   
