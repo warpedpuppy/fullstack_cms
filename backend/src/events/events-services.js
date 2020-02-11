@@ -7,17 +7,18 @@ const EventsServices = {
         .then(events => events )
     },
     insertEvent (db, eventObj) {
-        console.log(eventObj)
         return db(Config.EVENTS_TABLE)
         .insert(eventObj)
         .returning("*")
         .then(event => event)
     },
-    getTitlesForEdit: function(db) {
+    getTitlesForEdit: function(db, offset, increment) {
 
         return db(Config.EVENTS_TABLE)
         .select('id', 'eventname', 'date_of_event')
-        .orderBy('id')
+        .orderBy('id', 'desc')
+        .limit(increment)
+        .offset(offset)
         .returning("*")
         .then(events => events)
     },

@@ -13,11 +13,11 @@ const EventsServices = {
     });
     return await response.json();
   },
-  async getEventTitles() {
-    const response = await fetch(`${config.API_ENDPOINT}/events/titles-for-edit`, {
+  async getEventTitles(offset, increment) {
+    const response = await fetch(`${config.API_ENDPOINT}/events/titles-for-edit?offset=${offset}&increment=${increment}`, {
       headers: {
         authorization: `Bearer ${TokenService.getAuthToken()}`,
-      },
+      }
     });
     return await response.json();
   },

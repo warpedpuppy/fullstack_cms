@@ -18,10 +18,11 @@ eventsRouter
         .json({success: false})
     }
 })
-.get('/titles-for-edit', requireAuth, async (req, res) => {
-
+.get('/titles-for-edit', requireAuth, jsonBodyParser, async (req, res) => {
   if (req.tokenData.sub === 'admin') {
-    let result = await EventsService.getTitlesForEdit(req.app.get('db'));
+    let {offset, increment} = req.query;
+    let result = await EventsService.getTitlesForEdit(req.app.get('db'), offset, increment);
+    
     if (result) {
         res
         .status(200)

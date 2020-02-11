@@ -3,9 +3,10 @@ import './EventEdit.css';
 import EventService from '../../../services/events-services';
 import UploadService from '../../../services/uploader-service';
 export default class EventEdit extends Component {
-    state = {eventTitles: [], eventToEdit: {}, storeImgUrl: null, formDisabled: false}
+    state = {eventTitles: [], eventToEdit: {}, storeImgUrl: null, formDisabled: false, offset: 0}
+    articleIncrement = 10;
     componentDidMount () {
-       this.getEventTitles();
+       this.getEventTitles(this.state.offset, this.articleIncrement);
        this.hours = Array.from(Array(12).keys()).map( (hour, i) => {
             let h = hour + 1;
             return <option value={h} key={i}>{h}</option>
@@ -15,8 +16,8 @@ export default class EventEdit extends Component {
         })
     }
 
-    getEventTitles = async () => {
-        let res = await EventService.getEventTitles();
+    getEventTitles = async (offset, increment) => {
+        let res = await EventService.getEventTitles(offset, increment);
         if (res.success) {
             this.setState({eventTitles: res.result})
         }
@@ -24,7 +25,6 @@ export default class EventEdit extends Component {
     }
     getEventDetails = async (id) => {
         let res = await EventService.getEventDetails(id);
-        console.log(res)
         if (res.success) {
             this.setState({eventToEdit: res.result[0], storeImgUrl: res.result[0].img_url})
         }
@@ -46,6 +46,20 @@ export default class EventEdit extends Component {
             this.setState({eventToEdit: {}, storeImgUrl: null, formDisabled: false})
             this.getEventTitles()
         }
+    }
+    moreEvents = (e) => {
+        e.preventDefault();
+        let { id } = e.target;
+        if (id === 'next-events') {
+            let offset = this.state.offset + this.articleIncrement;
+            this.setState({offset})
+            this.getEventTitles(offset, this.articleIncrement)
+        } else {
+            let offset = this.state.offset - this.articleIncrement;
+            this.setState({offset})
+            this.getEventTitles(offset, this.articleIncrement)
+        }
+        
     }
     onEditFormSubmitHandler = async (e) => {
         e.preventDefault();
@@ -80,6 +94,7 @@ export default class EventEdit extends Component {
         }
     }
     render() {
+        let articleText = `events ${this.state.offset} = ${this.state.offset + this.articleIncrement}`
         let titles = this.state.eventTitles.map((title, i) => {
             return <li onClick={() => this.getEventDetails(title.id) } key={i}>{title.id} {title.eventname} {title.date_of_event}</li>
         })
@@ -180,6 +195,17 @@ export default class EventEdit extends Component {
             return (
                 <>
                  <h1>EVENT EDIT</h1>
+                 <button 
+                 onClick={this.moreEvents} 
+                 id="prev-events"
+                 disabled={this.state.offset === 0}
+                 >prev {this.articleIncrement}</button>
+                 {articleText}
+                 <button 
+                 onClick={this.moreEvents} 
+                 id="next-events"
+                 disabled={titles.length < this.articleIncrement && this.state.offset !== 0}
+                 >next {this.articleIncrement}</button>
                 <ul id="edit-events">
                    {titles}
                 </ul>
