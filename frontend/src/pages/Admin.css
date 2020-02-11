@@ -4,24 +4,30 @@
     margin: 50px auto 0;
     justify-content: flex-end;
 }
-.tabs span{ 
+.tabs span { 
     display: inline-block;
     border: 1px solid black;
+    border-bottom: none;
     padding: 10px 15px;
     margin: 0 20px;
     cursor: pointer;
+    background-color: white;
+    position: relative;
 }
-
+.tabs span.active {
+    top: 1px;
+}
 .tab-panels {
     border: 1px solid black;
     width: 1000px;
     margin: 0 auto;
 }
 
-.tab-panel {
-    display:none
+ .tab-panel {
+    display:none;
+    min-height: 500px;
 }
-.tab-panel:first-child {
+.tab-panel.active {
     display:block;
 }
 

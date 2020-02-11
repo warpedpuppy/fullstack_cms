@@ -11,6 +11,13 @@ import ArticleEdit from '../components/admin/articles/ArticleEdit';
 import EventEdit from '../components/admin/events/EventEdit';
 export default class Admin extends Component {
     
+    tabClick = (e) => {
+        document.querySelector('.tabs span.active').classList.remove('active')
+        e.target.classList.add('active');
+        console.log(e.target.dataset.ref)
+        document.querySelector('.tab-panel.active').classList.remove('active')
+        document.getElementById(`${e.target.dataset.ref}`).classList.add('active');
+    }
 
     render() {
         let eventEdit = TokenService.parseJwt(TokenService.getAuthToken()).sub === 'admin' ? <EventEdit /> : null ;
@@ -26,16 +33,16 @@ export default class Admin extends Component {
             let user = TokenService.parseJwt(TokenService.getAuthToken()).sub;
             let tabs = user === 'admin' ?
                 <div className='tabs'>
-                    <span>home</span>
-                    <span>article create</span>
-                    <span>article edit</span>
-                    <span>event create</span>
-                    <span>event edit</span>
+                    <span onMouseDown={this.tabClick} data-ref='home-shell' className='active'>home</span>
+                    <span onMouseDown={this.tabClick} data-ref='article-create-shell'>article create</span>
+                    <span onMouseDown={this.tabClick} data-ref='article-edit-shell'>article edit</span>
+                    <span onMouseDown={this.tabClick} data-ref='event-create-shell'>event create</span>
+                    <span onMouseDown={this.tabClick}  data-ref='event-edit-shell'>event edit</span>
                 </div> :
                 <div className='tabs'>
-                    <span>home</span>
-                    <span>article create</span>
-                    <span>article edit</span>
+                    <span onMouseDown={this.tabClick} data-ref='home-shell'>home</span>
+                    <span onMouseDown={this.tabClick} data-ref='article-create-shell' >article create</span>
+                    <span onMouseDown={this.tabClick} data-ref='article-edit-shell'>article edit</span>
                 </div>
             ;
 
@@ -48,11 +55,11 @@ export default class Admin extends Component {
                 <>
                 {tabs}
                 <div className='tab-panels'>
-                    <div className='tab-panel'><h3>welcome {user}  </h3>{ homePanel }</div>
-                    <div className='tab-panel'><ArticleCreate /></div>
-                    <div className='tab-panel'><ArticleEdit /></div>
-                    <div className='tab-panel'><EventCreate /></div>
-                    <div className='tab-panel'>{eventEdit}</div>
+                    <div className='tab-panel active' id='home-shell'><h3>welcome {user}  </h3>{ homePanel }</div>
+                    <div className='tab-panel' id='article-create-shell'><ArticleCreate /></div>
+                    <div className='tab-panel' id='article-edit-shell'><ArticleEdit /></div>
+                    <div className='tab-panel' id='event-create-shell'><EventCreate /></div>
+                    <div className='tab-panel' id='event-edit-shell'>{eventEdit}</div>
                 </div>
                 </>
             )
