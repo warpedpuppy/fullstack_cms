@@ -46,18 +46,14 @@ export default class Admin extends Component {
 
             return (
                 <>
-                     
                 {tabs}
-                
-                <div className='tab-panel'><h3>welcome {user}  </h3>{ homePanel }</div>
-                <hr /> <hr /> <hr /> <hr /> <hr /> <hr /> <hr /> <hr />
-                <div className='tab-panel'><ArticleEdit /></div>
-                <hr /> <hr /> <hr /> <hr /> <hr /> <hr /> <hr /> <hr />
-                <div className='tab-panel'><EventCreate /></div>
-                <hr /> <hr /> <hr /> <hr /> <hr /> <hr /> <hr /> <hr />
-                <div className='tab-panel'><ArticleCreate /></div>
-                <hr /> <hr /> <hr /> <hr /> <hr /> <hr /> <hr /> <hr />
-                <div className='tab-panel'>{eventEdit}</div>
+                <div className='tab-panels'>
+                    <div className='tab-panel'><h3>welcome {user}  </h3>{ homePanel }</div>
+                    <div className='tab-panel'><ArticleCreate /></div>
+                    <div className='tab-panel'><ArticleEdit /></div>
+                    <div className='tab-panel'><EventCreate /></div>
+                    <div className='tab-panel'>{eventEdit}</div>
+                </div>
                 </>
             )
         }

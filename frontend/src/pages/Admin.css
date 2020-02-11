@@ -1,3 +1,31 @@
+.tabs {
+    width: 1000px;
+    display: flex;
+    margin: 50px auto 0;
+    justify-content: flex-end;
+}
+.tabs span{ 
+    display: inline-block;
+    border: 1px solid black;
+    padding: 10px 15px;
+    margin: 0 20px;
+    cursor: pointer;
+}
+
+.tab-panels {
+    border: 1px solid black;
+    width: 1000px;
+    margin: 0 auto;
+}
+
+.tab-panel {
+    display:none
+}
+.tab-panel:first-child {
+    display:block;
+}
+
+
 fieldset {
     padding: 20px;
     margin: 20px;
