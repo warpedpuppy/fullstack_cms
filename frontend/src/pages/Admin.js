@@ -14,7 +14,6 @@ export default class Admin extends Component {
     tabClick = (e) => {
         document.querySelector('.tabs span.active').classList.remove('active')
         e.target.classList.add('active');
-        console.log(e.target.dataset.ref)
         document.querySelector('.tab-panel.active').classList.remove('active')
         document.getElementById(`${e.target.dataset.ref}`).classList.add('active');
     }

@@ -94,7 +94,7 @@ export default class EventEdit extends Component {
         }
     }
     render() {
-        let articleText = `events ${this.state.offset} = ${this.state.offset + this.articleIncrement}`
+        
         let titles = this.state.eventTitles.map((title, i) => {
             return <li onClick={() => this.getEventDetails(title.id) } key={i}>{title.id} {title.eventname} {title.date_of_event}</li>
         })
@@ -192,20 +192,23 @@ export default class EventEdit extends Component {
                 </form>
             )
         } else {
+            let articleText = `events ${this.state.offset} to ${this.state.offset + this.articleIncrement}`
             return (
                 <>
                  <h1>EVENT EDIT</h1>
-                 <button 
-                 onClick={this.moreEvents} 
-                 id="prev-events"
-                 disabled={this.state.offset === 0}
-                 >prev {this.articleIncrement}</button>
-                 {articleText}
-                 <button 
-                 onClick={this.moreEvents} 
-                 id="next-events"
-                 disabled={titles.length < this.articleIncrement && this.state.offset !== 0}
-                 >next {this.articleIncrement}</button>
+                 <div className="edit-titles-buttons">
+                    <button 
+                    onClick={this.moreEvents} 
+                    id="prev-events"
+                    disabled={this.state.offset === 0}
+                    >prev {this.articleIncrement}</button>
+                    {articleText}
+                    <button 
+                    onClick={this.moreEvents} 
+                    id="next-events"
+                    disabled={titles.length < this.articleIncrement && this.state.offset !== 0}
+                    >next {this.articleIncrement}</button>
+                 </div>
                 <ul id="edit-events">
                    {titles}
                 </ul>
