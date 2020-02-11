@@ -36,7 +36,7 @@ export default class EventEdit extends Component {
         let time_start = `${form.hour_start.value}:${form.minutes_start.value} ${form.am_pm_start.value}`
         let time_end = `${form.hour_end.value}:${form.minutes_end.value} ${form.am_pm_end.value}`
         let eventToEdit = Object.assign({}, this.state.eventToEdit, temp, {time_start, time_end});
-        console.log(eventToEdit)
+
         this.setState({eventToEdit})
     }
     deleteEventHandler = async (e) => {

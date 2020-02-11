@@ -63,6 +63,3 @@ describe('Articles Endpoints', function() {
 })
 
 
-
-
-})
