@@ -19,8 +19,8 @@ export default class Admin extends Component {
     }
 
     render() {
-        let eventEdit = TokenService.parseJwt(TokenService.getAuthToken()).sub === 'admin' ? <EventEdit /> : null ;
-
+       
+        console.log('here = ', TokenService.hasAuthToken())
         if (!TokenService.hasAuthToken()) {
             return (
                 <div>
@@ -29,6 +29,7 @@ export default class Admin extends Component {
                 </div>
             )
         } else {
+            let eventEdit = TokenService.parseJwt(TokenService.getAuthToken()).sub === 'admin' ? <EventEdit /> : null ;
             let user = TokenService.parseJwt(TokenService.getAuthToken()).sub;
             let tabs = user === 'admin' ?
                 <div className='tabs'>

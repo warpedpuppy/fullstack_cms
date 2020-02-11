@@ -20,12 +20,14 @@
 .tab-panels {
     border: 1px solid black;
     width: 1000px;
-    margin: 0 auto;
+    margin: 0 auto 100px;
 }
 
  .tab-panel {
     display:none;
     min-height: 500px;
+    padding: 50px 50px 150px 50px;
+    
 }
 .tab-panel.active {
     display:block;
