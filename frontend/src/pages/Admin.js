@@ -20,8 +20,7 @@ export default class Admin extends Component {
 
     render() {
        
-        console.log('here = ', TokenService.hasAuthToken())
-        if (!TokenService.hasAuthToken()) {
+        if (!this.context.loggedIn) {
             return (
                 <div>
                     <Register />
@@ -40,7 +39,7 @@ export default class Admin extends Component {
                     <span onMouseDown={this.tabClick}  data-ref='event-edit-shell'>event edit</span>
                 </div> :
                 <div className='tabs'>
-                    <span onMouseDown={this.tabClick} data-ref='home-shell'>home</span>
+                    <span onMouseDown={this.tabClick} data-ref='home-shell' className='active'>home</span>
                     <span onMouseDown={this.tabClick} data-ref='article-create-shell' >article create</span>
                     <span onMouseDown={this.tabClick} data-ref='article-edit-shell'>article edit</span>
                 </div>
