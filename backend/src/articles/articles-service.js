@@ -20,9 +20,11 @@ const ArticlesService = {
         .raw(str)
         .then(article => article.rows)
     },
-    getTitlesForEdit: function(db, author_id) {
+    getTitlesForEdit: function(db, author_id, offset, increment) {
         return db(Config.ARTICLES_TABLE)
         .select(`id`, `title`)
+        .limit(increment)
+        .offset(offset)
         .where({author_id})
         .then(res => {
             return res.map( item => {

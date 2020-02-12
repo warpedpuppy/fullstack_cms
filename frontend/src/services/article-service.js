@@ -6,8 +6,8 @@ const ArticleService = {
         let resJson = await res.json();
         return resJson
     },
-    async getArticleTitles () {
-        let res = await fetch(`${Config.API_ENDPOINT}/articles/titles-for-edit`, {
+    async getArticleTitles (offset, increment) {
+        let res = await fetch(`${Config.API_ENDPOINT}/articles/titles-for-edit?offset=${offset}&increment=${increment}`, {
             headers: {
                 authorization: `Bearer ${TokenService.getAuthToken()}`
             }

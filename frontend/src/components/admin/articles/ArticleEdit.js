@@ -4,13 +4,13 @@ import ArticleService from '../../../services/article-service';
 import UploadService from '../../../services/uploader-service';
 
 export default class ArticleEdit extends Component {
-    state = {titles: [], editArticle: {}, storeImgUrl: null, deleteModal: false, formDisable: false}
-
+    state = {titles: [], editArticle: {}, storeImgUrl: null, deleteModal: false, formDisable: false, offset: 0}
+    articleIncrement = 3;
     componentDidMount(){
-        this.getArticleTitles();
+        this.getArticleTitles(this.state.offset, this.articleIncrement);
     }
-    getArticleTitles = async () => {
-        let res = await ArticleService.getArticleTitles();
+    getArticleTitles = async (offset, increment) => {
+        let res = await ArticleService.getArticleTitles(offset, increment);
         if (res.success) {
             this.setState({titles: res.result})
         }
@@ -38,6 +38,20 @@ export default class ArticleEdit extends Component {
             this.setState({editArticle: {}, deleteModal: false})
             this.getArticleTitles();
         }
+    }
+    moreEvents = (e) => {
+        e.preventDefault();
+        let { id } = e.target;
+        if (id === 'next-articles') {
+            let offset = this.state.offset + this.articleIncrement;
+            this.setState({offset})
+            this.getArticleTitles(offset, this.articleIncrement)
+        } else {
+            let offset = this.state.offset - this.articleIncrement;
+            this.setState({offset})
+            this.getArticleTitles(offset, this.articleIncrement)
+        }
+        
     }
     onSubmitHandler = async (e) => {
         e.preventDefault();
@@ -72,7 +86,25 @@ export default class ArticleEdit extends Component {
             return <li key={i} onClick={() => this.getArticle(title.id)}>{title.title}</li>
         })
         if (!Object.keys(this.state.editArticle).length) {
-            return ( <><h2>choose articles to edit: </h2><ul className="edit-titles">{titles}</ul></> )
+            let articleText = `articles ${this.state.offset} to ${this.state.offset + this.articleIncrement}`
+            return ( 
+            <>
+            <h2>choose articles to edit: </h2>
+            <div className="edit-titles-buttons">
+                    <button 
+                    onClick={this.moreEvents} 
+                    id="prev-articles"
+                    disabled={this.state.offset === 0}
+                    >prev {this.articleIncrement}</button>
+                    {articleText}
+                    <button 
+                    onClick={this.moreEvents} 
+                    id="next-articles"
+                    disabled={titles.length < this.articleIncrement && this.state.offset !== 0}
+                    >next {this.articleIncrement}</button>
+                 </div>
+            <ul className="edit-titles">{titles}</ul>
+                </> )
         } else {
             let {title, description, content } = this.state.editArticle;
             return (
