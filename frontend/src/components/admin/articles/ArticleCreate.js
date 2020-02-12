@@ -8,19 +8,26 @@ import SiteContext from '../../../SiteContext';
 export default class ArticleCreate extends Component {
     constructor(props){
         super(props);
-        this.state = { disableButton: false };
+        this.state = { disableButton: false, feedback: '' };
         this.file = null;
         this.img = new Image();
         this.img.onLoad = this.imgLoadHandler;
         this.img_id = 'article-image';
         this.articleObject = {};
+        this.timeOutHandler = null;
     }
     
 
     onSubmitHandler = async (e) => {
         e.preventDefault();
         this.setState({disableButton: true})
-        let { title, description, content } = e.target;
+        let { title, description, content, img_url } = e.target;
+
+        if (!title.value || !description.value || !content.value | !img_url.value ) {
+            this.setState({feedback: 'please fill out all fields'})
+            this.setState({disableButton: false})
+            return;
+        }
 
         this.articleObject = {
             title: title.value,
@@ -52,18 +59,22 @@ export default class ArticleCreate extends Component {
         }
     }
     photoLoadComplete = () => {
-        this.setState({disableButton: false})
+        this.setState({disableButton: false, feedback: 'article entered'})
         document.getElementById(this.img_id).value = '';
-
+        clearTimeout(this.timeOutHandler)
+        this.timeOutHandler = setTimeout(()=>{this.setState({feedback:''})}, 1000)
         //add the article to the creators obj
         //this.context.addArticle(this.articleObject)
     }
     onChangeHandler = (e) => {
-            const { files } = document.getElementById(this.img_id);
-            this.file = files[0];
-            var url = URL.createObjectURL(this.file);
-            this.img.src = url;
-            this.imgValue = e.currentTarget.value;
+        if(this.state.feedback !== ''){
+            this.setState({feedback: ''})
+        }
+        const { files } = document.getElementById(this.img_id);
+        this.file = files[0];
+        var url = URL.createObjectURL(this.file);
+        this.img.src = url;
+        this.imgValue = e.currentTarget.value;
     }
     imgLoadHandler = () => {
         URL.revokeObjectURL(this.file)
@@ -78,8 +89,9 @@ export default class ArticleCreate extends Component {
                     <input type="text" name="description" placeholder="description" />
                     <textarea name="content" placeholder="article content" />
                     <label htmlFor="article-image">choose image for article</label>
-                    <input onChange={this.onChangeHandler} type="file" name="article-image" id="article-image" />
+                    <input onChange={this.onChangeHandler} type="file" name="img_url" id="article-image" />
                     <input disabled={ this.state.disableButton } type="submit" />
+                    <div className="feedback">{this.state.feedback}</div>
                 </div>
             </form>
         )

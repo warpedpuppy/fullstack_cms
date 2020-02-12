@@ -17,8 +17,10 @@ export default class EventCreate extends React.Component {
             image: '',
             loading: false,
             photoSizeCheck: false,
-            photoMessage: "images must be 640x480"
+            photoMessage: "images must be 640x480",
+            feedback: ''
         }
+        this.timeOutHandler = null;
         this.hours = Array.from(Array(12).keys()).map( (hour, i) => {
             let h = hour + 1;
             return <option value={h} key={i}>{h}</option>
@@ -52,14 +54,21 @@ export default class EventCreate extends React.Component {
 
         e.preventDefault();
         let form = e.target;
-        if (!this.state.photoSizeCheck) return;
-
+       
         this.setState({loading: true})
+        let { eventname, event_date, event_description, event_image } = e.target;
         const obj = {
             eventname: form.eventname.value,
             date_of_event: form.event_date.value,
             description: form.event_description.value
         };
+
+        if (!this.state.photoSizeCheck || !eventname.value || !event_description.value) {
+            this.setState({feedback: 'please fill out all fields'})
+            this.setState({loading: false})
+            return;
+        }
+
 
         const fileNames = EventServices.createFileNames(form.eventname.value, 'event_image');
         obj.img_url = fileNames.img_url;
@@ -76,9 +85,12 @@ export default class EventCreate extends React.Component {
                 this.setState({
                     photoMessage: "images must be 640x480",
                     photoSizeCheck: false,
-                    loading: false
+                    loading: false,
+                    feedback: 'event entered'
                 })
                 form.reset();
+                clearTimeout(this.timeOutHandler)
+                this.timeOutHandler = setTimeout(()=>{this.setState({feedback:''})}, 1000)
             }
         }
     }
@@ -152,6 +164,7 @@ export default class EventCreate extends React.Component {
                             <div>
                             <button type="submit">submit</button>
                             </div>
+                            <div className="feedback">{this.state.feedback}</div>
                         </form>
 
                     </div>
