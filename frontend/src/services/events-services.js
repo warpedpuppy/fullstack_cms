@@ -13,6 +13,14 @@ const EventsServices = {
     });
     return await response.json();
   },
+  async getMonthEvents(offset, increment) {
+    const response = await fetch(`${config.API_ENDPOINT}/events/current-month-events`, {
+      headers: {
+        authorization: `Bearer ${TokenService.getAuthToken()}`,
+      }
+    });
+    return await response.json();
+  },
   async getEventTitles(offset, increment) {
     const response = await fetch(`${config.API_ENDPOINT}/events/titles-for-edit?offset=${offset}&increment=${increment}`, {
       headers: {

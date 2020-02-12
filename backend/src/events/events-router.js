@@ -59,6 +59,18 @@ eventsRouter
 }
 
 })
+.get('/current-month-events', requireAuth, async (req, res) => {
+  let result = await EventsService.currentMonthEvents(req.app.get('db'));
+  if (result) {
+        res
+          .status(200)
+          .json({success: true, events: result})
+    } else {
+      res
+      .status(500)
+      .json({success: false})
+    }
+})
 .post('/new-event', jsonBodyParser, requireAuth, async (req, res) => {
     let obj = req.body;
     let result = await EventsService.insertEvent(req.app.get('db'), obj)

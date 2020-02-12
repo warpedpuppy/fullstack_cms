@@ -6,6 +6,7 @@ import interactionPlugin from '@fullcalendar/interaction'; // needed for dayClic
 import { withRouter } from "react-router-dom";
 import './Calendar.scss';
 import SiteContext from '../../SiteContext';
+import EventsServices from '../../services/events-services';
 
 class Calendar extends React.Component {
   calendarComponentRef = React.createRef()
@@ -23,6 +24,12 @@ class Calendar extends React.Component {
     // const arr = this.context.events.map((event) => ({ title: event.title, id: event.id, date: event.event_date }));
 
     // this.setState({ calendarEvents: arr });
+    this.getMonthEvents()
+  }
+
+  getMonthEvents = async () => {
+    let res = await EventsServices.getMonthEvents();
+    console.log(res)
   }
 
   render() {

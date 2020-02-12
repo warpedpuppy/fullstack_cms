@@ -22,6 +22,17 @@ const EventsServices = {
         .returning("*")
         .then(events => events)
     },
+    currentMonthEvents: function(db) {
+        let startDate = new Date();
+        var endDate = new Date(startDate.getFullYear(), startDate.getMonth() + 1, 1);
+
+        return db(Config.EVENTS_TABLE)
+        .select('*')
+        .where('date_of_event', '>=', startDate)
+        .where('date_of_event', '<', endDate)
+        .returning("*")
+        .then(events => events)
+    },
     getEventDetails: function(db, id) {
         return db(Config.EVENTS_TABLE)
         .where({id})
