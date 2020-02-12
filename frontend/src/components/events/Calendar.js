@@ -21,15 +21,16 @@ class Calendar extends React.Component {
   }
 
   componentDidMount() {
-    // const arr = this.context.events.map((event) => ({ title: event.title, id: event.id, date: event.event_date }));
-
-    // this.setState({ calendarEvents: arr });
-    this.getMonthEvents()
+    this.getMonthEvents();
   }
 
   getMonthEvents = async () => {
     let res = await EventsServices.getMonthEvents();
     console.log(res)
+    if (res.success) {
+      const arr = res.events.map((event) => ({ title: event.eventname, id: event.id, date: event.date_of_event }));
+      this.setState({ calendarEvents: arr });
+    }
   }
 
   render() {
@@ -49,7 +50,7 @@ class Calendar extends React.Component {
             plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
             ref={this.calendarComponentRef}
             weekends={this.state.calendarWeekends}
-            events={this.context.calendarEvents}
+            events={this.state.calendarEvents}
             eventClick={this.eventClick}
 
           />

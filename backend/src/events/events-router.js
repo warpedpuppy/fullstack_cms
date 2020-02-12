@@ -63,8 +63,8 @@ eventsRouter
   let result = await EventsService.currentMonthEvents(req.app.get('db'));
   if (result) {
         res
-          .status(200)
-          .json({success: true, events: result})
+        .status(200)
+        .json({success: true, events: result})
     } else {
       res
       .status(500)
