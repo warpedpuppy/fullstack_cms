@@ -9,7 +9,7 @@ export default class Login extends Component {
         e.preventDefault();
         const { username, password } = e.target;
         let result = await AuthServices.postLogin(username.value, password.value);
-       // this.context.setLoggedIn(result.login)
+        this.context.setLoggedIn(result.login)
         username.value = '';
         password.value = '';
         if (result.error) {

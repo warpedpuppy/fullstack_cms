@@ -170,7 +170,6 @@ export default class EventEdit extends Component {
                         <select 
                         name="am_pm_end" 
                         onChange={this.onChangeEventHandler} 
-                        defaultValue="pm"
                         defaultValue={this.state.eventToEdit.time_start.split(":")[1].split(" ")[1]}
                         >
                             <option value="am">am</option>

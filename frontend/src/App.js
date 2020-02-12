@@ -13,10 +13,14 @@ import ArticleService from './services/article-service';
 import Article from './pages/Article';
 import { withRouter } from 'react-router-dom';
 import Utils from './services/utils';
-
+import TokenService from './services/token-service';
 class App extends React.Component {
   state = {
     articles: [],
+    loggedIn: false
+  }
+  setLoggedIn = (loggedIn) => {
+    this.setState({loggedIn})
   }
   setArticles = (articles) => {
     let shuffled = Utils.shuffled(articles)
@@ -29,6 +33,7 @@ class App extends React.Component {
      this.props.history.push(`/article/${creator}/${index}`)
   }
   componentDidMount () {
+  this.setLoggedIn(TokenService.hasAuthToken())
    ArticleService.getHomePageArticles()
     .then(res => {
         this.articles = [...res.result]
@@ -40,7 +45,10 @@ class App extends React.Component {
       articles: this.state.articles,
       goToArticle: this.goToArticle,
       goToCreator: this.goToCreator,
+      loggedIn: this.state.loggedIn,
+      setLoggedIn: this.setLoggedIn
     };
+
      return (
       <SiteContext.Provider value={ contextValue }>
         <header><Menu /></header>

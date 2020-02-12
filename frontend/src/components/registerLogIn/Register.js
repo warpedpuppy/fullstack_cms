@@ -15,10 +15,9 @@ export default class Register extends Component {
         username.value = '';
         password.value = '';
         
-        console.log(result);
         if (result.success) {
             TokenService.saveAuthToken(result.authToken);
-            //this.context.setLoggedIn(true)
+            this.context.setLoggedIn(true)
         }
     }
     render() {

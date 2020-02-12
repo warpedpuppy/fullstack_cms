@@ -5,9 +5,11 @@ import './Menu.css';
 import TokenService from '../services/token-service';
 
 export default class Menu extends Component {
+
     logout = (e) => {
         e.preventDefault();
         TokenService.clearAuthToken();
+       this.context.setLoggedIn(false)
     }
     render() {
         return (
@@ -17,7 +19,7 @@ export default class Menu extends Component {
                 <Link to="/admin">admin</Link>
                 <button 
                 onClick={this.logout}
-                className={ TokenService.hasAuthToken() ? 'show' : 'hide'}>log out</button>
+                className={ this.context.loggedIn ? 'show' : 'hide'}>log out</button>
             </nav>
         )
     }
