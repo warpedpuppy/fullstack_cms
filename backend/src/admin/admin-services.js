@@ -10,8 +10,14 @@ const AdminService = {
             MaxKeys: 10
           };
           s3.listObjects(s3Params, (err, data) => {
-            if (err) console.log(err, err.stack); // an error occurred
-            else     console.log(data);           // successful response
+            if (err) {
+                //console.log(err, err.stack)
+                return res.end();
+            }  else  {   
+                //console.log(data); 
+                res.write(JSON.stringify(data));
+                res.end();
+            }          
           });
     }
 
