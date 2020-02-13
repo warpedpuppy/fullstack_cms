@@ -9,6 +9,7 @@ import EventCreate from '../components/admin/events/EventCreate';
 import CreateDemoUsers from '../components/admin/CreateDemoUsers';
 import ArticleEdit from '../components/admin/articles/ArticleEdit';
 import EventEdit from '../components/admin/events/EventEdit';
+import GetBucketContents from '../components/admin/GetBucketContents';
 export default class Admin extends Component {
     
     tabClick = (e) => {
@@ -47,7 +48,11 @@ export default class Admin extends Component {
 
 
             let homePanel = user === 'admin' ?
-                    <CreateDemoUsers />: 
+                    <>
+                    <CreateDemoUsers />
+                    <GetBucketContents />
+                    </>
+                    : 
                     null;
 
             return (
