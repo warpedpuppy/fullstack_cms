@@ -5,3 +5,14 @@
     padding: 15px;
     border-radius: 5px;
 }
+
+.photos-from-bucket {
+    display: flex;
+    flex-wrap: wrap;
+}
+.photos-from-bucket img {
+    width: 200px;
+    height: auto;
+    display:inline-block;
+    margin: 20px;
+}

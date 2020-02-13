@@ -37,6 +37,7 @@ class App extends React.Component {
    ArticleService.getHomePageArticles()
     .then(res => {
         this.articles = [...res.result]
+        console.log(res.result)
         this.setArticles(res.result)
     })
   }

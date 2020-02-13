@@ -7,19 +7,22 @@ const AdminService = require('./admin-services');
 const aws = require('aws-sdk');
 const S3_BUCKET = process.env.S3_BUCKET;
 adminRouter
-.get('/get-bucket-contents', requireAuth, async (req, res) => {
+.get('/get-bucket-contents', requireAuth, jsonBodyParser, async (req, res) => {
+    let startAfter = req.body.startAfter ? req.body.startAfter : undefined;
 
     const s3 = new aws.S3();
         const s3Params = {
-            Bucket: S3_BUCKET
+            Bucket: S3_BUCKET,
+            MaxKeys: 10,
+            StartAfter: startAfter
           };
-          s3.listObjects(s3Params, (err, data) => {
+          s3.listObjectsV2(s3Params, (err, data) => {
             if (err) {
                 //console.log(err, err.stack)
                 return res.end();
             }  else  {   
                 //console.log(data); 
-                res.write(JSON.stringify(data.Contents));
+                res.write(JSON.stringify(data));
                 res.end();
             }          
           });

@@ -8,11 +8,12 @@ export default class GetBucketContents extends Component {
     getBucketContents = async (e) => {
         let photos = await AdminServices.getBucketContents();
         console.log(photos)
-        this.setState({photos})
+        this.setState({photos: photos.Contents})
     }
 
     render() {
         let imgs = this.state.photos.map( (photo, i) => {
+            if (!photo.Key.includes('.')) return;
             return <img alt="bucket images" src={`${Config.IMAGE_ROOT_NO_DIR}${photo.Key}`} key={i} />
         })
         return (
@@ -20,7 +21,7 @@ export default class GetBucketContents extends Component {
                 <button 
                 className="get-bucket-contents-button"
                 onClick={this.getBucketContents}>get bucket contents</button>
-                <div className="photos">
+                <div className="photos-from-bucket">
                     {imgs}
                 </div>
             </div>
