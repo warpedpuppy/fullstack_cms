@@ -1,28 +1,18 @@
 import TokenService from '../services/token-service';
-export default {
-    async TestAPICall(str) {
-        let res = await fetch(str);
+import Config from '../config';
 
-        return await ((!res.ok)
-            ? res.json().then(e => Promise.reject(e))
-            : res.json())
-    },
-    async TestProtectedAPICall(str) {
-        console.log(str)
-        let res = await fetch(str,
-        {
-            method: "POST", 
+export default {
+    async getBucketContents() {
+        let res = await fetch(`${Config.API_ENDPOINT}/admin/get-bucket-contents`, {
             headers: {
-                'content-type': 'application/json',
-                authorization: `Bearer ${TokenService.getAuthToken()}`,
-            },
-            body: JSON.stringify({ testing: true }),
+                authorization: `Bearer ${TokenService.getAuthToken()}`
+            }
         });
 
         return await ((!res.ok)
             ? res.json().then(e => Promise.reject(e))
             : res.json())
-    },
+    }
 
 
    

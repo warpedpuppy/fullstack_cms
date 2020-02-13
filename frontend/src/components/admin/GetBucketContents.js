@@ -1,16 +1,20 @@
 import React, { Component } from 'react'
 import AdminServices from '../../services/admin-services';
+import './GetBucketContents.css';
 
 export default class GetBucketContents extends Component {
 
-    getBucketContents = (e) => {
-
+    getBucketContents = async (e) => {
+        let res = await AdminServices.getBucketContents();
+        console.log(res)
     }
 
     render() {
         return (
             <div>
-                <button onClick={this.getBucketContents}>get bucket contents</button>
+                <button 
+                className="get-bucket-contents-button"
+                onClick={this.getBucketContents}>get bucket contents</button>
             </div>
         )
     }
