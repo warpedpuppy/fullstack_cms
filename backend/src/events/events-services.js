@@ -22,10 +22,10 @@ const EventsServices = {
         .returning("*")
         .then(events => events)
     },
-    currentMonthEvents: function(db) {
+    currentMonthEvents: function(db, month) {
         let date = new Date();
-        let startDate = new Date(date.getFullYear(), date.getMonth(), 1);
-        let endDate = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+        let startDate = new Date(date.getFullYear(), month, 1);
+        let endDate = new Date(date.getFullYear(), parseInt(month, 10) + 1, 0);
         return db(Config.EVENTS_TABLE)
         .select('*')
         .where('date_of_event', '>=', startDate)

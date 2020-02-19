@@ -10,9 +10,10 @@ import EventsServices from '../../services/events-services';
 
 class Calendar extends React.Component {
   calendarComponentRef = React.createRef()
-
+  date = new Date();
+  month = this.date.getMonth();
   state = {
-    monthCounter: 0,
+    monthCounter: this.month,
     calendarEvents: [ // initial event data
       { title: 'Event Now', start: new Date() },
     ],
@@ -26,8 +27,10 @@ class Calendar extends React.Component {
     let buttons = document.querySelectorAll('.fc-button-primary');
     buttons.forEach( button => {
       let label = button.getAttribute('aria-label');
-      if (label === 'prev' || label === 'next') {
+      if (label === 'next') {
         button.addEventListener('click', this.getNextMonthEvents)
+      } else if (label === 'prev') {
+        button.addEventListener('click', this.getPrevMonthEvents)
       }
   
     })
@@ -36,11 +39,16 @@ class Calendar extends React.Component {
     this.setState({monthCounter: this.state.monthCounter + 1})
     this.getMonthEvents(this.state.monthCounter)
   }
+  getPrevMonthEvents = () => {
+    this.setState({monthCounter: this.state.monthCounter - 1})
+    this.getMonthEvents(this.state.monthCounter)
+  }
 
   getMonthEvents = async (monthCounter) => {
 
     let res = await EventsServices.getMonthEvents(monthCounter);
-    console.log('get month events results = ', res)
+   // console.log('get month events results = ', res.events)
+    //res.events.forEach( event => console.log(event.date_of_event))
    
     if (res.success) {
       const arr = res.events.map((event) => ({ title: event.eventname, id: event.id, date: event.date_of_event }));

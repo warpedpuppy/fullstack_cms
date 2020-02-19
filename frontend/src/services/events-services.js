@@ -14,8 +14,7 @@ const EventsServices = {
     return await response.json();
   },
   async getMonthEvents(eventMonth) {
-    console.log('eventMonth = ', eventMonth)
-    const response = await fetch(`${config.API_ENDPOINT}/events/current-month-events?month${eventMonth}`, {
+    const response = await fetch(`${config.API_ENDPOINT}/events/current-month-events?month=${eventMonth}`, {
       headers: {
         authorization: `Bearer ${TokenService.getAuthToken()}`
       }
