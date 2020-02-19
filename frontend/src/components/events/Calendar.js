@@ -24,16 +24,13 @@ class Calendar extends React.Component {
 
   componentDidMount() {
     this.getMonthEvents(this.state.monthCounter);
-    let buttons = document.querySelectorAll('.fc-button-primary');
-    buttons.forEach( button => {
-      let label = button.getAttribute('aria-label');
-      if (label === 'next') {
-        button.addEventListener('click', this.getNextMonthEvents)
-      } else if (label === 'prev') {
-        button.addEventListener('click', this.getPrevMonthEvents)
-      }
-  
-    })
+    document.querySelector('.fc-prev-button').addEventListener('click', this.getPrevMonthEvents)
+    document.querySelector('.fc-next-button').addEventListener('click', this.getNextMonthEvents)
+    document.querySelector('.fc-today-button').addEventListener('click', this.getCurrentMonthEvents)
+  }
+  getCurrentMonthEvents = () => {
+    this.setState({monthCounter: this.date.getMonth()})
+    this.getMonthEvents(this.state.monthCounter)
   }
   getNextMonthEvents = () => {
     this.setState({monthCounter: this.state.monthCounter + 1})
