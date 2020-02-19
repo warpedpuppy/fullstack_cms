@@ -19,7 +19,7 @@ class Calendar extends React.Component {
     ],
   }
   eventClick = (info) => {
-    this.props.history.push(`/events/${info.event.id}`)
+    this.props.history.push(`/event/${info.event.id}`)
   }
 
   componentDidMount() {

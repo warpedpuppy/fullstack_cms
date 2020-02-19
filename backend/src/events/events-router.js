@@ -45,7 +45,8 @@ eventsRouter
       .json({success: true, result})
   }
 })
-.get('/get-event-details/:id', requireAuth, async (req, res) => {
+// requireAuth,
+.get('/get-event-details/:id', async (req, res) => {
   let { id } = req.params;
   let result = await EventsService.getEventDetails(req.app.get('db'),id);
   if (result) {

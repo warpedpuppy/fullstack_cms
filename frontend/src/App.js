@@ -5,6 +5,7 @@ import NotFound from './pages/NotFound';
 import Menu from './components/Menu';
 import Admin from './pages/Admin';
 import Events from './pages/Events';
+import Event from './pages/Event.js';
 import CreatorPage from './pages/CreatorPage';
 import { Switch, Route } from 'react-router-dom';
 import SiteContext from './SiteContext';
@@ -37,7 +38,6 @@ class App extends React.Component {
    ArticleService.getHomePageArticles()
     .then(res => {
         this.articles = [...res.result]
-        console.log(res.result)
         this.setArticles(res.result)
     })
   }
@@ -57,6 +57,7 @@ class App extends React.Component {
             <Route exact path="/" render={(history) => <Home articles={this.articles} history={history} />} />
             <Route path="/admin" component={ Admin } />
             <Route path="/events" component={ Events } />
+            <Route path="/event/:id" component={ Event } />
             <Route path="/creator/:author_id" component={ CreatorPage } />
             <Route path="/article/:name/:index" component={ Article } />
             <Route component={ NotFound } />
