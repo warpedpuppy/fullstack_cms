@@ -12,6 +12,7 @@ class Calendar extends React.Component {
   calendarComponentRef = React.createRef()
 
   state = {
+    monthCounter: 0,
     calendarEvents: [ // initial event data
       { title: 'Event Now', start: new Date() },
     ],
@@ -21,12 +22,26 @@ class Calendar extends React.Component {
   }
 
   componentDidMount() {
-    this.getMonthEvents();
+    this.getMonthEvents(this.state.monthCounter);
+    let buttons = document.querySelectorAll('.fc-button-primary');
+    buttons.forEach( button => {
+      let label = button.getAttribute('aria-label');
+      if (label === 'prev' || label === 'next') {
+        button.addEventListener('click', this.getNextMonthEvents)
+      }
+  
+    })
+  }
+  getNextMonthEvents = () => {
+    this.setState({monthCounter: this.state.monthCounter + 1})
+    this.getMonthEvents(this.state.monthCounter)
   }
 
-  getMonthEvents = async () => {
-    let res = await EventsServices.getMonthEvents();
-    console.log(res)
+  getMonthEvents = async (monthCounter) => {
+
+    let res = await EventsServices.getMonthEvents(monthCounter);
+    console.log('get month events results = ', res)
+   
     if (res.success) {
       const arr = res.events.map((event) => ({ title: event.eventname, id: event.id, date: event.date_of_event }));
       this.setState({ calendarEvents: arr });
@@ -41,6 +56,7 @@ class Calendar extends React.Component {
         </div>
         <div className="demo-app-calendar">
           <FullCalendar
+            id="calendar"
             defaultView="dayGridMonth"
             header={{
               left: 'prev,next today',

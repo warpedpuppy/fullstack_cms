@@ -7,6 +7,7 @@ const DemoService = {
     articleQ: 10,
     userQ: 5,
     eventsQ: 100,
+    maxEventsPerDay: 3,
     createFakeUsers () {
         let users = [];    
         for (let i = 0; i < 20; i ++) {
@@ -85,14 +86,19 @@ const DemoService = {
             const today = new Date()
             const date_of_event = new Date(today)
             date_of_event.setDate(date_of_event.getDate() + i)
-            events.push({
-                eventname: faker.Lorem.sentence(),
-                description: faker.Lorem.paragraphs(),
-                date_of_event,
-                time_start: "11:00 am",
-                time_end: "1:00 pm",
-                img_url: '/qr/default_image.jpeg'
-            })
+
+            let randomDayNumber = Math.ceil(Math.random() * this.maxEventsPerDay);
+            for(let j = 0; j < randomDayNumber; j++){
+                 events.push({
+                    eventname: faker.Lorem.sentence(),
+                    description: faker.Lorem.paragraphs(),
+                    date_of_event,
+                    time_start: "11:00 am",
+                    time_end: "1:00 pm",
+                    img_url: '/qr/default_image.jpeg'
+                })
+            }
+           
             // events.push({
             //     eventname: faker.lorem.sentence(),
             //     description: faker.lorem.paragraphs(),

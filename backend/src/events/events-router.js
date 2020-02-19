@@ -60,6 +60,7 @@ eventsRouter
 
 })
 .get('/current-month-events', requireAuth, async (req, res) => {
+  console.log(req.query.month)
   let result = await EventsService.currentMonthEvents(req.app.get('db'));
   if (result) {
         res
