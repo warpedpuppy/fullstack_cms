@@ -6,30 +6,27 @@ const DemoService = require('./demo-service');
 const bcrypt = require('bcryptjs')
 
 demoRouter
-.post('/make-demo-creators', requireAuth, (req, res) => {
+.post('/make-demo-creators', requireAuth, async (req, res) => {
+    
     if (req.tokenData.sub !== 'admin') return;
-    DemoService.removeAllButAdmin(req.app.get('db'))
-    .then(result => {
-        let users = [];      
-        for (let i = 0; i < 20; i ++) {
-            //users.push({username: faker.name.firstName(), password: bcrypt.hashSync('test', 1), img_url: faker.image.avatar()})
-            users.push({username: faker.Name.firstName(), password: bcrypt.hashSync('test', 1), img_url: faker.Image.avatar()})
-        }
 
-        DemoService.insertDemoUsers(req.app.get('db'), users)
-        .then(result => {
-            DemoService.insertFakeArticles(req.app.get('db'),result)
-            .then(articles => {
-                DemoService.insertFakeEvents(req.app.get('db'))
-                .then(events => {
+    let truncateAll = await DemoService.trucateAll(req.app.get('db'))
+    if (truncateAll) {
+        let resetKeys = await DemoService.resetKeys(req.app.get('db'))
+        if (resetKeys) {
+            let fakeEventResult = await DemoService.insertFakeEvents(req.app.get('db'))
+            let usersResult = await DemoService.insertDemoUsers(req.app.get('db'), DemoService.createFakeUsers());
+            if (usersResult) {
+                let fakeArticleResult = await DemoService.insertFakeArticles(req.app.get('db'), usersResult);
+                if(fakeArticleResult) {
                     res
                     .status(201)
-                    .json({users, articles, events})
-                })
-                
-            })
-        })
-    })
+                    .json({usersResult, fakeArticleResult, fakeEventResult})
+                }
+            }
+        }
+    }
+
 })
 .post('/create-fake-articles', (req, res) => {
 

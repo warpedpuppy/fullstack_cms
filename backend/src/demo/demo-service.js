@@ -7,52 +7,49 @@ const DemoService = {
     articleQ: 10,
     userQ: 5,
     eventsQ: 100,
-    deleteUsersCreateUsersCreateArticles(db){
-
-        DemoService.removeAllButAdmin(db)
-        .then(result => {
-            let users = [];
-            for (let i = 0; i < this.userQ; i ++) {
-                users.push({username: faker.name.firstName(), password: bcrypt.hashSync("test", 1), img_url: faker.image.avatar()})
-            }
-            DemoService.insertDemoUsers(db, users)
-            .then(result => {
-                DemoService.insertFakeArticles(db, result)
-                .then(articles => {
-                    res
-                    .status(201)
-                    .json({users, articles})
-                })
-            })
-        })
+    createFakeUsers () {
+        let users = [];    
+        for (let i = 0; i < 20; i ++) {
+            //users.push({username: faker.name.firstName(), password: bcrypt.hashSync('test', 1), img_url: faker.image.avatar()})
+            users.push({username: faker.Name.firstName(), password: bcrypt.hashSync('test', 1), img_url: faker.Image.avatar()})
+        }
+        users.push({username: 'admin', password: bcrypt.hashSync('admin', 1), img_url: faker.Image.avatar()})
+        return users;
     },
     insertDemoUsers(db, users) {
         return db(config.USERS_TABLE)
           .insert(users)
           .returning('*')
       },
-    async removeAllButAdmin(db) {
-
-        // db.raw(`TRUNCATE ${config.USERS_TABLE} CASCADE`);
-        // db.raw(`ALTER SEQUENCE ${config.USERS_TABLE}_id_seq RESTART`);
-
-        let res = await db.raw(`TRUNCATE ${config.ARTICLES_TABLE} CASCADE`)
-        if (res) {
-            let res2 = await db.raw(`ALTER SEQUENCE ${config.ARTICLES_TABLE}_id_seq RESTART`)
-            if (res2) {
-                let res3 = await db.raw(`TRUNCATE ${config.USERS_TABLE} CASCADE`)
-                if(res3) {
-                    let res4 = await db.raw(`ALTER SEQUENCE ${config.USERS_TABLE}_id_seq RESTART`);
-                    if(res4) {
-                        let res5 = db.raw(`TRUNCATE ${config.EVENTS_TABLE} CASCADE`)
-                        if(res5) {
-                            let res6 = await db.raw(`ALTER SEQUENCE ${config.EVENTS_TABLE}_id_seq RESTART`);
-                            return res6;
-                        }
-                    }
-                }
-            }
-        }
+    async trucateAll(db) {
+        let test = await this.truncateEvents(db);
+        let test2 = await this.truncateArticles(db);
+        let test3 = await this.truncateUsers(db);
+        if(test && test2 && test3)return true;
+    },
+    truncateEvents(db) {
+        return db.raw(`TRUNCATE ${config.EVENTS_TABLE} CASCADE`);
+    },
+    truncateArticles(db) {
+        return db.raw(`TRUNCATE ${config.ARTICLES_TABLE} CASCADE`);
+    },
+    truncateUsers(db) {
+        return db.raw(`TRUNCATE ${config.USERS_TABLE} CASCADE`);
+    },
+    async resetKeys (db) {
+        let test = await this.resetArticlesKey(db);
+        let test2 = await this.resetArticlesKey(db);
+        let test3 = await this.resetEventsKey(db);
+        if(test && test2 && test3)return true;
+    },
+    resetUserNamesKey(db) {
+        return db.raw(`ALTER SEQUENCE ${config.USERS_TABLE}_id_seq RESTART`);
+    },
+    resetArticlesKey(db) {
+        return db.raw(`ALTER SEQUENCE ${config.ARTICLES_TABLE}_id_seq RESTART`);
+    },
+    resetEventsKey(db) {
+        return db.raw(`ALTER SEQUENCE ${config.EVENTS_TABLE}_id_seq RESTART`);
     },
     insertFakeArticles(db, users) {
         let articles = [];
@@ -85,14 +82,16 @@ const DemoService = {
     insertFakeEvents(db) {
         let events = [];
         for (let i = 0; i < this.eventsQ; i ++) {
-
+            const today = new Date()
+            const date_of_event = new Date(today)
+            date_of_event.setDate(date_of_event.getDate() + i)
             events.push({
                 eventname: faker.Lorem.sentence(),
                 description: faker.Lorem.paragraphs(),
-                date_of_event: faker.Date.future(2),
+                date_of_event,
                 time_start: "11:00 am",
                 time_end: "1:00 pm",
-                img_url: '/bmps/IMG_7548.jpeg'
+                img_url: '/qr/default_image.jpeg'
             })
             // events.push({
             //     eventname: faker.lorem.sentence(),

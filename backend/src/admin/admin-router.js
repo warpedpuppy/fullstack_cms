@@ -13,8 +13,8 @@ adminRouter
     const s3 = new aws.S3();
         const s3Params = {
             Bucket: S3_BUCKET,
-            MaxKeys: 10,
-            StartAfter: startAfter
+            // MaxKeys: 10,
+            // StartAfter: startAfter
           };
           s3.listObjectsV2(s3Params, (err, data) => {
             if (err) {
