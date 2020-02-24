@@ -8,12 +8,16 @@ export default function EventModule(props) {
         history.push(`/event/${props.id}`)
     }
     return (
-        <div className="event-module" onClick={goToEvent}>
-            { Utils.formatDate(props.date_of_event) }
-          
-            <h4>{ props.eventname.split(' ')[0] }</h4>
-            <p>{props.time_start}</p>
-            <p>{props.time_end}</p>
+        <div className="card event-module" style={{'width': '10rem'}} onClick={goToEvent}>
+            <img src={`/bmps/${props.img_url}`} class="card-img-top" alt="..."></img>
+            <div className="card-body">
+                
+            
+                <h5 className="card-title">{ props.eventname}</h5>
+                <p className="card-text">{ Utils.formatDate(props.date_of_event) }</p>
+                
+                <p className="card-text">{props.time_start} to {props.time_end}</p>
+            </div>
         </div>
     )
 }

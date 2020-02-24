@@ -22,11 +22,14 @@ class Home extends Component {
                     startIndex={2}
                     endIndex={5}
                 />
-                   <ArticleColumn 
+
+              
+                
+                <ArticleColumn 
                     index={0}
                     startIndex={5}
                     endIndex={8}
-                />
+                />  
                   <ArticleColumn 
                     index={0}
                     startIndex={8}
