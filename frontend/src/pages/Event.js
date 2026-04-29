@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import EventService from '../services/events-services';
-import Config from '../config';
 export default class Event extends Component {
     state = {eventObj: {}}
     componentDidMount = () => {

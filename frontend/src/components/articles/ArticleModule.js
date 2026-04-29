@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Config from '../../config'
 import './ArticleModule.css';
 
 export default class ArticleModule extends Component {

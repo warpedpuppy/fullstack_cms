@@ -12,9 +12,9 @@ const DemoService = {
         let users = [];    
         for (let i = 0; i < 20; i ++) {
             //users.push({username: faker.name.firstName(), password: bcrypt.hashSync('test', 1), img_url: faker.image.avatar()})
-            users.push({username: faker.Name.firstName(), password: bcrypt.hashSync('test', 1), img_url: faker.Image.avatar()})
+            users.push({username: faker.name.firstName(), password: bcrypt.hashSync('test', 1), img_url: faker.image.avatar()})
         }
-        users.push({username: 'admin', password: bcrypt.hashSync('admin', 1), img_url: faker.Image.avatar()})
+        users.push({username: 'admin', password: bcrypt.hashSync('admin', 1), img_url: faker.image.avatar()})
         return users;
     },
     insertDemoUsers(db, users) {
@@ -65,9 +65,9 @@ const DemoService = {
                 //     img_url: '/bmps/IMG_7548.jpeg'
                 // })
                 articles.push({
-                    title: faker.Lorem.sentence(),
-                    description: faker.Lorem.paragraphs(),
-                    content: faker.Lorem.paragraphs(),
+                    title: faker.lorem.sentence(),
+                    description: faker.lorem.paragraphs(),
+                    content: faker.lorem.paragraphs(),
                     author_id: users[i].id,
                     img_url: '/bmps/IMG_7548.jpeg'
                 })
@@ -90,8 +90,8 @@ const DemoService = {
             let randomDayNumber = Math.ceil(Math.random() * this.maxEventsPerDay);
             for(let j = 0; j < randomDayNumber; j++){
                  events.push({
-                    eventname: faker.Lorem.sentence(),
-                    description: faker.Lorem.paragraphs(),
+                    eventname: faker.lorem.sentence(),
+                    description: faker.lorem.paragraphs(),
                     date_of_event,
                     time_start: "11:00 am",
                     time_end: "1:00 pm",

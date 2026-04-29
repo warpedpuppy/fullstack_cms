@@ -54,7 +54,7 @@ class App extends React.Component {
       <SiteContext.Provider value={ contextValue }>
         <header><Menu /></header>
           <Switch>
-            <Route exact path="/" render={(history) => <Home articles={this.articles} history={history} />} />
+            <Route exact path="/" render={(props) => <Home articles={this.articles} {...props} />} />
             <Route path="/admin" component={ Admin } />
             <Route path="/events" component={ Events } />
             <Route path="/event/:id" component={ Event } />

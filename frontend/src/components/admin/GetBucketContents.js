@@ -16,7 +16,7 @@ export default class GetBucketContents extends Component {
 
     render() {
         let imgs = this.state.photos.map( (photo, i) => {
-            if (!photo.Key.includes('.')) return;
+            if (!photo.Key.includes('.')) return null;
             return <img alt="bucket images" src={`${Config.IMAGE_ROOT_NO_DIR}${photo.Key}`} key={i} />
         })
         return (

@@ -15,7 +15,7 @@ const CreatorsService = {
 
         // let str = `SELECT a.username, a.img_url, b.id, b.title FROM qr_creators a JOIN qr_articles b ON b.author_id = a.id WHERE a.id=${id} ${limitString}`
         
-        let str = `SELECT a.id, a.title, a.description, b.username, b.img_url as avatar FROM qr_articles a JOIN qr_creators b ON b.id = a.author_id WHERE a.author_id=${id} ${limitString};`
+        let str = `SELECT a.id, a.title, a.description, b.username, b.img_url as avatar FROM ${config.ARTICLES_TABLE} a JOIN ${config.USERS_TABLE} b ON b.id = a.author_id WHERE a.author_id=${id} ${limitString};`
         return db
         .raw(str)
         .then(result => {
