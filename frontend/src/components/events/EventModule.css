@@ -1,37 +1,60 @@
 .event-module {
-    font-size: 15px;
-    border: 1px solid black;
-    border-radius: 5px;
-    flex: 1 0 auto;
-    margin: 0 15px;
-    cursor: pointer;
-}
-.card {
-    position: relative;
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-direction: column;
-    flex-direction: column;
-    min-width: 0;
-    word-wrap: break-word;
+    min-width: 260px;
+    max-width: 260px;
     background-color: #fff;
-    background-clip: border-box;
-    border: 1px solid rgba(0,0,0,.125);
-    border-radius: .25rem;
+    border: none;
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    flex: 0 0 auto;
 }
+
+.event-module:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.25);
+}
+
+.card-img-wrapper {
+    height: 140px;
+    overflow: hidden;
+    background-color: #eee;
+}
+
 .card-img-top {
     width: 100%;
-    border-top-left-radius: calc(.25rem - 1px);
-    border-top-right-radius: calc(.25rem - 1px);
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
 }
-.card-title {
-    margin-bottom: .75rem;
+
+.event-module:hover .card-img-top {
+    transform: scale(1.05);
 }
+
 .card-body {
-    flex: 1 1 auto;
-    padding: 1.25rem;
+    padding: 15px;
+    text-align: left;
 }
-.card p {
-    margin-top: 0;
-    margin-bottom: 1rem;
+
+.card-title {
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin: 0 0 10px 0;
+    color: #2c3e50;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.card-date, .card-time {
+    margin: 5px 0;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.card-time {
+    color: #e74c3c;
+    font-weight: 500;
 }

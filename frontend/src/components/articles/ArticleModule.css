@@ -1,11 +1,71 @@
-.article-module .img-cont,
-.article-module div h4 {
+.article-module {
+    display: flex;
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+    margin-bottom: 20px;
+}
+
+.article-module:hover {
+    box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+    transform: translateY(-2px);
+}
+
+.article-module .img-cont {
+    flex: 0 0 40%;
+    overflow: hidden;
+    background: #f1f1f1;
+}
+
+.article-module .img-cont img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
     cursor: pointer;
- }
- .author-link {
-     text-decoration: underline;
-     cursor: pointer;
- }
- .author-link:hover {
-    font-weight: bold;
- }
+    transition: transform 0.3s ease;
+}
+
+.article-module:hover .img-cont img {
+    transform: scale(1.03);
+}
+
+.module-content {
+    flex: 1;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.module-content h4 {
+    margin: 0 0 10px 0;
+    font-size: 1.25rem;
+    color: #333;
+    cursor: pointer;
+    line-height: 1.3;
+}
+
+.module-content h4:hover {
+    color: #3498db;
+}
+
+.author-meta {
+    font-size: 0.9rem;
+    color: #777;
+    margin-top: auto;
+}
+
+.author-link {
+    font-weight: 600;
+    color: #3498db;
+    text-decoration: none;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.author-link:hover {
+    color: #2980b9;
+    text-decoration: underline;
+}
