@@ -20,6 +20,16 @@ export default class Admin extends Component {
     }
 
     render() {
+        const getZodiacSign = (username) => {
+            const signs = ['Aries', 'Taurus', 'Gemini', 'Cancer', 'Leo', 'Virgo', 'Libra', 'Scorpio', 'Sagittarius', 'Capricorn', 'Aquarius', 'Pisces'];
+            let sum = 0;
+            if (username) {
+                for (let i = 0; i < username.length; i++) {
+                    sum += username.charCodeAt(i);
+                }
+            }
+            return signs[sum % signs.length];
+        };
        
         if (!this.context.loggedIn) {
             return (
@@ -59,7 +69,7 @@ export default class Admin extends Component {
                 <>
                 {tabs}
                 <div className='tab-panels'>
-                    <div className='tab-panel active' id='home-shell'><h3>welcome {user}  </h3>{ homePanel }</div>
+                    <div className='tab-panel active' id='home-shell'><h3>welcome {user}. Your mystic user zodiac sign is {getZodiacSign(user)}!</h3>{ homePanel }</div>
                     <div className='tab-panel' id='article-create-shell'><ArticleCreate /></div>
                     <div className='tab-panel' id='article-edit-shell'><ArticleEdit /></div>
                     <div className='tab-panel' id='event-create-shell'><EventCreate /></div>
