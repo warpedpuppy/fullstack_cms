@@ -5,8 +5,7 @@
     overflow: hidden;
     box-shadow: 0 2px 8px rgba(0,0,0,0.06);
     transition: box-shadow 0.2s ease, transform 0.2s ease;
-    margin-bottom: 20px;
-    min-height: 140px;
+    height: 150px;
 }
 
 .article-module:hover {
@@ -15,7 +14,7 @@
 }
 
 .article-module .img-cont {
-    flex: 0 0 40%;
+    flex: 0 0 150px;
     overflow: hidden;
     background: #f1f1f1;
 }
@@ -34,18 +33,22 @@
 
 .module-content {
     flex: 1;
-    padding: 20px;
+    padding: 15px 20px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
 }
 
 .module-content h4 {
     margin: 0 0 10px 0;
-    font-size: 1.25rem;
+    font-size: 1.15rem;
     color: #333;
     cursor: pointer;
     line-height: 1.3;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 .module-content h4:hover {

@@ -1,13 +1,18 @@
-/* Simplified Article Column layout to work with new Home.css */
 .article-column {
-    display: flex;
-    flex-direction: column;
-    flex: 1 1 calc(33.333% - 20px);
-    min-width: 300px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    width: 100%;
+}
+
+@media (max-width: 992px) {
+    .article-column {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 
 @media (max-width: 768px) {
     .article-column {
-        flex: 1 1 100%;
+        grid-template-columns: 1fr;
     }
 }

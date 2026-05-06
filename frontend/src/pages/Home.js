@@ -31,24 +31,8 @@ class Home extends Component {
             <EventBand />
             <div className="article-list">
                 <ArticleColumn 
-                    index={0}
                     startIndex={offset}
-                    endIndex={offset + 2}
-                />
-                <ArticleColumn 
-                    index={0}
-                    startIndex={offset + 2}
-                    endIndex={offset + 5}
-                />
-                <ArticleColumn 
-                    index={0}
-                    startIndex={offset + 5}
-                    endIndex={offset + 8}
-                />  
-                <ArticleColumn 
-                    index={0}
-                    startIndex={offset + 8}
-                    endIndex={offset + 10}
+                    endIndex={offset + itemsPerPage}
                 />
             </div>
             {totalPages > 1 && (
