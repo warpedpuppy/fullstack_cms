@@ -14,7 +14,7 @@ export default class ArticleColumn extends Component {
         for (let i = startIndex; i < endIndex; i ++) {
             if(!this.context.articles.length)break;
             let articles  = this.context.articles;
-            if (articles) {
+            if (articles && articles[i]) {
                   modules.push( 
                     <ArticleModule 
                         key={i}
