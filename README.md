@@ -1,4 +1,6 @@
-# full stack cms woo hoo!
+# full stack cms
+
+## This project is licensed under the terms of the MIT license
 
 - in the backend folder, copy .exampleenv as .env and fill it out completely
 - in the frontend/src folder, copy .configexample as .config and fill it out completely
