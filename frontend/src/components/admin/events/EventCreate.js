@@ -56,7 +56,7 @@ export default class EventCreate extends React.Component {
         let form = e.target;
        
         this.setState({loading: true})
-        let { eventname, event_date, event_description, event_image } = e.target;
+        let { eventname, event_description } = e.target;
         const obj = {
             eventname: form.eventname.value,
             date_of_event: form.event_date.value,
